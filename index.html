@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<HTML lang="en">
+
+
+<HEAD>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <LINK type="text/css" rel="stylesheet" href="css/em_jquery.css">
+    <LINK type="text/css" rel="stylesheet" href="css/mobile-default.css">
+    <link type="text/css" rel="stylesheet" href="noinet/jquery.mobile-1.4.0-alpha.1.min.css">
+    <link type="text/css" rel="stylesheet" href="noinet/mobiscroll.custom-2.6.2.min.css">
+
+    <script type='text/javascript' src="noinet/jquery-1.10.2.min.js"></script>
+    <script type='text/javascript' src="noinet/jquery-ui.js"></script>
+<script>
+	var deviceReadyDeferred = $.Deferred();
+	var    jqmReadyDeferred = $.Deferred();
+
+	$.when(deviceReadyDeferred, jqmReadyDeferred).done(function() { load_database(); }) ;
+
+	$(document).bind("mobileinit", function() {
+	    $.mobile.defaultDialogTransition = "none";
+	    $.mobile.defaultPageTransition = "none";
+	    $.mobile.phonegapNavigationEnabled = true;
+	    $.mobile.buttonMarkup.hoverDelay = 500 ;
+    $.mobile.useFastClick = true; 
+    $.mobile.touchOverflowEnabled = true;
+	    jqmReadyDeferred.resolve();
+	});
+</script>
+    <script type='text/javascript' src="noinet/jquery.mobile-1.4.0-alpha.1.min.js"></script>
+    <script type='text/javascript' src="noinet/jquery.csv-0.71.min.js"></script>
+    <script type='text/javascript' src="noinet/jquery.knob.js"></script>
+
+    <script type='text/javascript' src="noinet/zepto.min.js"></script>
+    <script type='text/javascript' src="noinet/mobiscroll.custom-2.6.2.min.js"></script>
+    <script type='text/javascript' src="noinet/xdate.js"></script>
+
+    <script type='text/javascript' src="noinet/highcharts.js"></script>
+    <script type='text/javascript' src="noinet/exporting.js"></script>
+    <script type='text/javascript' src="noinet/html5sql.js"></script>
+
+    <script type='text/javascript' src="cordova.js"></script>
+
+    <script type='text/javascript' src="js/lang/lang.js"></script>
+    <script type='text/javascript' src="js/lang/es.js"></script>
+    <script type='text/javascript' src="js/lang/en.js"></script>
+    <script type='text/javascript' src="js/db/db_core_webdb.js"></script>
+    <script type='text/javascript' src="js/db/db_core_mysql.js"></script>
+    <script type='text/javascript' src="js/db/db_core.js"></script>
+    <script type='text/javascript' src="js/db/db_db2js_webdb.js"></script>
+    <script type='text/javascript' src="js/db/db_db2js_mysql.js"></script>
+    <script type='text/javascript' src="js/db/db_db2js.js"></script>
+    <script type='text/javascript' src="js/db/db_csv2db.js"></script>
+    <script type='text/javascript' src="js/db/db_cnu2db.js"></script>
+    <script type='text/javascript' src="js/db/db_js2csv.js"></script>
+    <script type='text/javascript' src="js/ui/ui_dbform.js"></script>
+    <script type='text/javascript' src="js/ui/ui_daytag.js"></script>
+    <script type='text/javascript' src="js/ui/ui_voice.js"></script>
+    <script type='text/javascript' src="js/ui/stats_bytarget.js"></script>
+    <script type='text/javascript' src="js/ui/stats_byhour.js"></script>
+    <script type='text/javascript' src="js/ui/stats_measures_cloud.js"></script>
+    <script type='text/javascript' src="js/ui/stats_avg.js"></script>
+
+</HEAD>
+
+
+<BODY>
+
+
+<div class="layer1" data-role="page" id=page10 data-url=page10>
+
+    <div data-role="header" data-theme="a" align=right data-position-fixed="true">
+	<h1><div class=T_DIARY style="display: inline;"></div></h1>
+	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	   data-iconpos="right" data-inline="true" data-rel="dialog" 
+           data-iconshadow="false" data-shadow="true" 
+           data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
+	<a href="#" data-icon="forward" data-theme="a" 
+	   data-iconpos="right" data-inline="true"
+           data-rel="dialog" data-transition="none"
+		  onclick="$('a#pageqmclose').attr('href','#page10');
+			   $('form#form10x').attr('action','#page10');
+			   $('form#form11x').attr('action','#page10');
+			   $.mobile.changePage('#page-quickmenu');
+			   return false;"><div class=T_ANNOTATE style="display: inline;"></div></a>
+    </div>
+
+    <div data-role="content" data-position-fixed="true">
+	       <center>
+	       <table border=0 width=25% cellpadding=0 cellspacing=0>
+	       <tr>
+                <td align=center width=2%>
+                <form id=form14a action=#page10  method=post data-ajax="true">
+                    <select name="d_month" id="select-month1" data-theme="f" data-native-menu="true"
+                            onchange="ls1.month=this.options[this.selectedIndex].value;this.form.submit()">
+                    </select>
+                </form>
+                </td>
+                <td align=center width=2%>
+                <form id=form14b action=#page10  method=post data-ajax="true">
+                    <select name="d_year" id="select-year1" data-theme="f" data-native-menu="true"
+                            onchange="ls1.year=this.options[this.selectedIndex].value;this.form.submit()">
+                    </select>
+                </form>
+                </td>
+                <td width=5%>&nbsp;</td>
+                <td width=4%>
+		    <a href="#diary2" 
+		       data-role="button" data-theme="b" data-mini="true"
+                       data-shadow="false" data-iconshadow="false"><div class=T_VIEW style="display: inline;"></div></a></li>
+                </td>
+	       </tr></table>
+	       </center>
+
+               <br>
+	       <center>
+		   <span class=ui-body-d style='font-size: 16pt;'>
+		   <div id="diary_div" style="margin: 3px; overflow: auto;"></div>
+		   </span>
+	       </center>
+    </div>
+
+    <div class="layer1" data-role=panel  id="diary2" data-animate="false"
+         data-position="right" data-display="overlay" data-theme="a" style="width: 270px">
+             <div align=right>
+             <a href="#header" data-rel="close" data-role="button" data-theme="a" data-mini="true"
+                               data-icon="delete" data-inline="true"><div class=T_CLOSE style="display: inline;"></div></a>
+             </div>
+
+		<ul data-role="listview" data-ajax="false" data-inset="true" data-theme="c">
+	        <div class=T_TABLES style="display: inline;"></div>
+		     <li><a href="#page10" data-mini="true"
+			onclick='$("#diary_div").html(daytag_table_horizontal(ls1.year, ls1.month, vector_details, target_names, target_tags, "page10")+"<br>").trigger("create");ls1.view="TH";return false;'><div class=T_HORIZONTAL style="display: inline;"></div></a></li>
+		     <li><a href="#page10" data-mini="true"
+			onclick='$("#diary_div").html(daytag_table_vertical(ls1.year, ls1.month, vector_details, target_names, target_tags, "page10")+"<br>").trigger("create");ls1.view="TV";return false;'><div class=T_VERTICAL   style="display: inline;"></div></a></li>
+                     <li><a href="#page10" data-mini="true"
+                        onclick='$("#diary_div").html(daytag_table_compact(vector_details,target_names,target_tags,"page10")+"<br>").trigger("create");ls1.view="TR";return false;'><div class=T_SUMMARY style="display: inline;"></div></a></li>
+		</ul>
+
+		 <ul data-role="listview" data-ajax="false" data-inset="true" data-theme="c">
+	         <div class=T_DIARY style="display: inline;"></div>
+		 <li><a href="#page10" data-ajax="true" 
+		      onclick='$("#diary_div").html(daytag_show_days(ls1.year,ls1.month,ls1.today,1,vector_details,"page10")).trigger("create");ls1.view="D1";return false;'><div class=T_1_DAY style="display: inline;"></div></a></li>
+		 <li><a href="#page10" data-ajax="true" 
+		      onclick='$("#diary_div").html(daytag_show_days(ls1.year,ls1.month,ls1.today,3,vector_details,"page10")).trigger("create");ls1.view="D3";return false;'><div class=T_3_DAYS style="display: inline;"></div></a></li>
+		 <li><a href="#page10" data-ajax="true" 
+		      onclick='$("#diary_div").html(daytag_show_days(ls1.year,ls1.month,ls1.today,7,vector_details,"page10")).trigger("create");ls1.view="D7";return false;'><div class=T_1_WEEK style="display: inline;"></div></a></li>
+		 <li><a href="#page10" data-ajax="true" 
+		    onclick='$("#diary_div").html(daytag_show_days(ls1.year,ls1.month,ls1.today,14,vector_details,"page10")).trigger("create");ls1.view="D14";return false;'><div class=T_2_WEEKS style="display: inline;"></div></a></li>
+		 <li><a href="#page10" data-ajax="true" 
+		    onclick='$("#diary_div").html(daytag_show_month(ls1.year, ls1.month, ls1.today, cal_head, vector_details,"page10")).trigger("create");ls1.view="D31";return false;'><div class=T_1_MONTH style="display: inline;"></div></a></li>
+		 </ul>
+
+             </div>
+    </div>
+
+</div>
+
+
+<div class="layer1" data-role="page" id=page11 data-url=page11>
+
+    <div data-role="header" data-theme="a" align=right data-position-fixed="true">
+	<h1><div class=T_ANNOTATE style="display: inline;"></div></h1>
+	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	   data-iconpos="right" data-inline="true" data-rel="dialog" 
+           data-iconshadow="false" data-shadow="true" 
+           data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
+	<a href="#" data-icon="forward" data-theme="a" 
+	   data-iconpos="right" data-inline="true"
+           data-rel="dialog" data-transition="none"
+		  onclick="$('a#pageqmclose').attr('href','#page10');
+			   $('form#form10x').attr('action','#page10');
+			   $('form#form11x').attr('action','#page10');
+			   $.mobile.changePage('#page-quickmenu');
+			   return false;"><div class=T_ANNOTATE style="display: inline;"></div></a>
+    </div>
+
+    <div data-role="content" data-position-fixed="true">
+
+	<div data-role="collapsible-set">
+
+	  <div data-role="collapsible" data-theme="a" data-corners="false" data-content-theme="c" 
+               data-inset="true" data-collapsed="false">
+          <h3><div class=T_VOICE  style="display: inline;"></div></h3>
+
+			<form id=form8 action="#" method="post" data-ajax="false"
+			      onsubmit="ui_voice(this.voice_cmd.value); return false;">
+			<center>
+			<table border=0 width=90% cellpadding=0 cellspacing=0>
+			<tr>
+			<td width=65%>
+				<input id=voice_cmd type="text" name="voice" value="" 
+				       x-webkit-speech data-mini="true" list="voice_list">
+				<datalist id="voice_list">
+				<option value="apunta medida [glucemia]">
+				<option value="apunta bolo normal [unidades]">
+				<option value="apunta bolo cuadrado [unidades]">
+				<option value="apunta bolo dual [unidades] [porcentaje]">
+				<option value="apunta comida [raciones]">
+				<option value="apunta activar [patr'on] [porcentaje]">
+				<option value="ver medida">
+				<option value="ver bolo">
+				<option value="ver comida">
+				<option value="ver basal">
+				<option value="ver tabla horizontal">
+				<option value="ver tabla vertical">
+				<option value="ver tabla resumen">
+				<option value="ver diario mes">
+				<option value="ver diario semana">
+				<option value="ver diario dia">
+				<option value="configurar idioma">
+				<option value="configurar ajustes">
+				</datalist>
+			</td>
+			<td width=5% align=center>
+				<button class=square_button5 
+					data-role="button" data-theme="b" data-icon="search" data-iconpos="notext" data-inline="true"
+					data-shadow="false" data-iconshadow="false" data-mini="true"
+					data-iconpos="notext" data-icon="search">ok</button>
+			</td>
+			</tr>
+			</table>
+			</center>
+			</form>
+
+
+			<div style="display: table; margin-right: auto; margin-left: 8px;">
+			<font size=+1>
+			   <ul>
+			   <li>apunta medida <a href="#p11tt10" data-rel=popup data-inline=true data-transition=none data-iconpos=notext>[glucemia]</a><div data-role=popup id=p11tt10 class=ui-content data-theme=a>20 - 600</div>
+			   <li>apunta bolo normal|cuadrado|dual 
+                               <a href="#p11tt20" data-rel=popup data-inline=true data-transition=none data-iconpos=notext>[dosis]</a><div data-role=popup id=p11tt20 class=ui-content data-theme=a>0.1 - 50.0</div> 
+                               <a href="#p11tt30" data-rel=popup data-inline=true data-transition=none data-iconpos=notext>[porcentaje]</a><div data-role=popup id=p11tt30 class=ui-content data-theme=a>0 - 100</div>
+			   <li>apunta comida <a href="#p11tt40" data-rel=popup data-inline=true data-transition=none data-iconpos=notext>[raciones]</a><div data-role=popup id=p11tt40 class=ui-content data-theme=a>1 - 20</div>
+			   <li>apunta activar 
+                               <a href="#p11tt60" data-rel=popup data-inline=true data-transition=none data-iconpos=notext>[patr&oacute;n]</a><div data-role=popup id=p11tt60 class=ui-content data-theme=a>normal|...</div>  
+                               <a href="#p11tt50" data-rel=popup data-inline=true data-transition=none data-iconpos=notext>[porcentaje]</a><div data-role=popup id=p11tt50 class=ui-content data-theme=a>0 - 100</div>
+			   <li>ver medida|bolo|comida|basal
+			   <li>ver tabla horizontal|vertical
+			   <li>ver diario dia|semana|mes
+			   <li>configurar idioma|ajustes
+			   </ul>
+			</font>
+			</div>
+
+          </div>
+
+
+	  <div data-role="collapsible" data-theme="a" data-corners="false" data-content-theme="c" id=wquick
+               data-inset="true" data-collapsed="false">
+          <h3><div class=T_QUICK  style="display: inline;"></div></h3>
+
+		<div data-role="popup" id=popupx11a>
+		   <a href="#"
+		      onclick='fillback.value=x11a.value; 
+		   	       $("#popupx11a").popup("close");
+			       return true;'
+		   data-role="button">ok</a>
+		   <input name="x11a" type="number" data-role="none" value="0" id=x11a 
+		          data-width="200" data-thickness=".3" data-displayPrevious=true data-fgColor="#222222" data-max=400>
+		</div>
+
+		<script>
+		$(function(){ $("#form12gsB").scroller({ lang: ls1.lang,  
+							 preset: 'datetime', dateFormat : "yy-mm-dd", 
+							 timeFormat : "HH:iiZ", separator  : "T" }); });
+
+		$(function(){ $("#form12gsA").scroller({ lang: ls1.lang,  
+							 preset: 'datetime', dateFormat : "yy-mm-dd", 
+							 timeFormat : "HH:iiZ", separator  : "T" }); });
+
+		$(function(){ $("#form12bpB").scroller({ lang: ls1.lang,
+							 preset: 'datetime', dateFormat : "yy-mm-dd", 
+							 timeFormat : "HH:iiZ", separator  : "T" }); });
+
+		$(function(){ $("#form12bpA").scroller({ lang: ls1.lang,
+							 preset: 'datetime', dateFormat : "yy-mm-dd", 
+							 timeFormat : "HH:iiZ", separator  : "T" }); });
+
+		function knobIt ( shadow, vnow, vmin, vmax, vstep )
+		{
+		      var obj = $("#x11a");
+
+                      if ('true' != obj.attr('isKnob')) {
+		          obj.knob(); 
+                          obj.attr('isKnob','true') ;
+                      }
+
+		      obj.trigger("configure",{min: vmin, max: vmax, step: vstep, skin: "tron"}); 
+		      obj.val(vnow).change(); 
+
+		      fillback = shadow; 
+		      $("#popupx11a").popup("open");
+		}
+
+		function meal_camera_successB ( imageURI ) 
+                {
+		        var image = document.querySelector('#vimageB') ;
+		        image.value = imageURI;
+		        var image = document.getElementById('vimage2B');
+		        image.src = imageURI;
+		        var image = document.getElementById('vimage3B');
+		        image.src = imageURI;
+		}
+
+		function meal_camera_successA ( imageURI ) 
+                {
+		        var image = document.querySelector('#vimageA') ;
+		        image.value = imageURI;
+		        var image = document.getElementById('vimage2A');
+		        image.src = imageURI;
+		        var image = document.getElementById('vimage3A');
+		        image.src = imageURI;
+		}
+
+		function camera_fail ( message ) 
+                {
+		        alert('Failed because: ' + message);
+		}
+
+                function do_nextandload () 
+                {
+                       dbform_fill_nextquick(document.form12x);  
+                       load_data() ;
+                }
+		</script>
+
+
+	     <form id=form12x name=form12x action="#page11" method="post" data-ajax="false">
+
+		<input type="hidden" name="values_measure[id][before]"      value="-1">
+		<input type="hidden" name="values_measure[stop][before]"    value=""    id=form12mpB>
+		<input type="hidden" name="values_measure[user][before]"    value="">
+		<input type="hidden" name="values_measure[device][before]"  value="">
+
+		<input type="hidden" name="values_measure[id][after]"       value="-1">
+		<input type="hidden" name="values_measure[stop][after]"     value=""    id=form12mpA>
+		<input type="hidden" name="values_measure[user][after]"     value="">
+		<input type="hidden" name="values_measure[device][after]"   value="">
+
+		<input type="hidden" name="values_bolus[id][before]"        value="-1">
+		<input type="hidden" name="values_bolus[name][before]"      value=""    id=form12bnB>
+		<input type="hidden" name="values_bolus[type][before]"      value="">
+		<input type="hidden" name="values_bolus[start][before]"     value=""    id=form12bsB>
+		<input type="hidden" name="values_bolus[user][before]"      value="">
+		<input type="hidden" name="values_bolus[device][before]"    value="">
+
+		<input type="hidden" name="values_bolus[id][after]"         value="-1">
+		<input type="hidden" name="values_bolus[name][after]"       value=""    id=form12bnA>
+		<input type="hidden" name="values_bolus[type][after]"       value="">
+		<input type="hidden" name="values_bolus[start][after]"      value=""    id=form12bsA>
+		<input type="hidden" name="values_bolus[user][after]"       value="">
+		<input type="hidden" name="values_bolus[device][after]"     value="">
+
+		<input type="hidden" name="values_meal[id][before]"         value="-1">
+		<input type="hidden" name="values_meal[name][before]"       value=""    id=form12mnB>
+		<input type="hidden" name="values_meal[start][before]"      value=""    id=form12msB>
+		<input type="hidden" name="values_meal[stop][before]"       value="">
+		<input type="hidden" name="values_meal[user][before]"       value="">
+		<input type="hidden" name="values_meal[device][before]"     value="">
+
+		<input type="hidden" name="values_meal[id][after]"          value="-1">
+		<input type="hidden" name="values_meal[name][after]"        value=""    id=form12mnA>
+		<input type="hidden" name="values_meal[start][after]"       value=""    id=form12msA>
+		<input type="hidden" name="values_meal[stop][after]"        value="">
+		<input type="hidden" name="values_meal[user][after]"        value="">
+		<input type="hidden" name="values_meal[device][after]"      value="">
+
+       <div style="margin: 0px; overflow: auto;">
+       <center>
+       <table border=0 width=100% cellpadding=0 cellspacing=2>
+
+		<tr>
+                <td width=20% valign=bottom><font size=+0 color=gray>
+	        <a href="#" 
+                   data-role="button" data-theme="c" data-mini="true" data-inline="true" 
+                   onclick='return false;'><div class=T_MEAL style="display: inline;"></div></font></a>
+                </td>
+                <td width=35%>
+                  <center><img height=22 src="icons/before-meal-4.gif"></center>
+		<select name="values_measure[name][before]" id="form12gnB" data-mini="true" 
+			onchange="form12bnB.value=form12mnB.value=form12gnB.value;" data-native-menu="true">
+			   <option value="A0">desayuno</option>
+			   <option value="A1">comida</option>
+			   <option value="A2">merienda</option>
+			   <option value="A3">cena</option>
+			   <option value="A4">en la noche</option>
+			   <option value=""  >&nbsp;</option>
+		</select>
+                </td>
+                <td width=35%>
+                  <center><img height=22 src="icons/after-meal.jpg"></center>
+		<select name="values_measure[name][after]" id="form12gnA" data-mini="true" 
+			onchange="form12bnA.value=form12mnA.value=form12gnA.value;" data-native-menu="true">
+			   <option value="D0">desayuno</option>
+			   <option value="D1">comida</option>
+			   <option value="D2">merienda</option>
+			   <option value="D3">cena</option>
+                   </optgroup>
+		</select>
+                </td>
+		</tr>
+
+		<tr>
+                <td width=20%><font size=+0 color=gray>
+	        <a href="#" 
+                   data-role="button" data-theme="c" data-mini="true" data-inline="true" 
+                   onclick='return false;'><div class=T_INSTANT style="display: inline;"></div></font></a>
+                </td>
+                <td width=35%>
+		<input name="values_measure[start][before]" type="text"  data-mini="true" size=18
+		       id=form12gsB value="" onchange="form12msB.value=form12bsB.value=form12gsB.value; 
+                                                       form12msA.value=form12bsA.value=form12gsA.value = dbform_addtwohours(form12gsB.value); return false;" />
+		</td>
+                <td width=35%>
+		<input name="values_measure[start][after]"  type="text"  data-mini="true" size=18
+		       id=form12gsA value="" onchange="form12msA.value=form12bsA.value=form12gsA.value; return false;" />
+		</td>
+		</tr>
+	   </table>
+	   </center>
+
+
+           <center>
+           <table border=0 width=100% cellpadding=0 cellspacing=2>
+		<tr>
+                <td width=20%><font size=+0 color=gray>
+	        <a href="#" 
+                   data-role="button" data-theme="c" data-mini="true" data-inline="true" 
+                   onclick='return false;'><div class=T_MEASURE2 style="display: inline;"></div></font></a>
+                </td>
+                <td width=35%>
+		<input name="values_measure[measure][before]" type="number" value="0" size=4 data-mini="true"
+                       id=z11aB onclick='knobIt(z11aB,$("#z11aB").val(),0,350,1); return true;'>
+		</td>
+                <td width=35%>
+		<input name="values_measure[measure][after]" type="number" value="0" size=4 data-mini="true"
+                       id=z11aA onclick='knobIt(z11aA,$("#z11aA").val(),0,350,1); return true;'>
+		</td>
+		</tr>
+
+		<tr>
+                <td width=20%><font size=+0 color=gray>
+	<a href="#" 
+           data-role="button" data-theme="b" data-mini="true" data-inline="true" 
+           onclick='$("#page12h10").toggle(); return false;'><div class=T_UNITS style="display: inline;"></div></font></a>
+                </td>
+                <td width=35%>
+	        <input name="values_bolus[units][before]" type="number" value="0" size=4 data-mini="true"
+                       id=z11bB onclick='knobIt(z11bB,$("#z11bB").val(),0,80,0.5); return true;'>
+		</td>
+                <td width=35%>
+	        <input name="values_bolus[units][after]" type="number" value="0" size=4 data-mini="true"
+                       id=z11bA onclick='knobIt(z11bA,$("#z11bA").val(),0,80,0.5); return true;'>
+		</td>
+                </tr>
+	   </table>
+	   </center>
+
+
+	<div id=page12h10 style="display: none;">
+           <center>
+           <table border=0 width=100% cellpadding=0 cellspacing=2>
+                <tr>
+                <td width=25%><font size=+0 color=gray><div class=T_PERCENTAGE style="display: inline;"></div></font></td>
+                <td width=35%>
+	        <input name="values_bolus[percentage][before]" type="number" value="100" size=4 data-mini="true"
+                       id=z11cB onclick='knobIt(z11cB,$("#z11cB").val(),0,100,1); return true;'>
+		</td>
+                <td width=35%>
+	        <input name="values_bolus[percentage][after]" type="number" value="100" size=4 data-mini="true"
+                       id=z11cA onclick='knobIt(z11cA,$("#z11cA").val(),0,100,1); return true;'>
+		</td>
+		<tr>
+
+		</tr>
+                <td width=25%><font size=+0 color=gray><div class=T_END style="display: inline;"></div></font></td>
+                <td width=35%>
+		<input id=form12bpB name="values_bolus[stop][before]" type="text" data-mini="true"  size=18 data-mini="true"
+                       size="20" value="">
+		</td>
+                <td width=35%>
+		<input id=form12bpA name="values_bolus[stop][after]" type="text" data-mini="true"  size=18 data-mini="true"
+                       size="20" value="">
+		</td>
+                </tr>
+	   </table>
+           </center>
+	</div>
+
+           <center>
+           <table border=0 width=100% cellpadding=0 cellspacing=2>
+                <tr>
+                <td width=20%><font size=+0 color=gray>
+	<a href="#"  
+           data-role="button" data-theme="b" data-mini="true" data-inline="true" 
+           onclick='$("#page12h20").toggle(); return false;'><div class=T_RATIONS style="display: inline;"></div></font></a>
+                </td>
+                <td width=35%>
+	        <input name="values_meal[measure][before]" type="number" value="0" size=4 data-mini="true"
+                       id=z11dB onclick='knobIt(z11dB,$("#z11dB").val(),0,80,0.5); return true;'>
+                </td>
+                <td width=35%>
+	        <input name="values_meal[measure][after]" type="number" value="0" size=4 data-mini="true"
+                       id=z11dA onclick='knobIt(z11dA,$("#z11dA").val(),0,80,0.5); return true;'>
+                </td>
+                </tr>
+	   </table>
+	   </center>
+
+
+	<div id=page12h20 style="display: none;">
+           <center>
+           <table border=0 width=100% cellpadding=0 cellspacing=2>
+                <tr>
+                <td width=25%><font size=+0 color=gray><div class=T_DESCRIPTION style="display: inline;"></div></font></td>
+                <td width=35% align=center>
+                <textarea name="values_meal[tag][before]" rows=2 cols=6 data-mini="true"
+                          data-mini="true"  data-role="none" x-webkit-speech></textarea>
+                </td>
+                <td width=35% align=center>
+                <textarea name="values_meal[tag][after]"  rows=2 cols=6 data-mini="true"
+                          data-mini="true"  data-role="none" x-webkit-speech></textarea>
+                </td>
+                </tr>
+
+                <tr>
+                <td width=25%><font size=+0 color=gray><div class=T_IMAGE style="display: inline;"></div></font></td>
+                <td width=35% align=center>
+                   <table border=0>
+                   <tr>
+                   <td align=center>
+			   <a href=# 
+                              onclick="navigator.camera.getPicture(meal_camera_successB,camera_fail, 
+                                                                   { quality: 80, 
+					   	                     encodingType: Camera.EncodingType.JPEG,
+						                     saveToPhotoAlbum: true,
+                                                                     destinationType: Camera.DestinationType.FILE_URI }); 
+                                       return false;" 
+                              data-inline="true" data-mini="true" data-shadow="false"
+			      data-transition=none><img height=27 src="icons/camera.png"></a>
+                   </td>
+                   <td align=center>
+			   <a href=# 
+                              onclick="navigator.camera.getPicture(meal_camera_successB,camera_fail, 
+                                                                   { quality: 80, 
+						                     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                                                                     destinationType: Camera.DestinationType.FILE_URI }); 
+                                       return false;" 
+                              data-inline="true" data-mini="true" data-shadow="false"
+                              data-transition=none><img height=30 src="icons/gallery.png"></a> 
+                   </td>
+                   </tr>
+                   <tr>
+		   <td colspan=2 align=center>
+			   <input id=vimageB  name="values_meal[image][before]"  type="hidden" value="">
+
+			   <a href=#vimagelB data-rel=popup 
+			      data-position-to=window data-theme=a 
+			      data-inline=true data-transition=none>
+			   <img id=vimage2B height=30 class="popphoto" src="icons/empty_dish.jpg">
+			   </a>
+			   <div data-role=popup id=vimagelB
+				data-overlay-theme=b 
+				data-corners=false data-tolerance="30,15">
+				<a href=# data-rel=back data-role=button data-theme=a data-icon=delete
+				   data-iconpos=notext class=ui-btn-right>Close</a>
+				<img id=vimage3B class="popphoto" src="icons/empty_dish.jpg" style="max-height:512px;">
+			   </div>
+
+		   </td>
+                   </tr>
+                   </table>
+                </td>
+                <td width=35% align=center>
+                   <table border=0>
+                   <tr>
+                   <td align=center>
+			   <a href=# 
+                              onclick="navigator.camera.getPicture(meal_camera_successA,camera_fail, 
+                                                                   { quality: 80, 
+					   	                     encodingType: Camera.EncodingType.JPEG,
+						                     saveToPhotoAlbum: true,
+                                                                     destinationType: Camera.DestinationType.FILE_URI }); 
+                                       return false;" 
+                              data-inline="true" data-mini="true" data-shadow="false"
+			      data-transition=none><img height=27 src="icons/camera.png"></a>
+                   </td>
+                   <td align=center>
+			   <a href=# 
+                              onclick="navigator.camera.getPicture(meal_camera_successA,camera_fail, 
+                                                                   { quality: 80, 
+						                     sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                                                                     destinationType: Camera.DestinationType.FILE_URI }); 
+                                       return false;" 
+                              data-inline="true" data-mini="true" data-shadow="false"
+                              data-transition=none><img height=30 src="icons/gallery.png"></a> 
+                   </td>
+                   </tr>
+                   <tr>
+                   <td colspan=2 align=center>
+			   <input id=vimageA  name="values_meal[image][after]"  type="hidden" value="">
+
+			   <a href=#vimagelA data-rel=popup 
+			      data-position-to=window data-theme=a 
+			      data-inline=true data-transition=none>
+			   <img id=vimage2A height=30 class="popphoto" src="icons/empty_dish.jpg">
+			   </a>
+			   <div data-role=popup id=vimagelA
+				data-overlay-theme=b
+				data-corners=false data-tolerance="30,15">
+				<a href=# data-rel=back data-role=button data-theme=a data-icon=delete
+				   data-iconpos=notext class=ui-btn-right>Close</a>
+				<img id=vimage3A class="popphoto" src="icons/empty_dish.jpg" style="max-height:512px;">
+			   </div>
+
+                   </td>
+                   </tr>
+                   </table>
+                </td>
+                </tr>
+	   </table>
+           </center>
+	</div>
+
+           <center>
+           <table border=0 cellpadding=0 cellspacing=8>
+                <tr>
+                <td>
+		<center>
+		  <button name="mmb-insert"
+                          data-theme="a" data-corners="false" data-inline="true" data-icon="plus" data-mini="true"
+                          onclick="$('#wquick').effect('drop', {}, 700, function() {
+				   $('#wquick').removeAttr('style').hide().fadeIn();
+                                   });
+				   dbform_action_quick_2(ls1.rmysql_url, document.form12x, load_data);
+				   return false;"><div class=T_ADD style="display: inline;"></div></button>
+		</center>
+                </td>
+                </tr>
+             </form>
+
+       </table>
+       </div>
+       </center>
+
+          </div> <!-- collapsible quick -->
+
+        </div> <!-- collapsibles -->
+
+    </div>
+
+</div>
+
+
+<div class="layer1" data-role="page" id=page23>
+
+    <div data-role="header" data-theme="a" align=right data-position-fixed="true">
+	<h1><div class=T_INTERCHANGE style="display: inline;"></div></h1>
+	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	   data-iconpos="right" data-inline="true" data-rel="dialog" 
+           data-iconshadow="false" data-shadow="true" 
+           data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
+	<a href="#" data-icon="forward" data-theme="a" 
+	   data-iconpos="right" data-inline="true"
+           data-rel="dialog" data-transition="none"
+		  onclick="$('a#pageqmclose').attr('href','#page10');
+			   $('form#form10x').attr('action','#page10');
+			   $('form#form11x').attr('action','#page10');
+			   $.mobile.changePage('#page-quickmenu');
+			   return false;"><div class=T_ANNOTATE style="display: inline;"></div></a>
+    </div>
+
+    <div data-role="content">
+
+	<div data-role="collapsible-set">
+
+	<div data-role="collapsible" data-theme="c" data-corners="false" data-content-theme="d" 
+             data-inset="true" data-collapsed="true">
+	<h3><div class=T_EXPORT style="display: inline;"></div></h3>
+
+	       <center>
+               <div data-role="fieldcontain">
+		       <table border=0 width=25% cellpadding=0 cellspacing=0 id=ta16f10>
+		       <tr>
+			<td align=center width=2%>
+			<form id=form16a action=#page23  method=post data-ajax="true">
+			    <select name="d_month" id="select-month2" data-theme="f"
+				    onchange="ls1.month=this.options[this.selectedIndex].value;this.form.submit()">
+			    </select>
+			</form>
+			</td>
+			<td align=center width=2%>
+			<form id=form16b action=#page23  method=post data-ajax="true">
+			    <select name="d_year" id="select-year2" data-theme="f"
+				    onchange="ls1.year=this.options[this.selectedIndex].value;this.form.submit()">
+			    </select>
+			</form>
+			</td>
+		       </tr></table>
+               </div>
+
+               <div data-role="fieldcontain">
+		       <textarea id=ta16 name=ta16 style="font-size: 9pt; height:100px; width:80%; margin:3px; overflow:auto;">
+		       </textarea>
+               </div>
+
+               <div data-role="fieldcontain">
+		       <a href="javascript: void 0;" 
+			  data-role="button" data-mini="false" data-inline="true"
+			  class="download_csv" download="export_em.csv"><div class=T_EXPORT style="display: inline;"></div></a>
+               </div>
+               </center>
+	</div><!-- /collapsible -->
+
+	<div data-role="collapsible" data-theme="c" data-content-theme="d" data-corners="false"
+             data-inset="true" data-collapsed="true">
+	<h3> <div class=T_IMPORT style="display: inline;"></div> </h3>
+
+               <center>
+               <div data-role="fieldcontain">
+			<span class="file-wrapper">
+			  <input type="file" id=csvfiles name="csvfiles[]" multiple data-role="none">
+			  <span class="button"><div class=T_SELECT style="display: inline;"></div></span>
+			</span>
+               </div>
+
+               <div data-role="fieldcontain">
+		       <textarea id=ta17 name=ta17 style="font-size: 9pt; height:100px; width:80%; margin:3px; overflow:auto;">
+                       </textarea>
+               </div>
+
+               <div data-role="fieldcontain">
+		       <a href="#" 
+			  data-role="button" data-mini="false" data-inline="true"
+			  onclick='var interval = setInterval(function(){ 
+                                        clearInterval(interval);
+                                        $.mobile.loading("show"); 
+                                        handleImport(); 
+					$.mobile.loading("hide"); },100); 
+                                   return false;'><div class=T_IMPORT style="display: inline;"></div></a>
+               </div>
+               </center>
+
+               <script>
+		  function okImport(evt) 
+                  {
+                        load_data() ; // TODO: check that the new info is shown
+		        alert("Data processed!"); 
+		  }
+
+		  function handleImport() 
+                  {
+		        db_csv2db(ls1.rmysql_url,$("#ta17").val(),okImport);
+		        db_cnu2db(ls1.rmysql_url,$("#ta17").val(),ls1.user_id,ls1.device_id,okImport) ;
+		  }
+
+		  function handleCSVFiles(evt) 
+                  {
+		     var files = evt.target.files ;
+		     for (var i = 0, f; f = files[i]; i++) 
+                     {
+		          var reader = new FileReader();
+    		          reader.onload = function(e) { 
+                                $("#ta17").val(e.target.result) ; 
+                          };
+			  reader.onerror = function(e) {
+			      console.error("File could not be read! Code " + e.target.error.code);
+			  };
+		          reader.readAsText(f);
+		     }
+		  }
+
+		  document.getElementById('csvfiles').addEventListener('change', handleCSVFiles, false);
+               </script>
+	</div><!-- /collapsible -->
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="layer1" data-role="page" id=page24>
+
+    <div data-role="header" data-theme="a" align=right data-position-fixed="true">
+	<h1><div class=T_TRACE style="display: inline;"></div></h1>
+	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	   data-iconpos="right" data-inline="true" data-rel="dialog" 
+           data-iconshadow="false" data-shadow="true" 
+           data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
+	<a href="#" data-icon="forward" data-theme="a" 
+	   data-iconpos="right" data-inline="true"
+           data-rel="dialog" data-transition="none"
+		  onclick="$('a#pageqmclose').attr('href','#page10');
+			   $('form#form10x').attr('action','#page10');
+			   $('form#form11x').attr('action','#page10');
+			   $.mobile.changePage('#page-quickmenu');
+			   return false;"><div class=T_ANNOTATE style="display: inline;"></div></a>
+    </div>
+
+    <div class="layer1" data-role=panel  id="table" data-animate="false"
+         data-position="right" data-display="overlay" data-theme="a" style="width: 270px">
+             <div align=right>
+             <a href="#header" data-rel="close" data-role="button" data-theme="a" data-mini="true"
+                               data-icon="delete" data-inline="true"><div class=T_CLOSE style="display: inline;"></div></a>
+             </div>
+
+	        <div class=T_MEASURES style="display: inline;"></div>
+                <div data-role="controlgroup" data-type="horizontal">
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container8").toggle();return false;'><div class=T_MEASURES_PER_MEAL style="display: inline;"></div></a>
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container9").toggle();return false;'><div class=T_MEASURES_PER_HOUR style="display: inline;"></div></a>
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#containerA").toggle();return false;'><div class=T_RANGES_PER_HOUR style="display: inline;"></div></a>
+                </div>
+
+	        <div class=T_BOLUS style="display: inline;"></div>
+                <div data-role="controlgroup" data-type="horizontal">
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container4").toggle();return false;'><div class=T_BOLUS_PER_MEAL style="display: inline;"></div></a>
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container5").toggle();return false;'><div class=T_BOLUS_PER_HOUR style="display: inline;"></div></a>
+                </div>
+
+	        <div class=T_RATIONS></div>
+                <div data-role="controlgroup" data-type="horizontal">
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container6").toggle();return false;'><div class=T_RATIONS_PER_MEAL style="display: inline;"></div></a>
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container7").toggle();return false;'><div class=T_RATIONS_PER_HOUR style="display: inline;"></div></a>
+                </div>
+
+	        <div class=T_BASALS style="display: inline;"></div>
+                <div data-role="controlgroup" data-type="horizontal">
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container0").toggle();return false;'><div class=T_BASALS_TYPES style="display: inline;"></div></a>
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container1").toggle();return false;'><div class=T_BASALS_ACT style="display: inline;"></div></a>
+                </div>
+
+	        <div class=T_AVERAGE style="display: inline;"></div>
+                <div data-role="controlgroup" data-type="horizontal">
+		     <a href="#" data-role="button" data-mini="true"
+                                 onclick='$("#container20x").toggle();return false;'><div class=T_SUMMARY style="display: inline;"></div></a>
+                </div>
+    </div>
+
+    <div data-role="content">
+	       <center>
+	       <table border=0 width=25% cellpadding=0 cellspacing=0>
+	       <tr>
+                <td align=center width=2%>
+                <form id=form14a action=#page24  method=post data-ajax="true">
+                    <select name="d_month" id="select-month3" data-theme="f"
+                            onchange="ls1.month=this.options[this.selectedIndex].value;this.form.submit()">
+                    </select>
+                </form>
+                </td>
+                <td align=center width=2%>
+                <form id=form14b action=#page24  method=post data-ajax="true">
+                    <select name="d_year" id="select-year3" data-theme="f"
+                            onchange="ls1.year=this.options[this.selectedIndex].value;this.form.submit()">
+                    </select>
+                </form>
+                </td>
+                <td width=5%>&nbsp;</td>
+                <td width=4%>
+		    <a href="#table" 
+                       onclick='$.mobile.loading("show"); 
+				var interval = setInterval(function(){ 
+                                     clearInterval(interval); 
+					if (typeof vector_details !== "undefined") {
+					    stats_byhour_draw();
+					    stats_bytarget_draw();
+					    stats_measures_cloud_draw(); 
+					}
+                                     $.mobile.loading("hide"); },200); 
+                                return false;'
+		       data-role="button" data-theme="b" data-mini="true"
+                       data-shadow="false" data-iconshadow="false"><div class=T_SELECT style="display: inline;"></div></a></li>
+                </td>
+	       </tr></table>
+	       </center>
+
+                <br>
+
+                <center>
+		<div id="container20x" style="min-width: 90%; min-height: 90%; margin: 0 auto;">
+		   <div id="container20"  style="min-width: 90%; min-height: 90%; margin: 0 auto;"></div>
+	           <div id="slider20x" style="width: min(320px,90%)"> 
+                      <input type="range" name="slider20" id="slider20" value="5" min="1" max="7" style='display:none'>
+                   </div>
+                </div>
+                </center>
+
+                <center>
+		<div id="container0" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container1" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container2" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container3" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container4" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container5" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container6" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container7" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container8" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="container9" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+		<div id="containerA" style="min-width: 90%; min-height: 90%; margin: 0 auto; display: none;"></div>
+                </center>
+    </div>
+
+</div>
+
+
+<div class="layer1" data-role="page" id="page25"
+     data-theme="a" data-position-fixed="false" data-fullscreen="true" data-close-btn="right">
+
+    <div data-role="header" data-theme="a" align=right data-position-fixed="true">
+	<h1><div class=T_CONFIG style="display: inline;"></div></h1>
+	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	   data-iconpos="right" data-inline="true" data-rel="dialog" 
+           data-iconshadow="false" data-shadow="true" 
+           data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
+	<a href="#" data-icon="forward" data-theme="a" 
+	   data-iconpos="right" data-inline="true"
+           data-rel="dialog" data-transition="none"
+		  onclick="$('a#pageqmclose').attr('href','#page10');
+			   $('form#form10x').attr('action','#page10');
+			   $('form#form11x').attr('action','#page10');
+			   $.mobile.changePage('#page-quickmenu');
+			   return false;"><div class=T_ANNOTATE style="display: inline;"></div></a>
+    </div>
+
+    <div data-role="content">
+	<div data-role="collapsible-set">
+
+			<div id=idioma data-role="collapsible" data-theme=a>
+		        <h3><div class=T_IDIOM style="display: inline;"></div>&nbsp;&nbsp;
+                            <img id=idiom-icon1 src="icons/en.gif" height=15 alt="english" class="ui-li-icon ui-corner-none"></h3>
+
+				<form data-ajax=false id=form20 action=#  method=post  enctype="multipart/form-data">
+
+			  <center>
+			  <fieldset data-role="controlgroup" data-type="horizontal">
+				<input type=radio name=cfg[idiom] id=es value=es 
+    				       onchange='ls1.lang="es";
+					         change_idiom();
+          				         return false;'>
+				<label for=es>Castellano</label>
+				<input type=radio name=cfg[idiom] id=en value=en
+    				       onchange='ls1.lang="en";
+					         change_idiom();
+          				         return false;'>
+				<label for=en>English</label>
+			  </fieldset>
+			  </center>
+
+				</form>
+
+			</div>
+
+
+			<div id=ajustes data-role="collapsible" data-theme=a data-collapsed="false">
+		        <h3><div class=T_AJUSTS style="display: inline;"></div>&nbsp;&nbsp;<span id=ajust-icon2></span></h3>
+
+				<center>
+			        <form id=formaj1 name=formaj1 action="#" method="post" data-ajax="false">
+
+				<table border=0 width=100% cellpadding=2>
+				<tr>
+				<td width=30%>
+				  <a href="#aj10" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
+				     data-role="button" data-inline="true" data-mini="true" data-shadow="false"><div class=T_AFTERMEAL style="display: inline;"></div></a>
+				  <div data-role="popup" id="aj10" class="ui-content" data-theme="a" style="max-width:0px;">
+				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+				  <font size=-1>2, ... hours</font>
+				  </a>
+				  </div>
+				</td>
+				<td width=70%>
+				   <input   id="values_user[aftermeal_hours]" 
+  					  name="values_user[aftermeal_hours]" type="number" x-webkit-speech>
+				</td>
+				</tr>
+
+				<tr>
+				<td width=30%>
+				  <a href="#aj20" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
+				     data-role="button" data-inline="true" data-mini="true" data-shadow="false"><div class=T_DAYSTARTAT style="display: inline;"></div></a>
+				  <div data-role="popup" id="aj20" class="ui-content" data-theme="a" style="max-width:0px;">
+				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+				  <font size=-1>0,1,3,4,5, ... a.m.</font>
+				  </a>
+				  </div>
+				</td>
+				<td width=70%>
+				   <input   id="values_user[newday_hour]" 
+                                          name="values_user[newday_hour]" type="number" x-webkit-speech>
+				</td>
+				</tr>
+
+				<tr>
+				<td colspan=2 align=center width=20%> 
+				    <center>
+				    <button name="o-ajust"
+				            data-theme="a" data-corners="false" data-inline="true" data-icon="refresh"
+		  	     onclick='ls1.aftermeal_hours = document.formaj1.elements["values_user[aftermeal_hours]"].value;
+				      ls1.newday_hour     = document.formaj1.elements["values_user[newday_hour]"].value;
+	                              $("#ajust-icon2").html("<font color=gray size=-1>" + 
+           						     ls1.aftermeal_hours + ", " + ls1.newday_hour + 
+           						     "</font>");
+                                      return true;'><div class=T_UPDATE style="display: inline;"></div></button>
+				    </center>
+				</td>
+				</tr>
+				</table>
+
+				</form>
+				</center>
+
+			</div>
+
+
+			<div id=sesion data-role="collapsible" data-theme=a data-collapsed="false">
+		        <h3><div class=T_ABOUT style="display: inline;"></div></h3>
+
+				<center>
+				<table border=0 width=90% cellpadding=1>
+				<tr>
+				<td align=left>
+                                       <b><div class=T_VERSION style="display: inline;"></div></b>: 0.8a9 <br>
+                                       <b><div class=T_AUTHOR  style="display: inline;"></div></b>: Alejandro Calder&oacute;n Mateos <br>
+                                       <b><div class=T_LICENCE style="display: inline;"></div></b>: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL 3</a>
+				</td>
+				</tr>
+				</table>
+				</center>
+
+			</div>
+
+	</div>
+    </div>
+
+</div>
+
+
+<div data-role="dialog" id="page-quickmenu" data-theme="a" data-position-fixed="false" 
+     data-close-btn="right" data-overlay-theme=f data-corners="false">
+
+        <div data-role="header" data-theme="b">
+	<h1><div class=T_ANNOTATE style="display: inline;"></div></h1>
+        </div>
+
+        <div data-role="content">
+	<div data-role="collapsible-set">
+
+             <div id=p-qm-mmb data-role="collapsible" data-theme=c
+                  data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d"
+                  data-collapsed=false data-corners="false">
+             <h3><div class=T_QUICK style="display: inline;"></div></h3>
+
+	     <form id=form10x name=form10x action="#" method="post" data-ajax="false">
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+		<input type="hidden" name="values_measure[id]"      value="">
+		<input type="hidden" name="values_measure[stop]"    value=""    id=page10gt1>
+		<input type="hidden" name="values_measure[user]"    value="">
+		<input type="hidden" name="values_measure[device]"  value="">
+
+		<input type="hidden" name="values_bolus[id]"        value="">
+		<input type="hidden" name="values_bolus[name]"      value=""    id=page10bn>
+		<input type="hidden" name="values_bolus[type]"      value="">
+		<input type="hidden" name="values_bolus[start]"     value=""    id=page10bt1>
+		<input type="hidden" name="values_bolus[user]"      value="">
+		<input type="hidden" name="values_bolus[device]"    value="">
+
+		<input type="hidden" name="values_meal[id]"         value="">
+		<input type="hidden" name="values_meal[name]"       value=""    id=page10mn>
+		<input type="hidden" name="values_meal[start]"      value=""    id=page10mt1>
+		<input type="hidden" name="values_meal[stop]"       value="">
+		<input type="hidden" name="values_meal[user]"       value="">
+		<input type="hidden" name="values_meal[device]"     value="">
+
+                <td width=40%>
+		<a href="#tt1" data-rel="popup" data-inline="true" data-transition="none" data-inline="true" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_SITUATION style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt1" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		  <font size=-1><div class=T_ANTES_COMER_PUNTOS style="display: inline;"></div></font>
+		</a>
+		</div>
+                </td>
+
+                <td width=60%>
+		<select name="values_measure[name]" id="page10gn" data-native-menu="true" data-mini="true"
+			onchange="page10bn.value=page10mn.value=page10gn.value;">
+		   <option value=""  >&nbsp;</option>
+		   <option value="A0">antes de       desayuno</option>
+		   <option value="D0">despu&eacute;s desayuno</option>
+		   <option value="A1">antes de       comida</option>
+		   <option value="D1">despu&eacute;s comida</option>
+		   <option value="A2">antes de       merienda</option>
+		   <option value="D2">despu&eacute;s merienda</option>
+		   <option value="A3">antes de       cena</option>
+		   <option value="D3">despu&eacute;s cena</option>
+		   <option value="A4">en la noche</option>
+		</select>
+                </td>
+
+		</tr>
+		<tr>
+
+                <td width=40%>
+		<a href="#tt2" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_INSTANT style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt2" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1><div class=T_AMD_HM style="display: inline;"></div></font>
+		</a>
+		</div>
+		</td>
+
+                <td width=60%>
+		<input name="values_measure[start]" type="text" id=page10t1h data-mini="true"
+		       value="" onchange="page10gt1.value=page10bt1.value=page10mt1.value=page10t1h.value" />
+		<script>
+		$(function(){ $("#page10t1h").scroller({ lang: ls1.lang,  
+                                                         preset: 'datetime', dateFormat : "yy-mm-dd", 
+                                                         timeFormat : "HH:iiZ", separator  : "T" }); });
+		</script>
+		</td>
+
+		</tr>
+		<tr>
+
+                <td width=40%>
+		<a href="#tt3" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_MEASURE2 style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt3" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1>[10-600]</font>
+		</a>
+		</div>
+		</td>
+
+                <td width=60%>
+		<input name="values_measure[measure]" type="number" data-mini="true"
+                       min=0 max=600 step="any" value="0" size=4 x-webkit-speech>
+		</td>
+
+		</tr>
+		<tr>
+
+                <td width=40%>
+		<a href="#tt4" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_UNITS style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt4" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1>[0.0-100.0]</font>
+		</a>
+		</div>
+		</td>
+
+                <td width=60%>
+	        <input name="values_bolus[units]" id="vbu1" type="number" data-mini="true"
+                       min=0 max=99 step="any" value="0" size=4 x-webkit-speech>
+		</td>
+
+		<script>
+                inobj1 = $("#vbu1") ;
+                inobj1.keyup(function () {
+                    if (inobj1.val() != 0)
+                         $("#page10md1").show();
+                    else $("#page10md1").hide();
+		});
+		</script>
+
+                </tr>
+                </table>
+                <div id=page10md1 style="display: none;">
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+                <td width=40%>
+		<a href="#tt5" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_PERCENTAGE style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt5" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1>[0.0-100.0]</font>
+		</a>
+		</div>
+		</td>
+
+                <td width=60%>
+		<input id=page10bap1 name="values_bolus[percentage]" type="range" data-mini="true"
+		       size="3" min="0" max="100" value="100" 
+                       data-highlight="true" data-show-value="true" data-popup-enabled="true">
+		</td>
+
+		<tr>
+		</tr>
+
+                <td width=40%>
+		<a href="#tt6" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_END style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt6" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1><div class=T_AMD_HM style="display: inline;"></div></font>
+		</a>
+		</div>
+		</td>
+
+                <td width=60%>
+		<input id=page10t2i name="values_bolus[stop]" type="text" data-mini="true"
+                       size="4" value="">
+		<script>
+		$(function(){ $("#page10t2i").scroller({ lang: ls1.lang,
+                                                         preset: 'datetime', dateFormat : "yy-mm-dd", 
+                                                         timeFormat : "HH:iiZ", separator  : "T" }); });
+		</script>
+		</td>
+
+                </tr>
+                </table>
+                </div>
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+                <td width=40%>
+		<a href="#tt7" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_RATIONS style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt7" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1>[0.0-100.0]</font>
+		</a>
+		</div>
+                </td>
+
+                <td width=60%>
+		<input name="values_meal[measure]" id=vmm1 type="number" data-mini="true"
+                       min=0 max=99 step="any" value="0" size=4 x-webkit-speech>
+                </td>
+
+		<script>
+                inobj2 = $("#vmm1") ;
+                inobj2.keyup(function () {
+                    if (inobj2.val() != 0)
+                         $("#page10md2").show();
+                    else $("#page10md2").hide();
+		});
+		</script>
+
+                </tr>
+                </table>
+                <div id=page10md2 style="display: none;">
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+                <td width=40%>
+		<a href="#tt8" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		<div class=T_DESCRIPTION style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt8" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1><div class=T_ENSALADA_PUNTOS style="display: inline;"></div></font>
+		</a>
+		</div>
+                </td>
+
+                <td width=60%>
+		<input name="values_meal[tag]"   type="text" 
+                       size=20 value="" placeholder="donut"
+                       data-mini="true" x-webkit-speech>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+		<a href="#tt9" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+		   <div class=T_IMAGE style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tt9" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+		<font size=-1><div class=T_PHOTO style="display: inline;"></div></font>
+		</a>
+		</div>
+                </td>
+
+                <td width=60% align=center>
+		   <input id=qimage  name="values_meal[image]"  type="hidden" value="">
+                   <table border=0><tr>
+                   <td>
+
+                   <a href=#qimage1 data-rel=popup 
+                      data-position-to=window data-theme=a
+                      data-inline=true data-transition=none>
+                   <img id=qimage2 width=100 height=85 class="popphoto" src="icons/empty_dish.jpg">
+                   </a>
+                   <div data-role=popup id=qimage1
+                        data-overlay-theme=b data-corners=false>
+                        <a href=# data-rel=back data-role=button data-theme=a data-icon=delete
+                           data-iconpos=notext class=ui-btn-right>Close</a>
+                        <img id=qimage3 class="popphoto" src="icons/empty_dish.jpg" style="max-height:512px;">
+                   </div>
+
+                   </td>
+                   <td>
+                   <button onclick="get_photo_camera(meal_camera_success,camera_fail); return false;" 
+                           data-inline="true" data-mini="true" data-shadow="false">
+                   <div class=T_CAMERA style="display: inline;"></div></button> 
+                   <button onclick="get_photo_gallery(meal_camera_success,camera_fail); return false;" 
+                           data-inline="true" data-mini="true" data-shadow="false">
+                   <div class=T_GALLERY style="display: inline;"></div></button> 
+                   </td>
+                   </tr>
+                   </table>
+                </td>
+
+		<script>
+		    function meal_camera_success ( imageURI ) 
+                    {
+                        console.log('imageURI: ' + imageURI);
+
+		        var image = document.querySelector('#qimage') ;
+		        image.value = imageURI;
+
+		        var image = document.getElementById('qimage2');
+		        image.src = imageURI;
+
+		        var image = document.getElementById('qimage3');
+		        image.src = imageURI;
+		    }
+
+		    function other_camera_success ( imageURI ) 
+                    {
+                        console.log('imageURI: ' + imageURI);
+
+		        var image = document.querySelector('#oimage') ;
+		        image.value = imageURI;
+
+		        var image = document.getElementById('oimage2');
+		        image.src = imageURI;
+
+		        var image = document.getElementById('oimage3');
+		        image.src = imageURI;
+		    }
+
+		    function camera_fail ( message ) 
+                    {
+		        alert('Failed because: ' + message);
+		    }
+
+		    function get_photo_camera ( camera_success, camera_fail )
+                    {
+			navigator.camera.getPicture(camera_success, 
+                                                    camera_fail, 
+                                                    { quality: 80, 
+						      encodingType: Camera.EncodingType.JPEG,
+						      saveToPhotoAlbum: true,
+                                                      destinationType: Camera.DestinationType.FILE_URI }); 
+		    }
+
+		    function get_photo_gallery ( camera_success, camera_fail )
+                    {
+                        navigator.camera.getPicture(camera_success, 
+                                                    camera_fail, 
+                                                    { quality: 80, 
+						      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+                                                      destinationType: Camera.DestinationType.FILE_URI }); 
+		    }
+
+
+                function do_closeonly () 
+                {
+                   console.log('index.html:do_closeonly:Done.');
+
+                   load_data() ;
+                   $('#page-quickmenu').dialog('close') ;
+                }
+
+                function do_nextandclose () 
+                {
+                   console.log('index.html:do_nextandclose:Done.');
+
+                   dbform_fill_nextquick(document.form10x);  
+                   do_closeonly();
+                }
+
+                function do_quick_action_modify ( ) 
+                {
+		   if (document.form10x.elements['values_measure[name]'].value != 0) 
+                        dbform_action_quick(ls1.rmysql_url, document.form10x, do_nextandclose) ;
+                   else dbform_action_quick(ls1.rmysql_url, document.form10x, do_closeonly) ;
+
+                   return false;
+                }
+		</script>
+
+                </tr>
+                </table>
+                </div>
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+                <td colspan=2>
+		<center>
+		  <button name="mmb-update"
+                          data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
+                          onclick="return do_quick_action_modify();"><div class=T_MODIFY style="display: inline;"></div></button>
+		  <button name="mmb-insert"
+                          data-theme="c" data-corners="false" data-inline="true" data-icon="plus"
+                          onclick="document.form10x.elements['values_measure[id]'].value=-1;
+		                   document.form10x.elements['values_meal[id]'].value=-1;
+		                   document.form10x.elements['values_bolus[id]'].value=-1;
+                                   return do_quick_action_modify();"><div class=T_ADD style="display: inline;"></div></button>
+		</center>
+                </td>
+
+                </tr>
+                </table>
+             </form>
+
+             </div>
+
+
+	     <div id=p-qm-o data-role="collapsible" data-theme=c
+                  data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d"
+                  data-collapsed=true data-corners="false">
+	     <h3><div class=T_OTHERS style="display: inline;"></div></h3>
+
+	     <form id=form11x name=form11x action="#" method="post" data-ajax="false">
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+			<input name="values_other[id]"                type="hidden" value="">
+			<input name="values_other[user]"              type="hidden" value="">
+			<input name="values_other[device]"            type="hidden" value="">
+			<input name="values_other[stop]" id="t1gstop" type="hidden" value="">
+
+                <td width=40%>
+                <a href="#ttt1" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_SITUATION style="display: inline;"></div>
+                </a>
+                <div data-role="popup" id="ttt1" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1><div class=T_ANTES_COMER_PUNTOS style="display: inline;"></div></font>
+		</a>
+                </div>
+                </td>
+                <td width=60%>
+			<select name="values_other[name]" data-native-menu="true" data-mini="true">
+			   <option value=""  >&nbsp;</option>
+			   <option value="A0">antes de       desayuno</option>
+			   <option value="D0">despu&eacute;s desayuno</option>
+			   <option value="A1">antes de       comida</option>
+			   <option value="D1">despu&eacute;s comida</option>
+			   <option value="A2">antes de       merienda</option>
+			   <option value="D2">despu&eacute;s merienda</option>
+			   <option value="A3">antes de       cena</option>
+			   <option value="D3">despu&eacute;s cena</option>
+			   <option value="A4">en la noche</option>
+			</select>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+                <a href="#ttt2" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_EVENT style="display: inline;"></div>
+                </a>
+                <div data-role="popup" id="ttt2" class="ui-content" data-theme="a" data-corners="false" style="height:0px;">
+                        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1><div class=T_EJERCICIO_PUNTOS style="display: inline;"></div></font>
+			</a>
+                </div>
+                </td>
+                <td width=60%>
+			<input name="values_other[event]" type="text" 
+                               size=20 value="" placeholder="exercise, illness, ..."
+                               data-mini="true" x-webkit-speech>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+                <a href="#ttt3" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_TYPES style="display: inline;"></div>
+                </a>
+                <div data-role="popup" id="ttt3" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1><div class=T_NADAR_PUNTOS style="display: inline;"></div></font>
+		</a>
+                </div>
+                </td>
+                <td width=60%>
+			<input name="values_other[type]" type="text" 
+                               size=20 value="" placeholder="swimming, walking, ..."
+                               data-mini="true" x-webkit-speech>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+                <a href="#ttt4" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_INTENSITY style="display: inline;"></div>
+                </a>
+                <div data-role="popup" id="ttt4" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1><div class=T_BNA style="display: inline;"></div></font>
+		</a>
+                </div>
+                </td>
+                <td width=60%>
+			<input name="values_other[measure]" type="text" 
+                               size=20 value="" placeholder="low, normal, high"
+                               data-mini="true" x-webkit-speech>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+                <a href="#ttt5" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_INSTANT style="display: inline;"></div>
+                </a>
+                <div data-role="popup" id="ttt5" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1><div class=T_AMD_HM style="display: inline;"></div></font>
+		</a>
+                </div>
+                </td>
+                <td width=60%>
+			<input id=t1g name="values_other[start]" type="text" data-mini="true"
+                               value="" onchange="t1gstop.value=t1g.value" />
+                </td>
+			<script>
+			$(function(){ $("#t1g").scroller({ lang: ls1.lang,
+                                                           preset: 'datetime', dateFormat : "yy-mm-dd", 
+                                                           timeFormat : "HH:iiZ", separator  : "T" }); });
+			</script>
+
+                </tr>
+                <tr>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+                <a href="#tt9" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+                   <div class=T_IMAGE style="display: inline;"></div>
+                </a>
+                <div data-role="popup" id="tt9" class="ui-content" data-theme="a" style="max-width:0px;">
+                <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+                <font size=-1><div class=T_PHOTO style="display: inline;"></div></font>
+                </a>
+                </div>
+                </td>
+
+                <td width=60% align=center>
+                   <input id=oimage  name="values_other[image]"  type="hidden" value="">
+                   <table border=0><tr>
+                   <td>
+
+                   <a href=#oimagel data-rel=popup
+                      data-position-to=window data-theme=a
+                      data-transition=none>
+                   <img id=oimage2 width=100 height=85 class="popphoto" src="icons/detective5.jpg">
+                   </a>
+                   <div data-role=popup id=oimagel data-overlay-theme="b" data-theme="b" data-corners="false">
+		        <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" 
+		           data-iconpos="notext" class="ui-btn-right">Close</a>
+		        <img id=oimage3 class="popphoto" src="icons/detective5.jpg" style="max-height:512px;">
+                   </div>
+
+                   </td>
+                   <td>
+                   <button onclick="get_photo_camera(other_camera_success,camera_fail); return false;"
+                           data-inline="true" data-mini="true" data-shadow="false">
+                   <div class=T_CAMERA style="display: inline;"></div></button> 
+                   <button onclick="get_photo_gallery(other_camera_success,camera_fail); return false;"
+                           data-inline="true" data-mini="true" data-shadow="false">
+                   <div class=T_GALLERY style="display: inline;"></div></button> 
+                   </td>
+                   </tr>
+                   </table>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td colspan=2>
+			<center>
+			  <button name="o-update"
+				  data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
+				  onclick="dbform_action_other(ls1.rmysql_url, document.form11x, do_closeonly);
+					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
+			  <button name="o-insert"
+				  data-theme="c" data-corners="false" data-inline="true" data-icon="plus"
+				  onclick="document.form11x.elements['values_other[id]'].value=-1;
+                                           dbform_action_other(ls1.rmysql_url, document.form11x, do_closeonly);
+					   return false;"><div class=T_ADD style="display: inline;"></div></button>
+			</center>
+                </td>
+
+                </tr>
+                </table>
+	     </form>
+
+	     </div>
+
+
+	     <div id=p-qm-ba data-role="collapsible" data-theme=c
+                  data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d"
+                  data-collapsed=true data-corners="false">
+	     <h3><div class=T_ACTIVATE style="display: inline;"></div></h3>
+
+           <script>
+           function handle_completeActivation(formqba) 
+           {
+	       var ba_pattern=formqba.elements['values_basal_activation[pattern]'].value;
+	       for (var i=0; i<vector_details['basaldef'].length; i++)
+	            if (ba_pattern == vector_details['basaldef'][i]['pattern']) {
+		        formqba.elements['values_basal_activation[neltos]'].value = vector_details['basaldef'][i]['neltos'];
+		        formqba.elements['values_basal_activation[segments]'].value=vector_details['basaldef'][i]['segments'];
+
+		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
+  			var o = "" ;
+ 		        for (i=0; i<segs.length; i++) {
+ 		             if (i == (segs.length-1))
+			          o += segs[i].h ;
+			     else o += segs[i].h + "<-" + segs[i].c + "->" ;
+			}
+		        formqba.elements['segments'].value = o;
+
+	                break;
+	            }
+           }
+           </script>
+
+		<form id=formqba  name=formqba action="#" method="post" data-ajax="false">
+
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+			<input type=hidden   name="values_basal_activation[id]"       value="">
+			<input type=hidden   name="values_basal_activation[user]"     value="">
+			<input type=hidden   name="values_basal_activation[device]"   value="">
+
+			<input type=hidden   name="values_basal_activation[segments]" value="">
+
+                <td width=40%>
+		<a href="#tttt1" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+		   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_PATTERN style="display: inline;"></div>
+		</a>
+		<div data-role="popup" id="tttt1" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>normal, ...</font>
+		</a>
+		</div>
+                </td>
+                <td width=60%>
+			<SELECT id=ba_pattern name="values_basal_activation[pattern]"  
+                                onchange="handle_completeActivation(formqba);
+					  return false;"
+                                data-mini="true"></SELECT>
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+		<a href="#tttt2" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_N_SECTIONS style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="tttt2" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>0, 1, ...</font>
+		</a>
+		</div>
+		</td>
+                <td width=60%>
+			<input type=text   name="values_basal_activation[neltos]" readonly>
+		</td>
+
+		</tr>
+                <tr>
+
+                <td width=40%>
+		<a href="#tttt3" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+                        Segs.
+                </a>
+		<div data-role="popup" id="tttt3" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>{h: hh:mm; c: u}, ...</font>
+		</a>
+		</div>
+		</td>
+                <td width=60%>
+			<input id=ba_segments type=text   name="segments" value="" readonly>
+		</td>
+
+		</tr>
+		<tr>
+
+                <td width=40%>
+		<a href="#tttt4" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+		   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_PERCENTAGE style="display: inline;"></div>
+		</a>
+		<div data-role="popup" id="tttt4" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>[0.0-100.0]</font>
+		</a>
+		</div>
+                </td>
+                <td width=60%>
+			<input id=bap1 name="values_basal_activation[percentage]" type="range"  data-mini="true"
+			       size="3" min="0" max="100" value="100" data-show-value="true" data-popup-enabled="true">
+                </td>
+
+                </tr>
+                <tr>
+
+                <td width=40%>
+		<a href="#tttt5" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+		   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_INSTANT style="display: inline;"></div>
+		</a>
+		<div data-role="popup" id="tttt5" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1><div class=T_AMD_HM style="display: inline;"></div></font>
+		</a>
+		</div>
+                </td>
+                <td width=60%>
+			<input id=t1f name="values_basal_activation[start]" type="text"  data-mini="true"
+                               size="20" value="">
+                </td>
+			<script>
+			$(function(){ $("#t1f").scroller({ lang: ls1.lang,
+                                                           preset: 'datetime', dateFormat : "yy-mm-dd", 
+                                                           timeFormat : "HH:iiZ", separator  : "T" }); });
+			</script>
+
+                </tr>
+                <tr>
+
+
+                <td colspan=2>
+			<center>
+			  <button name="a-update"
+				  data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
+				  onclick="if (document.formqba.elements['values_basal_activation[pattern]'].value != '')
+                                                dbform_action_basal_act(ls1.rmysql_url, document.formqba, do_closeonly);
+ 					   else alert('error: empty pattern');
+					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
+			  <button name="a-insert"
+				  data-theme="c" data-corners="false" data-inline="true" data-icon="plus"
+				  onclick="if (document.formqba.elements['values_basal_activation[pattern]'].value != '') {
+					       document.formqba.elements['values_basal_activation[id]'].value=-1;
+                                               dbform_action_basal_act(ls1.rmysql_url, document.formqba, do_closeonly);
+ 					   } else alert('error: empty pattern');
+					   return false;"><div class=T_ACTIVATE2 style="display: inline;"></div></button>
+			</center>
+                </td>
+
+                </tr>
+                </table>
+
+		</form>
+
+	     </div>
+
+
+	     <div id=p-qm-bd data-role="collapsible" data-theme=c
+                  data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d"
+                  data-collapsed=true data-corners="false">
+	     <h3><div class=T_DEFINE style="display: inline;"></div></h3>
+
+		<form id=formbd  name=formbd action="#" method="post" data-ajax="false">
+			<input type=hidden   name="values_basaldef,id"      value="-1">
+			<input type=hidden   name="values_basaldef,user"    value="">
+			<input type=hidden   name="values_basaldef,device"  value="">
+
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
+                <tr>
+
+           <script>
+           function handle_completeDefinition(formbd) 
+           {
+	       var ba_pattern = formbd.elements['values_basaldef,pattern'].value;
+
+	       var basaldef_length = 0;
+	       if (typeof vector_details['basaldef'].length !== 'undefined')
+	           basaldef_length = vector_details['basaldef'].length;
+
+	       for (var i=0; i<basaldef_length; i++)
+	            if (ba_pattern == vector_details['basaldef'][i]['pattern']) 
+                    {
+		        formbd.elements['values_basaldef,id'].value     = vector_details['basaldef'][i]['id'];
+		        formbd.elements['values_basaldef,user'].value   = vector_details['basaldef'][i]['user'];
+		        formbd.elements['values_basaldef,device'].value = vector_details['basaldef'][i]['device'];
+
+		        formbd.elements['neltos'].value = vector_details['basaldef'][i]['neltos'];
+		        var select2 = $("#neltos").selectmenu().selectmenu("refresh", true) ;
+
+			var o = ui_basal_sections(vector_details['basaldef'][i]['neltos'], 
+ 				                  vector_details['basaldef'][i]['segments']);
+			$("#basal_sections").html(o).trigger("refresh");
+
+                        formbd.total_area.value = ui_basal_area(vector_details['basaldef'][i]['segments'],"00:00","23:59");
+	                break;
+	            }
+           }
+           </script>
+
+                <td width=40%>
+		<a href="#ttttt1" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+                        <div class=T_PATTERN style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="ttttt1" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>normal, ...</font>
+		</a>
+		</div>
+		</td>
+                <td width=60%>
+                        <input type="text" id="bd_pattern" name="values_basaldef,pattern" data-mini="true"
+                               list="bd_pattern_list" onchange="handle_completeDefinition(document.formbd); 
+     							        return false;" x-webkit-speech>
+                        <datalist id="bd_pattern_list"></datalist>
+		</td>
+
+		<tr>
+		</tr>
+
+                <td width=40%>
+		<a href="#ttttt2" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			<div class=T_N_SECTIONS style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="ttttt2" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>(1, ..., 23)</font>
+		</a>
+		</div>
+		</td>
+                <td width=60%>
+			<select id=neltos name="neltos" data-mini="true"
+				onchange='ne = this.selectedIndex;
+					  var values_basal = ui_basal_form2def(document.formbd); 
+					  var o = ui_basal_sections(ne,values_basal["segments"]); 
+					  $("#basal_sections").html(o).trigger("refresh");
+                                          document.formbd.total_area.value = ui_basal_area(values_basal["segments"],"00:00","23:59");
+       					  return false;'> 
+			<script>
+			  ne = document.formbd.neltos.selectedIndex ;
+			  for (i=0; i<24; i++)
+			       if (i == ne)
+				    document.write("<option value=\"" + i + "\" SELECTED >" + i + "</option>\n") ;
+			       else document.write("<option value=\"" + i + "\"          >" + i + "</option>\n") ;
+			</script>
+			</select>
+		</td>
+
+		<tr>
+		</tr>
+
+                <td colspan=2>
+			<div id="basal_sections" style="margin: 3px; overflow: auto;"></div>
+		</td>
+
+		<tr>
+		</tr>
+
+                <tr>
+
+                <td width=40%>
+		<a href="#ttttt3" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+                        <div class=T_TOTALPERDAY style="display: inline;"></div>
+                </a>
+		<div data-role="popup" id="ttttt3" class="ui-content" data-theme="a" style="max-width:0px;">
+		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			<font size=-1>0, 1, ...</font>
+		</a>
+		</div>
+		</td>
+                <td width=60%>
+                        <input type="text" id="total_area" name="total_area" data-mini="true" readonly>
+		</td>
+
+		<tr>
+		</tr>
+
+
+                <td colspan=2>
+			<center>
+			  <button name="a-update"
+				  data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
+				  onclick="if (document.formbd.elements['values_basaldef,pattern'].value != '')
+					        dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
+						   load_data();
+                                                   alert('updated basal available');
+					        });
+ 					   else alert('error: empty pattern');
+					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
+			  <button name="a-insert"
+				  data-theme="c" data-corners="false" data-inline="true" data-icon="plus"
+				  onclick="if (document.formbd.elements['values_basaldef,pattern'].value != '') {
+					       document.formbd.elements['values_basaldef,id'].value=-1;
+					       dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
+						   load_data();
+                                                   alert('new basal available');
+					       });
+ 					   } else alert('error: empty pattern');
+					   return false;"><div class=T_DEFINE style="display: inline;"></div></button>
+			</center>
+		</td>
+
+                </tr>
+                </table>
+
+		</form>
+
+	     </div>
+
+        </div>
+
+        </div>
+
+</div>
+
+
+<div id=navmenu
+     data-role="panel" data-animate="fade" data-position="left" 
+     data-display="overlay" data-theme="a" style="width: 270px">
+     <div align=right>
+     <a href="#page10" data-rel="close" data-role="button" data-theme="a" data-mini="true"
+		       data-icon="delete" data-inline="true"><div class=T_CLOSE style="display: inline;"></div></a>
+     </div>
+
+     <br>
+
+     <ul data-role="listview" data-inset="true" class="ui-icon-alt">
+     <li><a href="#page11">
+        <img src="icons/add2.png" height=40px>
+        <h2><div class=T_ANNOTATE style="display: inline;"></div></h2>
+        <p>Voice, meal, ...</p></a>
+     </li>
+     <li><a href="#page10">
+        <img src="icons/glyphish/83-calendar.png" height=40px>
+        <h2><div class=T_DIARY style="display: inline;"></div></h2>
+        <p>Day, week, ...</p></a>
+     </li>
+     <li><a href="#page24">
+        <img src="icons/charts.png" height=40px>
+        <h2><div class=T_TRACE style="display: inline;"></div></h2>
+        <p>Avg, per hour, ...</p></a>
+     </li>
+     <li><a href="#page23"
+	       onclick='o=db_js2csv(vector_details,ls1.user_login,ls1.user_id);
+			$("#ta16").html(o).trigger("create");
+			middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
+			$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
+			$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
+			return true;'>
+        <img src="icons/glyphish/44-shoebox.png" height=38px>
+        <h2><div class=T_INTERCHANGE style="display: inline;"></div></h2>
+        <p>Import, export, ...</p></a>
+     </li>
+     <li><a href="#page25">
+        <img src="icons/glyphish/106-sliders.png" height=38px>
+        <h2><div class=T_CONFIG style="display: inline;"></div></h2>
+        <p>Idiom, connection, ...</p></a>
+     </li>
+     </ul>
+
+</div>
+
+
+<script>
+	function isMobile() {
+	    return /^file:\/{3}[^\/]/i.test(window.location.href) 
+	        && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent) ;
+	}
+
+        function change_idiom() 
+        {
+		// tags
+		T=lang_translate(ls1.lang);
+		lang_loadtags();
+
+                // ui
+		if (ls1.lang=="es") {
+                    $('#es').prop('checked',true);
+                    $("#idiom-icon1").attr({ src: "icons/es.jpg", alt: "spanish" });
+                }
+		if (ls1.lang=="en") {
+                    $('#en').prop('checked',true);
+                    $("#idiom-icon1").attr({ src: "icons/en.gif", alt: "english" });
+                }
+	}
+
+        function load_monthandyear ( select_month, select_year )
+        {
+		for (i=1; i<=12; i++)
+		     if (i == ls1.month)
+                          select_month.append('<option value=' + i + ' selected>' + i + '</option>');
+                     else select_month.append('<option value=' + i + '         >' + i + '</option>');
+                select_month.selectmenu();
+                select_month.selectmenu('refresh', true);
+
+                first_year = parseInt(ls1.year) - 5;
+                last_year  = parseInt(ls1.year) + 5;
+                for (i=first_year; i<last_year; i++)
+                     if (i == ls1.year)
+                          select_year.append('<option value=' + i + ' selected>' + i + '</option>');
+                     else select_year.append('<option value=' + i + '         >' + i + '</option>');
+                select_year.selectmenu();
+                select_year.selectmenu('refresh', true);
+        }
+
+        function load_ui_forms ()
+        {
+            try 
+            {
+                // quick
+		dbform_fill0_quick(document.form10x);
+		dbform_fill0_other(document.form11x);
+		dbform_fill0_basalactivation(document.formqba) ;
+		dbform_fill0_basaldefinition(document.formbd) ;
+
+                // config - user 
+		document.formuc.elements['values_user[oldid]'].value    = ls1.user_id;
+		document.formuc.elements['values_user[oldlogin]'].value = ls1.user_login;
+		document.formuc.elements['values_user[newid]'].value    = ls1.user_id;
+		document.formuc.elements['values_user[newlogin]'].value = ls1.user_login;
+
+		document.formaj1.elements['values_user[aftermeal_hours]'].value = ls1.aftermeal_hours;
+		document.formaj1.elements['values_user[newday_hour]'].value     = ls1.newday_hour;
+
+                // config - conn 
+                document.formsync.elements['user_login'].value = ls1.user_login;
+		document.formra.elements['rmysql_url'].value = ls1.rmysql_url ;
+
+                // config - ajust 
+	        $("#ajust-icon2").html("<font color=gray size=-1>" + 
+				       ls1.aftermeal_hours + ", " + ls1.newday_hour + 
+				       "</font>");
+
+                // quick2
+		dbform_fill0_quick_2(document.form12x);
+
+                // basal-pattern-list
+		db_db2basaldatalist(vector_details,"#bd_pattern_list","normal",ls1.user_id) ;
+		db_db2basalselect  (vector_details,"#ba_pattern","normal",ls1.user_id) ;
+            } 
+            catch (e) { return -1; }
+        }
+
+        function load_ui ()
+        {
+              middlefix = ls1.year + "-" + ('0' + ls1.month).slice(-2) + "-" + ('0' + ls1.today).slice(-2) ;
+
+                // * import-export-sync
+                load_monthandyear($("#select-month2"), $("#select-year2")) ;
+
+                // * seguimiento
+                load_monthandyear($("#select-month3"), $("#select-year3")) ;
+                stats_avg_get($("#container20"),5) ;
+                $("#slider20x").on("change",function(e){stats_avg_get($("#container20"),e.target.value);}) ;
+
+                // * diario
+                load_monthandyear($("#select-month1"), $("#select-year1")) ;
+                if (typeof ls1.view  === 'undefined') 
+                    ls1.view = "D1";
+
+                o = "";
+                switch (ls1.view)
+                {
+                  case "D1":
+		       o = daytag_show_days(ls1.year,ls1.month,ls1.today,1,vector_details,"page10");
+                       break;
+                  case "D2":
+		       o = daytag_show_days(ls1.year,ls1.month,ls1.today,2,vector_details,"page10");
+                       break;
+                  case "D3":
+		       o = daytag_show_days(ls1.year,ls1.month,ls1.today,3,vector_details,"page10");
+                       break;
+                  case "D5":
+		       o = daytag_show_days(ls1.year,ls1.month,ls1.today,5,vector_details,"page10");
+                       break;
+                  case "D7":
+		       o = daytag_show_days(ls1.year,ls1.month,ls1.today,7,vector_details,"page10");
+                       break;
+                  case "D14":
+	    	       o = daytag_show_days(ls1.year,ls1.month,ls1.today,14,vector_details,"page10");
+                       break;
+                  case "D31":
+		       o = daytag_show_month(ls1.year, ls1.month, ls1.today, cal_head, vector_details,"page10");
+                       break;
+                  case "TH":
+                       o = daytag_table_horizontal(ls1.year, ls1.month, vector_details, target_names, target_tags, "page10") +
+         		   "<br>";
+                       break;
+                  case "TV":
+                       o = daytag_table_vertical(ls1.year, ls1.month, vector_details, target_names, target_tags, "page10") +
+         		   "<br>";
+                       break;
+                  case "TR":
+                       o = daytag_table_compact(vector_details,target_names,target_tags,"page10") +
+         		   "<br>";
+                       break;
+                  }
+		  try { $("#diary_div").html(o).trigger("create"); } catch (e) {}
+
+                  // the rest...
+	          document.addEventListener("menubutton",  function() { $("#navmenu").panel("open"); }, false); 
+		  $("#navmenu").panel().trigger("create");
+
+                  load_ui_forms() ;
+        }
+
+        function load_data ()
+        {
+		vector_details = db_db2js(ls1.rmysql_url,working_grid,ls1.user_id,load_ui) ;
+        }
+
+        function load_database ()
+        {
+                db_importFromFile(ls1.rmysql_url, 'js/db/em.webdb', load_data);
+        }
+
+
+	/* checking HTML5 support */
+	if ( !(window.File && window.FileReader && window.FileList && window.Blob))
+	       alert('The File APIs are not fully supported in this browser.');
+        if ( !('localStorage' in window && window['localStorage'] !== null) )
+	       alert('The localStorage APIs are not fully supported in this browser.');
+
+        /* request filesystem quota */
+        window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem || window.moz_requestFileSystem;
+        if (typeof navigator.webkitPersistentStorage !== 'undefined')
+               navigator.webkitPersistentStorage.requestQuota(50*1024*1024, function(availableBytes) {
+                   ls1.fs_quota = availableBytes;
+	       }
+	);
+
+        /* load data from localStorage */
+	var ls1 = window.localStorage;
+
+	/* initialized default values */
+        dt = new XDate() ;
+        if (typeof ls1.year  === 'undefined') ls1.year  = dt.getFullYear() ;
+        if (typeof ls1.month === 'undefined') ls1.month = dt.getMonth() + 1 ;
+                                              ls1.today = dt.getDate() ;
+
+	/* starting user information */
+        if (typeof ls1.user_login  === 'undefined') {
+            ls1.user_login      = "acaldero" ;
+            ls1.user_id         = "1" ;        
+            ls1.lang            = "es" ;       
+            ls1.aftermeal_hours = 2 ;
+            ls1.newday_hour     = 5 ;
+
+	    ls1.connected       = false ;
+            ls1.rmysql_url        = "" ;
+        }
+
+	/* starting device information */
+        if (isMobile()) {
+             ls1.device_id = "s1" ; // TODO: device.uuid;
+        } else {
+             ls1.device_id = "pc1" ;       
+        }
+
+        /* translation */
+	T=lang_translate(ls1.lang);
+	$(document).ready(change_idiom) ;
+
+        /* targets */
+        target_tags  = new Array('A0','D0','A1','D1','A2','D2','A3','D3','A4');
+	target_names = new Array('A<sub>DE</sub>','D<sub>DE</sub>',
+                                 'A<sub>CO</sub>','D<sub>CO</sub>',
+                                 'A<sub>ME</sub>','D<sub>ME</sub>',
+                                 'A<sub>CE</sub>','D<sub>CE</sub>','N') ;
+
+	/* table headings */
+	cal_head = new Array(T['MONDAY'], T['TUESDAY'], T['WEDNESDAY'], T['THURSDAY'], T['FRIDAY'], T['SATURDAY'], T['SUNDAY']) ;
+
+        /* dates to be shown */ 
+        this_year  = ls1.year ;
+        this_month = ls1.month ;
+
+        working_grid = new Object() ;
+        working_grid[this_year] = new Object() ;
+        working_grid[this_year][this_month] = new Object() ;
+
+        last = new Date(this_year, this_month, 0).getDate();
+        for (i=1; i<=last; i++)
+             working_grid[this_year][this_month][i] = 1 ;
+
+        /* initialize code */ 
+	if (isMobile()) {
+	     document.addEventListener("deviceready", function() { 
+                         try { navigator.splashscreen.hide(); } catch (e) {} 
+                         deviceReadyDeferred.resolve(); }, true);
+        } else { 
+             deviceReadyDeferred.resolve() ;
+        }
+</script>
+
+
+</BODY>
+
+</HTML>
+
