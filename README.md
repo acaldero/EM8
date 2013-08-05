@@ -14,6 +14,6 @@ Event Monitor (EM8)
     4) cordova build android
     5) cp ./platforms/android/bin/em8-debug.apk <your phone>
 
-   Best regards,
-   Alejandro Calderon Mateos
-   http://www.arcos.inf.uc3m.es/~acaldero/
+    Best regards,
+    Alejandro Calderon Mateos
+    http://www.arcos.inf.uc3m.es/~acaldero/
