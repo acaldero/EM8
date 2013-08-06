@@ -379,8 +379,7 @@
                 </td>
                 <td width=35%>
                   <center><img height=22 src="icons/before-meal-4.gif"></center>
-		<select name="values_measure[name][before]" id="form12gnB" data-mini="true" 
-			onchange="form12bnB.value=form12mnB.value=form12gnB.value;" data-native-menu="true">
+		<select name="values_measure[name][before]" id="form12gnB" data-mini="true" data-native-menu="true">
 			   <option value="A0">desayuno</option>
 			   <option value="A1">comida</option>
 			   <option value="A2">merienda</option>
@@ -391,8 +390,7 @@
                 </td>
                 <td width=35%>
                   <center><img height=22 src="icons/after-meal.jpg"></center>
-		<select name="values_measure[name][after]" id="form12gnA" data-mini="true" 
-			onchange="form12bnA.value=form12mnA.value=form12gnA.value;" data-native-menu="true">
+		<select name="values_measure[name][after]" id="form12gnA" data-mini="true" data-native-menu="true">
 			   <option value="D0">desayuno</option>
 			   <option value="D1">comida</option>
 			   <option value="D2">merienda</option>
@@ -410,12 +408,10 @@
                 </td>
                 <td width=35%>
 		<input name="values_measure[start][before]" type="text"  data-mini="true" size=18
-		       id=form12gsB value="" onchange="form12msB.value=form12bsB.value=form12gsB.value; 
-                                                       form12msA.value=form12bsA.value=form12gsA.value = dbform_addtwohours(form12gsB.value); return false;" />
+		       id=form12gsB value="" onchange="form12gsA.value = dbform_addtwohours(form12gsB.value); return false;" />
 		</td>
                 <td width=35%>
-		<input name="values_measure[start][after]"  type="text"  data-mini="true" size=18
-		       id=form12gsA value="" onchange="form12msA.value=form12bsA.value=form12gsA.value; return false;" />
+		<input name="values_measure[start][after]"  type="text"  data-mini="true" size=18 id=form12gsA value="" />
 		</td>
 		</tr>
 	   </table>
@@ -631,7 +627,11 @@
 		<center>
 		  <button name="mmb-insert"
                           data-theme="a" data-corners="false" data-inline="true" data-icon="plus" data-mini="true"
-                          onclick="$('#wquick').effect('drop', {}, 700, function() {
+                          onclick="form12msA.value=form12bsA.value=form12gsA.value; 
+		                   form12msB.value=form12bsB.value=form12gsB.value; 
+			           form12bnB.value=form12mnB.value=form12gnB.value;
+			           form12bnA.value=form12mnA.value=form12gnA.value;
+                                   $('#wquick').effect('drop', {}, 700, function() {
 				   $('#wquick').removeAttr('style').hide().fadeIn();
                                    });
 				   dbform_action_quick_2(ls1.rmysql_url, document.form12x, load_data);
@@ -2234,6 +2234,16 @@
         last = new Date(this_year, this_month, 0).getDate();
         for (i=1; i<=last; i++)
              working_grid[this_year][this_month][i] = 1 ;
+
+        var ndate = new Date(this_year, this_month, last+1);
+        var lastd = ndate.getDate();
+        var lastm = ndate.getMonth();
+        var lasty = ndate.getFullYear();
+        if (lasty != this_year)
+            working_grid[lasty][lastm] = new Object() ;
+        if (lastm != this_month)
+            working_grid[lasty][lastm] = new Object() ;
+        working_grid[lasty][lastm][lastd] = 1 ;
 
         /* initialize code */ 
 	if (isMobile()) {

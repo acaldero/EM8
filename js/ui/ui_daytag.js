@@ -712,7 +712,11 @@
 	for (list_day = 1; list_day <= days_in_month; list_day++) 
 	{
 		k  = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + list_day).slice(-2) ;
-		k2 = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + (list_day+1)).slice(-2) ;
+	      //k2 = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + (list_day+1)).slice(-2) ;
+                var ndate  = new Date(year,month,list_day+1);
+	        k2 =        ndate.getFullYear() + "-" + 
+                     ('0' + ndate.getMonth()).slice(-2) + "-" + 
+                     ('0' + ndate.getDate()).slice(-2) ;
 
                 currday = XDate(year,month-1,list_day,14,00,00) ;
                 k0 = currday.toUTCString("yyyy-MM-dd HH:mm:ssz") ;
