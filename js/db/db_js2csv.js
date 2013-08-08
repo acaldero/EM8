@@ -27,6 +27,10 @@
 
 		      continue;
 		}
+		if ('basalact' == k_day)
+		{
+		      continue;
+		}
 
 		// order members of a object (remember there is not associative arrays in javascript)...
 		var details_order = [];

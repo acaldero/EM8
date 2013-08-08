@@ -206,11 +206,9 @@
         {
              keyh = parseInt(key.slice(0,2),10);
              keym = parseInt(key.slice(3,5),10);
-//console.error('day*_summary: ' + hour_begin + ' <= ' + keyh + '/' + key.slice(0,2) + ' < ' + hour_end + ' (' + defdate + '/' + key + ')'); // DEBUG
 
              if (keyh <  hour_begin) continue ;
              if (keyh >= hour_end)   continue ;
-//console.error('day*_summary:     added ' + keyh + ':' + keym + ' to ' + defdate + ' ! '); // DEBUG
 
              key_order = keyh*60 + keym ;
              details_order.push([key_order, key]);
@@ -273,7 +271,7 @@
 			         if ( /^file:\/{3}[^\/]/i.test(window.location.href) && 
                                       /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent) ) 
                                       srcimage = values_meal['image'] ;
-                                 else srcimage = "https://127.000.000.01/em.8/php/sync/" +
+                                 else srcimage = ls1.remote_storage_img + "/" +
                                                  values_meal['user'] + "/" +  
                                                  values_meal['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
 
@@ -317,14 +315,11 @@
 				    "   <td align=center rowspan=3 width=85%>\n" +
 				    "    <a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
 				    "       data-position-to=window data-theme=a " + 
-				    "       data-inline=true data-transition=fade>" + meal_image1 + "</a>" +
+				    "       data-transition=none>" + meal_image1 + "</a>" +
 				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
-				    "         data-overlay-theme=b " + 
-				    "         data-corners=false data-tolerance=\"30,15\">" +
+				    "         data-overlay-theme=b data-theme=a data-corners=false>" +
 				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
-				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + 
-				    "         " + meal_image2 +
-				    "    </div>" +
+				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + meal_image2 + "</div>" +
 				    "     <br><font size=2><b>" + details[k_hour][k_type]['tag'] + "</b></font>" +
 				    "   </td>\n" +
 				    "   </tr>\n" +
@@ -718,7 +713,7 @@
                      ('0' + ndate.getMonth()).slice(-2) + "-" + 
                      ('0' + ndate.getDate()).slice(-2) ;
 
-                currday = XDate(year,month-1,list_day,14,00,00) ;
+                currday = XDate(year,month-1,list_day,14,30,00) ;
                 k0 = currday.toUTCString("yyyy-MM-dd HH:mm:ssz") ;
                 k0 = k0.substr(0,10) + 'T' + k0.substr(11);
 
@@ -795,7 +790,7 @@
 
   function daytag_show_days ( year, month, day, ndays, vector_details, back_url )
   {
-      firstday = XDate(year,month-1,day,14,00,00) ;
+      firstday = XDate(year,month-1,day,14,30,00) ;
 
       u = "<table cellpadding=0 cellspacing=0 border=1 " +
           "       style=\"border-collapse: collapse; border-style:solid; border-color:#a0a0a0; line-height: 18px;\"><tr>\n" ;
@@ -869,6 +864,7 @@
 	for (i in vector_details) 
         {
              if ("basaldef" == i) continue ;
+             if ("basalact" == i) continue ;
 
 	     dt = new XDate(i) ;
 	     dc = " <div data-role=popup  id=dc" + dt.getDate() + " data-corners=false >" + 
@@ -891,6 +887,7 @@
 	     for (i in vector_details)
 	     {
                   if ("basaldef" == i) continue ;
+                  if ("basalact" == i) continue ;
 
 		  o = daytag_details(month, year, vector_details[i], target_tags[j], i, ls1.newday_hour, 24, back_url) ;
 		  if (o.empty == 1) 
@@ -933,6 +930,7 @@
 	for (i in vector_details)
 	{
              if ("basaldef" == i) continue ;
+             if ("basalact" == i) continue ;
 
 	     dt = new XDate(i) ;
 	     dc = " <div data-role=popup  id=dc" + dt.getDate() + ">" + 
@@ -992,6 +990,7 @@
 	for (i in vector_details)
 	{
                 if ("basaldef" == i) continue ;
+                if ("basalact" == i) continue ;
 
 		dt = new XDate(i) ;
 		ih = dt.getDate() ;

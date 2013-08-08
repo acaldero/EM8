@@ -41,6 +41,8 @@
 
   function dbform_action_db_other ( dbinfo, values_other, ok_handler, ko_handler )
   {
+        var Qs = new Array() ;
+
 	// action - other
 	if (-1 == values_other['id']) // no existe
 	     if ("" != values_other['event'])
@@ -49,12 +51,16 @@
 	else // existe
 		  Q = db_asocArray2update("events",values_other,'id');
 
-        if (Q != "")
-            db_execute(dbinfo,Q,ok_handler,ko_handler) ;
+        if (Q != "") {
+            Qs.push(Q);
+            db_execute(dbinfo, Qs, ok_handler, ko_handler) ;
+        }
   }
 
   function dbform_action_db_basal_act ( dbinfo, values_basal_activation, ok_handler, ko_handler )
   {
+        var Qs = new Array() ;
+
 	if (-1 == values_basal_activation['id']) // no existe
 	     if (values_basal_activation['percentage'] != 0)
 		  Q = db_asocArray2insert("basal_activations",values_basal_activation,'id');
@@ -62,12 +68,16 @@
 	else // existe
 		  Q = db_asocArray2update("basal_activations",values_basal_activation,'id');
 
-        if (Q != "")
-            db_execute(dbinfo,Q,ok_handler,ko_handler) ;
+        if (Q != "") {
+            Qs.push(Q);
+            db_execute(dbinfo, Qs, ok_handler, ko_handler) ;
+        }
   }
 
   function dbform_action_db_basal_def ( dbinfo, values_basal_definition, ok_handler, ko_handler )
   {
+        var Qs = new Array() ;
+
 	if (-1 == values_basal_definition['id']) // no existe
 	     if (0 != values_basal_definition['neltos'])
 		  Q = db_asocArray2insert("basal_definitions",values_basal_definition,'id');
@@ -75,8 +85,10 @@
 	else // existe
 		  Q = db_asocArray2update("basal_definitions",values_basal_definition,'id');
 
-        if (Q != "")
-            db_execute(dbinfo,Q,ok_handler,ko_handler) ;
+        if (Q != "") {
+            Qs.push(Q);
+            db_execute(dbinfo, Qs, ok_handler, ko_handler) ;
+        }
   }
 
   function dbform_action_db_user ( dbinfo, new_id, old_id )
@@ -576,19 +588,24 @@
                            $("#page10md2").show();
                       else $("#page10md2").hide();
 
+              var image_src = "" ;
+	      if (values_meal['image'] != "")
+	           image_src = values_meal['image'] ;
+	      else image_src = "icons/meal2.png" ;
+
 	      var image = document.getElementById('qimage2');
 	      if (image != null)
-	          image.src = values_meal['image'] ;
+	          image.src = image_src ;
 
 	      var image = document.getElementById('qimage3');
 	      if (image != null)
-	          image.src = values_meal['image'] ;
+	          image.src = image_src ;
           }
   }
 
   function dbform_fill2_other ( form, json_other )
   {
-          values_other   = JSON.parse(unescape(json_other)) ;
+          values_other = JSON.parse(unescape(json_other)) ;
 
           dbform_fill0_other(form, values_other['start'], values_other['name']) ;
 

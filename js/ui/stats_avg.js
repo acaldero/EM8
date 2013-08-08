@@ -78,7 +78,7 @@
                 htmlo += "<tr>" ;
                 htmlo += "<td align=center><font color=navy><b>" + ndays + "</b><br><font size=-1><b>days</b></font></font></td>" ;
                 htmlo += "<td align=center " + td_style + "><img height=40 src='icons/injection2.png'></td>" ;
-                htmlo += "<td align=center " + td_style + "><img height=40 src='icons/meals2.jpg'></td>" ;
+                htmlo += "<td align=center " + td_style + "><img height=35 src='icons/meals2.jpg'></td>" ;
                 htmlo += "<td align=center " + td_style + "><img height=40 src='icons/measurement2.png'></td>" ;
                 htmlo += "</tr>" ;
 
