@@ -165,64 +165,63 @@
 
 
                 // 2.- get data
-		dat_bbyt = "[ " ;
-		dat_mbyt = "[ " ;
-		dat_gbyt = "[ " ;
+		options1.series = new Array() ;
+		options2.series = new Array() ;
+		options3.series = new Array() ;
+
                 for (i in vector_details)
                 {
+                   if ("basaldef" == i) continue;
+                   if ("basalact" == i) continue;
+
                    dt = new XDate(i) ;
                    dt.addDays(1) ;
                    ii = dt.toString("yyyy-MM-dd") ;
 
-		   dat_bbyt += "{ name: '" + dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + "', data: [ " ;
-		   dat_mbyt += "{ name: '" + dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + "', data: [ " ;
-		   dat_gbyt += "{ name: '" + dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate() + "', data: [ " ;
+                   data1 = new Array() ;
+                   data2 = new Array() ;
+                   data3 = new Array() ;
+
+		   dat_name = dt.getFullYear() + "-" + (dt.getMonth()+1) + "-" + dt.getDate();
+		   data1.name = data2.name = data3.name = dat_name ;
+
+		   data1.data = new Array() ;
+		   data2.data = new Array() ;
+		   data3.data = new Array() ;
+
 		   for (j=0; j<target_tags.length; j++)
 		   {
-			k = daytag_details_name(vector_details[i],target_tags[j],ls1.newday_hour,24) ;
-			if (k.empty == 1) 
-			    if (vector_details[ii])
-				k = daytag_details_name(vector_details[ii],target_tags[j],0,ls1.newday_hour) ;
+                        var kBU = 0 ;
+                        var kMU = 0 ;
+                        var kGU = 0 ;
 
-		       if (k.BU > 0)
-			    dat_bbyt += k.BU ;
-		       else dat_bbyt += "0" ;
+			    k1 = daytag_details_name(vector_details[i],target_tags[j],ls1.newday_hour,24) ;
+			if (vector_details[ii])
+			    k2 = daytag_details_name(vector_details[ii],target_tags[j],0,ls1.newday_hour) ;
 
-		       if (k.MU > 0)
-			    dat_mbyt += k.MU ;
-		       else dat_mbyt += "0" ;
+		       if (k1.BU > 0) kBU += parseInt(k1.BU) ;
+		       if (k2.BU > 0) kBU += parseInt(k2.BU) ;
 
-		       if (k.GU > 0)
-			    dat_gbyt += k.GU ;
-		       else dat_gbyt += "0" ;
+		       if (k1.MU > 0) kMU += parseInt(k1.MU) ;
+		       if (k2.MU > 0) kMU += parseInt(k2.MU) ;
 
-		       if (j != (target_tags.length-1)) {
-			   dat_bbyt += ", " ;
-			   dat_mbyt += ", " ;
-			   dat_gbyt += ", " ;
-                       }
+		       if (k1.GU > 0) kGU += parseInt(k1.GU) ;
+		       if (k2.GU > 0) kGU += parseInt(k2.GU) ;
+
+		       data1.data.push(kBU) ;
+		       data2.data.push(kMU) ;
+		       data3.data.push(kGU) ;
 		   }
-		   dat_bbyt += "] }" ;
-		   dat_mbyt += "] }" ;
-		   dat_gbyt += "] }" ;
 
-		   dat_bbyt += ",\n " ;
-		   dat_mbyt += ",\n " ;
-		   dat_gbyt += ",\n " ;
+		   options1.series.push(data1) ;
+		   options2.series.push(data2) ;
+		   options3.series.push(data3) ;
 		}
-		dat_bbyt += " ];" ;
-		dat_mbyt += " ];" ;
-		dat_gbyt += " ];" ;
 
 
                 // 3.- building the chart
-                options1.series = eval(dat_bbyt) ;
 		chart1 = new Highcharts.Chart(options1);
-
-                options2.series = eval(dat_mbyt) ;
 		chart2 = new Highcharts.Chart(options2);
-
-                options3.series = eval(dat_gbyt) ;
 		chart3 = new Highcharts.Chart(options3);
         }
 

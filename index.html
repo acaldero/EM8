@@ -93,14 +93,18 @@
                 <td align=center width=2%>
                 <form id=form14a action=#page10  method=post data-ajax="true">
                     <select name="d_month" id="select-month1" data-theme="f" data-native-menu="true"
-                            onchange="ls1.month=this.options[this.selectedIndex].value;this.form.submit()">
+                            onchange="ls1.month=this.options[this.selectedIndex].value;
+				      working_grid=set_working_grid(ls1);
+        			      load_database();">
                     </select>
                 </form>
                 </td>
                 <td align=center width=2%>
                 <form id=form14b action=#page10  method=post data-ajax="true">
                     <select name="d_year" id="select-year1" data-theme="f" data-native-menu="true"
-                            onchange="ls1.year=this.options[this.selectedIndex].value;this.form.submit()">
+                            onchange="ls1.year=this.options[this.selectedIndex].value;
+				      working_grid=set_working_grid(ls1);
+        			      load_database();">
                     </select>
                 </form>
                 </td>
@@ -379,7 +383,16 @@
                 </td>
                 <td width=35%>
                   <center><img height=22 src="icons/before-meal-4.gif"></center>
-		<select name="values_measure[name][before]" id="form12gnB" data-mini="true" data-native-menu="true">
+		<select name="values_measure[name][before]" id="form12gnB" 
+		        onchange="var next_to = { 'A0': 0, 'A1': 1, 'A2': 2, 'A3': 3 };
+				  var next = next_to[this.options[this.selectedIndex].value];
+				  if (typeof next !== 'undefined') {
+                                      var select2 = $('#form12gnA');
+				      select2[0].selectedIndex = next;
+                                      select2.selectmenu('refresh');
+                                  }
+ 			          return false;"
+			data-mini="true" data-native-menu="true">
 			   <option value="A0">desayuno</option>
 			   <option value="A1">comida</option>
 			   <option value="A2">merienda</option>
@@ -629,7 +642,7 @@
 		  <button name="mmb-insert"
                           data-theme="a" data-corners="false" data-inline="true" data-icon="plus" data-mini="true"
                           onclick="form12msA.value=form12bsA.value=form12gsA.value; 
-		                   form12msB.value=form12bsB.value=form12gsB.value; 
+				   form12msB.value=form12bsB.value=form12bpB.value=form12gsB.value; 
 			           form12bnB.value=form12mnB.value=form12gnB.value;
 			           form12bnA.value=form12mnA.value=form12gnA.value;
 				   $('#wquick').effect('drop', {}, 700, function() {
@@ -688,14 +701,18 @@
 			<td align=center width=2%>
 			<form id=form16a action=#page23  method=post data-ajax="true">
 			    <select name="d_month" id="select-month2" data-theme="f"
-				    onchange="ls1.month=this.options[this.selectedIndex].value;this.form.submit()">
+				    onchange="ls1.month=this.options[this.selectedIndex].value;
+					      working_grid=set_working_grid(ls1);
+					      load_database();">
 			    </select>
 			</form>
 			</td>
 			<td align=center width=2%>
 			<form id=form16b action=#page23  method=post data-ajax="true">
 			    <select name="d_year" id="select-year2" data-theme="f"
-				    onchange="ls1.year=this.options[this.selectedIndex].value;this.form.submit()">
+				    onchange="ls1.year=this.options[this.selectedIndex].value;
+					      working_grid=set_working_grid(ls1);
+					      load_database();">
 			    </select>
 			</form>
 			</td>
@@ -812,41 +829,81 @@
 	        <div class=T_MEASURES style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container8").toggle();return false;'><div class=T_MEASURES_PER_MEAL style="display: inline;"></div></a>
+                                 onclick='$("#container8").toggle();
+					  if ($("#container8").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_MEASURES_PER_MEAL style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container9").toggle();return false;'><div class=T_MEASURES_PER_HOUR style="display: inline;"></div></a>
+                                 onclick='$("#container9").toggle();
+					  if ($("#container9").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_MEASURES_PER_HOUR style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#containerA").toggle();return false;'><div class=T_RANGES_PER_HOUR style="display: inline;"></div></a>
+                                 onclick='$("#containerA").toggle();
+					  if ($("#containerA").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_RANGES_PER_HOUR style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_BOLUS style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container4").toggle();return false;'><div class=T_BOLUS_PER_MEAL style="display: inline;"></div></a>
+                                 onclick='$("#container4").toggle();
+					  if ($("#container4").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_BOLUS_PER_MEAL style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container5").toggle();return false;'><div class=T_BOLUS_PER_HOUR style="display: inline;"></div></a>
+                                 onclick='$("#container5").toggle();
+					  if ($("#container5").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_BOLUS_PER_HOUR style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_RATIONS></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container6").toggle();return false;'><div class=T_RATIONS_PER_MEAL style="display: inline;"></div></a>
+                                 onclick='$("#container6").toggle();
+					  if ($("#container6").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_RATIONS_PER_MEAL style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container7").toggle();return false;'><div class=T_RATIONS_PER_HOUR style="display: inline;"></div></a>
+                                 onclick='$("#container7").toggle();
+					  if ($("#container7").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_RATIONS_PER_HOUR style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_BASALS style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container0").toggle();return false;'><div class=T_BASALS_TYPES style="display: inline;"></div></a>
+                                 onclick='$("#container0").toggle();
+					  if ($("#container0").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_BASALS_TYPES style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container1").toggle();return false;'><div class=T_BASALS_ACT style="display: inline;"></div></a>
+                                 onclick='$("#container1").toggle();
+					  if ($("#container1").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_BASALS_ACT style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_AVERAGE style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container20x").toggle();return false;'><div class=T_SUMMARY style="display: inline;"></div></a>
+                                 onclick='$("#container20x").toggle();
+					  if ($("#container20x").is(":visible"))
+					       $(this).buttonMarkup({theme: "b"});
+					  else $(this).buttonMarkup({theme: "a"});
+                                          return false;'><div class=T_SUMMARY style="display: inline;"></div></a>
                 </div>
     </div>
 
@@ -857,14 +914,18 @@
                 <td align=center width=2%>
                 <form id=form14a action=#page24  method=post data-ajax="true">
                     <select name="d_month" id="select-month3" data-theme="f"
-                            onchange="ls1.month=this.options[this.selectedIndex].value;this.form.submit()">
+			    onchange="ls1.month=this.options[this.selectedIndex].value;
+				      working_grid=set_working_grid(ls1);
+				      load_database();">
                     </select>
                 </form>
                 </td>
                 <td align=center width=2%>
                 <form id=form14b action=#page24  method=post data-ajax="true">
                     <select name="d_year" id="select-year3" data-theme="f"
-                            onchange="ls1.year=this.options[this.selectedIndex].value;this.form.submit()">
+                            onchange="ls1.year=this.options[this.selectedIndex].value;
+				      working_grid=set_working_grid(ls1);
+        			      load_database();">
                     </select>
                 </form>
                 </td>
@@ -2095,6 +2156,13 @@
                 // basal-pattern-list
 		db_db2basaldatalist(vector_details,"#bd_pattern_list","normal",ls1.user_id) ;
 		db_db2basalselect  (vector_details,"#ba_pattern","normal",ls1.user_id) ;
+
+                // export
+	        o = db_js2csv(vector_details, ls1.user_login, ls1.user_id);
+		$("#ta16").html(o).trigger("create");
+		middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
+		$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
+		$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
             } 
             catch (e) { return -1; }
         }
@@ -2172,6 +2240,31 @@
                 db_importFromFile(ls1.rmysql_url, 'js/db/em.webdb', load_data);
         }
 
+        function set_working_grid ( ls1 )
+        {
+		this_year  = ls1.year ;
+		this_month = ls1.month ;
+
+		working_grid = new Object() ;
+		working_grid[this_year] = new Object() ;
+		working_grid[this_year][this_month] = new Object() ;
+
+		var last = new Date(this_year, this_month, 0).getDate();
+		for (i=1; i<=last; i++)
+		     working_grid[this_year][this_month][i] = 1 ;
+
+		var ndate = new Date(this_year, this_month, last+1);
+		var lastd = ndate.getDate();
+		var lastm = ndate.getMonth();
+		var lasty = ndate.getFullYear();
+		if (lasty != this_year)
+		    working_grid[lasty][lastm] = new Object() ;
+		if (lastm != this_month)
+		    working_grid[lasty][lastm] = new Object() ;
+		working_grid[lasty][lastm][lastd] = 1 ;
+
+                return working_grid ;
+        }
 
 	/* checking HTML5 support */
 	if ( !(window.File && window.FileReader && window.FileList && window.Blob))
@@ -2231,26 +2324,7 @@
 	cal_head = new Array(T['MONDAY'], T['TUESDAY'], T['WEDNESDAY'], T['THURSDAY'], T['FRIDAY'], T['SATURDAY'], T['SUNDAY']) ;
 
         /* dates to be shown */ 
-        this_year  = ls1.year ;
-        this_month = ls1.month ;
-
-        working_grid = new Object() ;
-        working_grid[this_year] = new Object() ;
-        working_grid[this_year][this_month] = new Object() ;
-
-        last = new Date(this_year, this_month, 0).getDate();
-        for (i=1; i<=last; i++)
-             working_grid[this_year][this_month][i] = 1 ;
-
-        var ndate = new Date(this_year, this_month, last+1);
-        var lastd = ndate.getDate();
-        var lastm = ndate.getMonth();
-        var lasty = ndate.getFullYear();
-        if (lasty != this_year)
-            working_grid[lasty][lastm] = new Object() ;
-        if (lastm != this_month)
-            working_grid[lasty][lastm] = new Object() ;
-        working_grid[lasty][lastm][lastd] = 1 ;
+        working_grid = set_working_grid(ls1);
 
         /* initialize code */ 
 	if (isMobile()) {

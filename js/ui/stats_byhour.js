@@ -20,30 +20,30 @@
 		    },
 		    xAxis: {
 			categories: [
-			    '0-1',
-			    '1-2',
-			    '2-3',
-			    '3-4',
-			    '4-5',
-			    '5-6',
-			    '6-7',
-			    '7-8',
-			    '8-9',
-			    '9-10',
-			    '10-11',
-			    '11-12',
-			    '12-13',
-			    '13-14',
-			    '14-15',
-			    '15-16',
-			    '16-17',
-			    '17-18',
-			    '18-19',
-			    '19-20',
-			    '20-21',
-			    '21-22',
-			    '22-23',
-			    '23-24'
+			    '00',
+			    '01',
+			    '02',
+			    '03',
+			    '04',
+			    '05',
+			    '06',
+			    '07',
+			    '08',
+			    '09',
+			    '10',
+			    '11',
+			    '12',
+			    '13',
+			    '14',
+			    '15',
+			    '16',
+			    '17',
+			    '18',
+			    '19',
+			    '20',
+			    '21',
+			    '22',
+			    '23'
 			]
 		    },
 		    yAxis: {
@@ -86,30 +86,30 @@
 		    },
 		    xAxis: {
 			categories: [
-			    '0-1',
-			    '1-2',
-			    '2-3',
-			    '3-4',
-			    '4-5',
-			    '5-6',
-			    '6-7',
-			    '7-8',
-			    '8-9',
-			    '9-10',
-			    '10-11',
-			    '11-12',
-			    '12-13',
-			    '13-14',
-			    '14-15',
-			    '15-16',
-			    '16-17',
-			    '17-18',
-			    '18-19',
-			    '19-20',
-			    '20-21',
-			    '21-22',
-			    '22-23',
-			    '23-24'
+			    '00',
+			    '01',
+			    '02',
+			    '03',
+			    '04',
+			    '05',
+			    '06',
+			    '07',
+			    '08',
+			    '09',
+			    '10',
+			    '11',
+			    '12',
+			    '13',
+			    '14',
+			    '15',
+			    '16',
+			    '17',
+			    '18',
+			    '19',
+			    '20',
+			    '21',
+			    '22',
+			    '23'
 			]
 		    },
 		    yAxis: {
@@ -152,30 +152,30 @@
 		    },
 		    xAxis: {
 			categories: [
-			    '0-1',
-			    '1-2',
-			    '2-3',
-			    '3-4',
-			    '4-5',
-			    '5-6',
-			    '6-7',
-			    '7-8',
-			    '8-9',
-			    '9-10',
-			    '10-11',
-			    '11-12',
-			    '12-13',
-			    '13-14',
-			    '14-15',
-			    '15-16',
-			    '16-17',
-			    '17-18',
-			    '18-19',
-			    '19-20',
-			    '20-21',
-			    '21-22',
-			    '22-23',
-			    '23-24'
+			    '00',
+			    '01',
+			    '02',
+			    '03',
+			    '04',
+			    '05',
+			    '06',
+			    '07',
+			    '08',
+			    '09',
+			    '10',
+			    '11',
+			    '12',
+			    '13',
+			    '14',
+			    '15',
+			    '16',
+			    '17',
+			    '18',
+			    '19',
+			    '20',
+			    '21',
+			    '22',
+			    '23'
 			]
 		    },
 		    yAxis: {
@@ -210,63 +210,49 @@
 
 
                 // 2.- get data
-		data1 = "[ " ;
-		data2 = "[ " ;
-		data3 = "[ " ;
+		options1.series = new Array() ;
+		options2.series = new Array() ;
+		options3.series = new Array() ;
+
                 for (i in vector_details)
 		{
-                   dat1 = Array() ;
-                   dat2 = Array() ;
-                   dat3 = Array() ;
+                   if ("basaldef" == i) continue;
+                   if ("basalact" == i) continue;
+
+                   data1 = new Array() ;
+                   data2 = new Array() ;
+                   data3 = new Array() ;
+
+                   data1.name = data2.name = data3.name = i ;
+
+                   data1.data = new Array() ;
+                   data2.data = new Array() ;
+                   data3.data = new Array() ;
+
 		   for (k=0; k<24; k++) {
-                        dat1[k] = 0 ;
-                        dat2[k] = 0 ;
-                        dat3[k] = 0 ;
+                        data1.data[k] = data2.data[k] = data3.data[k] = 0 ;
                    }
 
                    for (j in vector_details[i])
 		   {
 		       k = parseInt(j.match(/(\d+)/g)[0]); 
 		       if (vector_details[i][j]['bolus'])
-			    dat1[k] += parseInt(vector_details[i][j]['bolus']['units']) ;
+			    data1.data[k] += parseInt(vector_details[i][j]['bolus']['units']) ;
 		       if (vector_details[i][j]['meal'])
-			    dat2[k] += parseInt(vector_details[i][j]['meal']['measure']) ;
+			    data2.data[k] += parseInt(vector_details[i][j]['meal']['measure']) ;
 		       if (vector_details[i][j]['measure'])
-			    dat3[k]  = parseInt(vector_details[i][j]['measure']['measure']) ;
+			    data3.data[k]  = parseInt(vector_details[i][j]['measure']['measure']) ;
 		   }
 
-		   data1 += "{ name: '" + i + "', data: [ " ;
-		   data2 += "{ name: '" + i + "', data: [ " ;
-		   data3 += "{ name: '" + i + "', data: [ " ;
-		   for (k=0; k<24; k++)
-		   {
-			data1 += dat1[k] ;
-			data2 += dat2[k] ;
-			data3 += dat3[k] ;
-
-			if (j != 23) {
-                            data1 += ", " ;
-			    data2 += ", " ;
-			    data3 += ", " ;
-                        }
-		   }
-		   data1 += "] }, \n" ;
-		   data2 += "] }, \n" ;
-		   data3 += "] }, \n" ;
+		   options1.series.push(data1) ;
+		   options2.series.push(data2) ;
+		   options3.series.push(data3) ;
 		}
-		data1 += " ];" ;
-		data2 += " ];" ;
-		data3 += " ];" ;
 
 
                 // 3.- building the chart
-                options1.series = eval(data1) ;
 		chart1 = new Highcharts.Chart(options1);
-
-                options2.series = eval(data2) ;
 		chart2 = new Highcharts.Chart(options2);
-
-                options3.series = eval(data3) ;
 		chart3 = new Highcharts.Chart(options3);
         }
 

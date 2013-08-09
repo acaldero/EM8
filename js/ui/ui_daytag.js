@@ -751,6 +751,9 @@
                             "      $('form#form10x').attr('action','#" + back_url + "');" +
                             "      dbform_fill0_quick(document.form10x,'" + k0 + "');" +
                             "      dbform_fill0_other(document.form11x,'" + k0 + "');" +
+                            "      dbform_fill0_basalactivation(document.formqba,'" + k0 + "');" +
+                            "      dbform_fill0_basaldefinition(document.formbd,'" + k0 + "');" +
+			    "      $('#p-qm-mmb').collapsible('expand');" +
                             "      $.mobile.changePage('#page-quickmenu');" + "\"><c>+</c></div>\n" +
 			     "</td>" +
 			     "</tr>" +
@@ -831,6 +834,9 @@
                             " $('form#form10x').attr('action','#" + back_url + "');" +
                             " dbform_fill0_quick(document.form10x,'" + k0 + "');" +
                             " dbform_fill0_other(document.form11x,'" + k0 + "');" +
+                            " dbform_fill0_basalactivation(document.formqba,'" + k0 + "');" +
+                            " dbform_fill0_basaldefinition(document.formbd,'" + k0 + "');" +
+			    " $('#p-qm-mmb').collapsible('expand');" +
                             " $.mobile.changePage('#page-quickmenu');" + 
                            "\"><c>+</c></div>\n" +
               "  </td>" + 

@@ -15,30 +15,30 @@
 		    },
 		    xAxis: {
 			categories: [
-			    '0-1',
-			    '1-2',
-			    '2-3',
-			    '3-4',
-			    '4-5',
-			    '5-6',
-			    '6-7',
-			    '7-8',
-			    '8-9',
-			    '9-10',
-			    '10-11',
-			    '11-12',
-			    '12-13',
-			    '13-14',
-			    '14-15',
-			    '15-16',
-			    '16-17',
-			    '17-18',
-			    '18-19',
-			    '19-20',
-			    '20-21',
-			    '21-22',
-			    '22-23',
-			    '23-24'
+			    '00',
+			    '01',
+			    '02',
+			    '03',
+			    '04',
+			    '05',
+			    '06',
+			    '07',
+			    '08',
+			    '09',
+			    '10',
+			    '11',
+			    '12',
+			    '13',
+			    '14',
+			    '15',
+			    '16',
+			    '17',
+			    '18',
+			    '19',
+			    '20',
+			    '21',
+			    '22',
+			    '23'
 			]
 		    },
 		    yAxis: {
@@ -71,44 +71,49 @@
 		    },
 		};
 
+
                 // 2.- get data
-		s1 = "{ \n\t\t\t type: 'spline', \n\t\t\t name: 'low',\n\t\t\t data: [ " ;
-		for (j=0; j<23; j++)
-		     s1 += "100, " ;
-		s1 += "100 ] \n\t\t\t}," ;
+		options.series = new Array() ; 
 
-		s2 = "{ \n\t\t\t type: 'spline', \n\t\t\t name: 'high',\n\t\t\t data: [ " ;
-		for (j=0; j<23; j++)
-		     s2 += "200, " ;
-		s2 += "200 ] \n\t\t\t}," ;
+		data_s1 = new Object() ; 
+                data_s1.type = 'spline' ;
+                data_s1.name = 'low' ;
+                data_s1.data = new Array() ;
+		for (j=0; j<24; j++)
+                     data_s1.data[j] = 100 ;
+                options.series.push(data_s1) ;
 
-	        s10 = "" ;
+		data_s2 = new Object() ; 
+                data_s2.type = 'spline' ;
+                data_s2.name = 'high' ;
+                data_s2.data = new Array() ;
+		for (j=0; j<24; j++)
+                     data_s2.data[j] = 200 ;
+                options.series.push(data_s2) ;
+
                 for (i in vector_details)
 		{
-                   dat2 = Array() ;
+                   if ("basaldef" == i) continue ;
+                   if ("basalact" == i) continue ;
+
+		   data_s3 = new Object() ; 
+                   data_s3.name = i ;
+                   data_s3.data = new Array() ;
 		   for (k=0; k<24; k++)
-                        dat2[k] = 0 ;
+                        data_s3.data[k] = 0 ;
 
                    for (j in vector_details[i])
 		   {
 		       k = parseInt(j.match(/(\d+)/g)[0]);
 		       if (vector_details[i][j]['measure'])
-			    dat2[k] = parseInt(vector_details[i][j]['measure']['measure']) ;
+			    data_s3.data[k] = parseInt(vector_details[i][j]['measure']['measure']) ;
 		   }
 
-		   s10 += "{ name: '" + i + "', data: [ " ;
-		   for (k=0; k<24; k++)
-		   {
-			s10 += dat2[k] ;
-			if (j != 23) s10 += ", " ;
-		   }
-		   s10 += "] }, \n" ;
+                   options.series.push(data_s3) ;
 		}
 
-		dat_bbyh = "[ " + s1 + s2 + s10 + " ];" ;
 
                 // 3.- building the chart
-                options.series = eval(dat_bbyh) ;
 		chart = new Highcharts.Chart(options);
         }
 
