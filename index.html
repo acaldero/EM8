@@ -1741,7 +1741,8 @@
 
 		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
 		        var res  = dbform_fill_segments(segs) ;
-		        $("#ba_segments1").html(res.short) ;
+
+		        $("#ba_segments1").val(res.short) ;
 		        $("#ba_segments2").html(res.long) ;
 
 	                break;
@@ -1812,10 +1813,8 @@
 		</div>
 		</td>
                 <td width=60%>
-			<a href="#tttt3b" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
-			   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
-			        <div id=ba_segments1 style="margin: 0px; overflow: auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-		        </a>
+			<input id=ba_segments1 type=text readonly
+			       onclick='$("#tttt3b").popup("open"); return false;'>
 			<div data-role="popup" id="tttt3b" class="ui-content" data-theme="a">
 			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
 			        <div id=ba_segments2 style="margin: 0px; overflow: auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -1978,7 +1977,10 @@
 					  var values_basal = ui_basal_form2def(document.formbd); 
 					  var o = ui_basal_sections(ne,values_basal["segments"]); 
 					  $("#basal_sections").html(o).trigger("refresh");
-                                          document.formbd.total_area.value = ui_basal_area(values_basal["segments"],"00:00","23:59");
+			              document.formbd.total_area.value=0;
+   				      if (ne != 0)
+                                          document.formbd.total_area.value=ui_basal_area(values_basal["segments"],
+					    					         "00:00","23:59");
        					  return false;'> 
 			<script>
 			  ne = document.formbd.neltos.selectedIndex ;

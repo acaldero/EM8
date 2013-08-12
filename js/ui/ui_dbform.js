@@ -642,7 +642,7 @@
 
 		for (i=0; i<segs.length-1; i++) 
                 {
-		     res.short += segs[i].c + ", " ;
+		     res.short += segs[i].c + " | " ;
 		     res.long  += "<tr>" + 
 			          "<td>" + segs[i].h + "</td>" +
 			          "<td>&#8592;</td>" + 
@@ -679,7 +679,8 @@
 
 	      var segs = JSON.parse(values_basal_activation['segments']) ;
               var res  = dbform_fill_segments(segs) ;
-              $("#ba_segments1").html(res.short) ;
+
+              $("#ba_segments1").val(res.short) ;
               $("#ba_segments2").html(res.long) ;
 
               $("#bap1").slider("refresh");
