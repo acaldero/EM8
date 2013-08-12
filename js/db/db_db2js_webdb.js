@@ -189,7 +189,7 @@
 				      " ORDER BY start;",
 				      " SELECT 'basaldef' as 'rt',* FROM basal_definitions " + 
 				      " WHERE user='" + login_id + "' " +
-				      " AND   pattern!=''" +
+				      " AND   neltos!=0" +
 				      " ORDER BY sync;",
 				      " SELECT 'basalact' as 'rt',* FROM basal_activations " + 
 				      " WHERE strftime('%Y',start)='" + year + "' " +

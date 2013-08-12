@@ -1740,7 +1740,9 @@
 		        formqba.elements['values_basal_activation[segments]'].value=vector_details['basaldef'][i]['segments'];
 
 		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
-                        dbform_fill_segments(segs, "#ba_segments1", "#ba_segments2");
+		        var res  = dbform_fill_segments(segs) ;
+		        $("#ba_segments1").html(res.short) ;
+		        $("#ba_segments2").html(res.long) ;
 
 	                break;
 	            }
@@ -2024,11 +2026,11 @@
 			  <button name="a-update"
 				  data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
 				  onclick="if (document.formbd.elements['values_basaldef,pattern'].value != '')
-					        dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
+					       dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
 						   //$('#page-quickmenu').dialog('close');
 						   load_data();
-                                                   alert('updated basal available');
-					        });
+                                                   alert('basal updated');
+					       });
  					   else alert('error: empty pattern');
 					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
 			  <button name="a-insert"

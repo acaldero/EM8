@@ -635,21 +635,26 @@
 
 	  function dbform_fill_segments ( segs, segments_short, segments_help )
 	  {
-		var o1 = "" ;
-		var o2 = "" ;
-		for (i=0; i<segs.length-1; i++) {
-		     o1 += segs[i].c + ", " ;
-		     o2 += "<tr>" + 
-			   "<td>" + segs[i].h + "</td>" +
-			   "<td>&#8592;</td>" + 
-			   "<td>" + segs[i].c + "</td>" + 
-			   "<td>&#8594;</td>" + 
-			   "<td>" + segs[i+1].h + "</td>" + 
-			   "</tr>";
+                var res = new Object() ;
+
+		res.short = "" ;
+		res.long = "" ;
+
+		for (i=0; i<segs.length-1; i++) 
+                {
+		     res.short += segs[i].c + ", " ;
+		     res.long  += "<tr>" + 
+			          "<td>" + segs[i].h + "</td>" +
+			          "<td>&#8592;</td>" + 
+			          "<td>" + segs[i].c + "</td>" + 
+			          "<td>&#8594;</td>" + 
+			          "<td>" + segs[i+1].h + "</td>" + 
+			          "</tr>";
 		}
 
-		$(segments_short).html(o1) ;
-		$(segments_help).html("<table border=0>" + o2 + "</table>") ;
+		res.long = "<table border=0>" + res.long + "</table>" ;
+
+                return res;
 	  }
 
   function dbform_fill2_basalactivation ( form, json_ba )
@@ -673,7 +678,9 @@
               select2.selectmenu("refresh", true) ;
 
 	      var segs = JSON.parse(values_basal_activation['segments']) ;
-              dbform_fill_segments(segs, "#ba_segments1", "#ba_segments2");
+              var res  = dbform_fill_segments(segs) ;
+              $("#ba_segments1").html(res.short) ;
+              $("#ba_segments2").html(res.long) ;
 
               $("#bap1").slider("refresh");
           }
@@ -793,6 +800,10 @@
 
   function ui_basal_sections ( neltos, basal_segs_json )
   {
+         neltos = parseInt(neltos) ;
+         if (neltos == 0) 
+             return "" ;
+
          basal_segs = JSON.parse(basal_segs_json) ;
 
 	 o = "<center>" +
@@ -842,18 +853,14 @@
 			"</tr>" ;
 	 }
 
-	 if (neltos)
-	 {
-	   o += "<tr>" +
-		"    <td align=center>" + 
-		"	<input id=s" + i + "t1 name=\"values_basaldef," + i + ",h\" " + 
-                "              type=time size=7 readonly value=\"23:59\">" + 
-                "    </td>" +
-		"    <td><br></td>" +
-		"</tr>" ;
-	 }
-
-	 o += "</table>" + 
+	 o += "<tr>" +
+	      "    <td align=center>" + 
+	      "	      <input id=s" + i + "t1 name=\"values_basaldef," + i + ",h\" " + 
+              "              type=time size=7 readonly value=\"23:59\">" + 
+              "    </td>" +
+	      "    <td><br></td>" +
+	      "</tr>" +
+	      "</table>" + 
 	      "</center>" ;
 
 	 return o ;

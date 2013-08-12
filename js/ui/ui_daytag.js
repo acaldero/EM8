@@ -545,11 +545,7 @@
                             values_ba = details[k_hour][k_type] ;
 
                             var segs = JSON.parse(values_ba['segments']) ;
-                            var segs_txt = "" ;
-                            for (j=0; j<segs.length-1; j++) 
-                                 segs_txt += "<tr><td>" + segs[j].h + 
-    					     "</td><td>&#8592;</td><td>" + segs[j].c + 
-    					     "</td><td>&#8594;</td><td>" + segs[j+1].h + "</td></tr>";
+			    var res  = dbform_fill_segments(segs) ;
 
                             var segs_more = 
 				    "<a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
@@ -562,8 +558,8 @@
 				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
 				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + 
 				    "         <div style='margin: 10px;'>" + 
-				    "      <font color=blue size=2><b>" + details[k_hour][k_type]['pattern'] + "</b></font>" + 
-				    "         <table border=0>" + segs_txt + "</table>" + 
+				    "      <center><font color=blue size=2><b>" + details[k_hour][k_type]['pattern'] + "</b></font></center>" + 
+				           res.long + 
 				    "         </div>" +
 				    "    </div>" + "<br>" ;
 
@@ -594,10 +590,12 @@
                                            "basal<br>act." + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
-				    "  <td align=center rowspan=1 width=85%>\n" + segs_more +
+				    "  <td align=center rowspan=1 width=85%>\n" + 
 				    "    <font size=2><b>" + details[k_hour][k_type]['pattern'] + " &nbsp; " + 
                                                              details[k_hour][k_type]['percentage'] + "%<br>" + 
-                                    "    </b></font>" +
+                                    "    </b></font>" + 
+				    "    <br>" + segs_more + 
+				    "    <font size=2><b>" + res.short + "</b></font>" +
 				    "  </td>\n" +
 				    "  </tr>\n" +
 				    "  </table>\n" +
