@@ -1732,22 +1732,19 @@
            function handle_completeActivation(formqba) 
            {
 	       var ba_pattern=formqba.elements['values_basal_activation[pattern]'].value;
-	       for (var i=0; i<vector_details['basaldef'].length; i++)
-	            if (ba_pattern == vector_details['basaldef'][i]['pattern']) {
+	       for (var i=0; i<vector_details['basaldef'].length; i++) 
+               {
+	            if (ba_pattern == vector_details['basaldef'][i]['pattern']) 
+                    {
 		        formqba.elements['values_basal_activation[neltos]'].value = vector_details['basaldef'][i]['neltos'];
 		        formqba.elements['values_basal_activation[segments]'].value=vector_details['basaldef'][i]['segments'];
 
 		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
-  			var o = "" ;
- 		        for (i=0; i<segs.length; i++) {
- 		             if (i == (segs.length-1))
-			          o += segs[i].h ;
-			     else o += segs[i].h + "<-" + segs[i].c + "->" ;
-			}
-		        formqba.elements['segments'].value = o;
+                        dbform_fill_segments(segs, "#ba_segments1", "#ba_segments2");
 
 	                break;
 	            }
+	       }
            }
            </script>
 
@@ -1813,7 +1810,15 @@
 		</div>
 		</td>
                 <td width=60%>
-			<input id=ba_segments type=text   name="segments" value="" readonly>
+			<a href="#tttt3b" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
+			   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
+			        <div id=ba_segments1 style="margin: 0px; overflow: auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+		        </a>
+			<div data-role="popup" id="tttt3b" class="ui-content" data-theme="a">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+			        <div id=ba_segments2 style="margin: 0px; overflow: auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+			</a>
+                        </div>
 		</td>
 
 		</tr>

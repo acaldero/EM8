@@ -544,10 +544,28 @@
 
                             values_ba = details[k_hour][k_type] ;
 
-                            var segs_txt = "" ;
                             var segs = JSON.parse(values_ba['segments']) ;
+                            var segs_txt = "" ;
                             for (j=0; j<segs.length-1; j++) 
-                                 segs_txt += segs[j].h + " <- " + segs[j].c + " -> " + segs[j+1].h + "<br>";
+                                 segs_txt += "<tr><td>" + segs[j].h + 
+    					     "</td><td>&#8592;</td><td>" + segs[j].c + 
+    					     "</td><td>&#8594;</td><td>" + segs[j+1].h + "</td></tr>";
+
+                            var segs_more = 
+				    "<a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
+				    "   data-position-to=window data-theme=d " + 
+				    "   data-inline=true data-transition=fade>" + 
+                                    "    <img src=icons/faucet-2.png height=30>" + "</a>" +
+				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
+				    "         data-overlay-theme=b " + 
+				    "         data-corners=false data-tolerance=\"30,15\">" +
+				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
+				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + 
+				    "         <div style='margin: 10px;'>" + 
+				    "      <font color=blue size=2><b>" + details[k_hour][k_type]['pattern'] + "</b></font>" + 
+				    "         <table border=0>" + segs_txt + "</table>" + 
+				    "         </div>" +
+				    "    </div>" + "<br>" ;
 
 			    o = o + "" +
 				    " <tr>\n" +
@@ -576,11 +594,9 @@
                                            "basal<br>act." + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
-				    "  <td align=center rowspan=1 width=85%>\n" + 
-                                    "    <img src=icons/faucet-2.png height=25><br>" + 
+				    "  <td align=center rowspan=1 width=85%>\n" + segs_more +
 				    "    <font size=2><b>" + details[k_hour][k_type]['pattern'] + " &nbsp; " + 
                                                              details[k_hour][k_type]['percentage'] + "%<br>" + 
-                                                             "<font color=gray>" + segs_txt + "</font>" +
                                     "    </b></font>" +
 				    "  </td>\n" +
 				    "  </tr>\n" +

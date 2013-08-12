@@ -633,6 +633,25 @@
           }
   }
 
+	  function dbform_fill_segments ( segs, segments_short, segments_help )
+	  {
+		var o1 = "" ;
+		var o2 = "" ;
+		for (i=0; i<segs.length-1; i++) {
+		     o1 += segs[i].c + ", " ;
+		     o2 += "<tr>" + 
+			   "<td>" + segs[i].h + "</td>" +
+			   "<td>&#8592;</td>" + 
+			   "<td>" + segs[i].c + "</td>" + 
+			   "<td>&#8594;</td>" + 
+			   "<td>" + segs[i+1].h + "</td>" + 
+			   "</tr>";
+		}
+
+		$(segments_short).html(o1) ;
+		$(segments_help).html("<table border=0>" + o2 + "</table>") ;
+	  }
+
   function dbform_fill2_basalactivation ( form, json_ba )
   {
           values_basal_activation = JSON.parse(unescape(json_ba)) ;
@@ -654,13 +673,7 @@
               select2.selectmenu("refresh", true) ;
 
 	      var segs = JSON.parse(values_basal_activation['segments']) ;
-	      var o = "" ;
-	      for (i=0; i<segs.length; i++) {
-		     if (i == (segs.length-1))
-			  o += segs[i].h ;
-		     else o += segs[i].h + "<-" + segs[i].c + "->" ;
-	      }
-	      form.elements['segments'].value = o ;
+              dbform_fill_segments(segs, "#ba_segments1", "#ba_segments2");
 
               $("#bap1").slider("refresh");
           }
