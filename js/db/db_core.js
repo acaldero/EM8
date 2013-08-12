@@ -11,7 +11,7 @@
                   var key_arr = [] ;
                   for (key in values)
                   {
-                       if (pk != key) {
+                       if (pk.indexOf(key) == -1) {
                            key_arr.push(key) ;
                            last++ ;
                        }
@@ -45,7 +45,7 @@
                   var key_arr = [] ;
                   for (key in values)
                   {
-                       if (pk != key) {
+                       if (pk.indexOf(key) == -1) {
                            key_arr.push(key) ;
                            last++ ;
                        }
@@ -61,8 +61,12 @@
 			   actualizar += ", " ;
 		  }
 
-		  actualizar += " WHERE " + pk + "='" + values[pk] + "'" +
-		                " AND device='" + ls1.device_id + "'" ;
+                  for (var j=0; j<pk.length; j++)
+                  {
+                       if (0 == j) 
+		            actualizar += " WHERE " + pk[j] + "='" + values[pk[j]] + "'" ;
+		       else actualizar += " AND   " + pk[j] + "='" + values[pk[j]] + "'" ;
+		  }
 
                   return actualizar ;
         }
@@ -77,7 +81,7 @@
                   var key_arr = [] ;
                   for (key in values)
                   {
-                       if (pk != key) {
+                       if (pk.indexOf(key) == -1) {
                            key_arr.push(key) ;
                            last++ ;
                        }
@@ -113,7 +117,7 @@
                   var key_arr = [] ;
                   for (key in values)
                   {
-                       if (pk != key) {
+                       if (pk.indexOf(key) == -1) {
                            key_arr.push(key) ;
                            last++ ;
                        }
@@ -141,9 +145,15 @@
 
         function db_asocArray2delete ( tabla, values, pk ) 
         {
-	          borrar = "DELETE FROM " + tabla + 
-                           " WHERE " + pk + " = '" + values[pk] + "' " +
-		           " AND device='" + ls1.device_id + "'" ;
+	          borrar = "DELETE FROM " + tabla ;
+
+                  for (var j=0; j<pk.length; j++)
+                  {
+                       if (0 == j) 
+		            borrar += " WHERE " + pk[j] + "='" + values[pk[j]] + "'" ;
+		       else borrar += " AND   " + pk[j] + "='" + values[pk[j]] + "'" ;
+		  }
+
                   return borrar ;
         }
 

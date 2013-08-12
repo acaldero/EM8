@@ -6,10 +6,10 @@
 	// action - measures
 	if (-1 == values_measure['id']) // no existe
 	     if (values_measure['measure'] != 0)
-		  Q = db_asocArray2insert("measures",values_measure,'id');
+		  Q = db_asocArray2insert("measures",values_measure,Array('id','device'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("measures",values_measure,'id');
+		  Q = db_asocArray2update("measures",values_measure,Array('id','device'));
 
         if (Q != "")
             Qs.push(Q);
@@ -18,10 +18,10 @@
 	// action - meals
 	if (-1 == values_meal['id']) // no existe
 	     if (values_meal['measure'] != 0)
-		  Q = db_asocArray2insert("meals",values_meal,'id') ;
+		  Q = db_asocArray2insert("meals",values_meal,Array('id','device')) ;
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("meals",values_meal,'id') ;
+		  Q = db_asocArray2update("meals",values_meal,Array('id','device')) ;
 
         if (Q != "")
             Qs.push(Q);
@@ -30,10 +30,10 @@
 	// action - bolus
 	if (-1 == values_bolus['id']) // no existe
 	     if (values_bolus['units'] != 0)
-		  Q = db_asocArray2insert("bolus",values_bolus,'id'); 
+		  Q = db_asocArray2insert("bolus",values_bolus,Array('id','device')); 
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("bolus",values_bolus,'id'); 
+		  Q = db_asocArray2update("bolus",values_bolus,Array('id','device')); 
 
         if (Q != "")
             Qs.push(Q);
@@ -46,10 +46,10 @@
 	// action - other
 	if (-1 == values_other['id']) // no existe
 	     if ("" != values_other['event'])
-		  Q = db_asocArray2insert("events",values_other,'id');
+		  Q = db_asocArray2insert("events",values_other,Array('id','device'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("events",values_other,'id');
+		  Q = db_asocArray2update("events",values_other,Array('id','device'));
 
         if (Q != "") {
             Qs.push(Q);
@@ -63,10 +63,10 @@
 
 	if (-1 == values_basal_activation['id']) // no existe
 	     if (values_basal_activation['percentage'] != 0)
-		  Q = db_asocArray2insert("basal_activations",values_basal_activation,'id');
+		  Q = db_asocArray2insert("basal_activations",values_basal_activation,Array('id','device'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("basal_activations",values_basal_activation,'id');
+		  Q = db_asocArray2update("basal_activations",values_basal_activation,Array('id','device'));
 
         if (Q != "") {
             Qs.push(Q);
@@ -80,10 +80,10 @@
 
 	if (-1 == values_basal_definition['id']) // no existe
 	     if (0 != values_basal_definition['neltos'])
-		  Q = db_asocArray2insert("basal_definitions",values_basal_definition,'id');
+		  Q = db_asocArray2insert("basal_definitions",values_basal_definition,Array('id','device'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("basal_definitions",values_basal_definition,'id');
+		  Q = db_asocArray2update("basal_definitions",values_basal_definition,Array('id','device'));
 
         if (Q != "") {
             Qs.push(Q);
@@ -569,9 +569,11 @@
 	      form.elements['values_bolus[percentage]'].value  = values_bolus['percentage'] ;
 	      form.elements['values_bolus[name]'].value        = values_bolus['name'] ;
 
-                      if (values_bolus['units'] != 0)
+                      if (parseInt(values_bolus['units']) != 0)
                            $("#page10md1").show();
                       else $("#page10md1").hide();
+
+                      $("#page10bap1").slider("refresh");
           }
 
 	  if (values_meal['id'] != -1) 
@@ -584,7 +586,7 @@
 	      form.elements['values_meal[measure]'].value    = values_meal['measure'] ;
 	      form.elements['values_meal[image]'].value      = values_meal['image'] ;
 
-                      if (values_meal['measure'] != 0)
+                      if (parseInt(values_meal['measure']) != 0)
                            $("#page10md2").show();
                       else $("#page10md2").hide();
 
@@ -659,6 +661,8 @@
 		     else o += segs[i].h + "<-" + segs[i].c + "->" ;
 	      }
 	      form.elements['segments'].value = o ;
+
+              $("#bap1").slider("refresh");
           }
   }
 

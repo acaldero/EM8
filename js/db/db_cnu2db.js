@@ -76,7 +76,7 @@
 			values_bolus['sync']       = dt0 ;
 			values_bolus['device']     = device_id ;
 
-		        Q.push(db_asocArray2insertorupdate(dbinfo,"bolus",values_bolus,'id')) ;
+		        Q.push(db_asocArray2insertorupdate(dbinfo,"bolus",values_bolus,Array('id','device'))) ;
             }
 
 	    if (lino['ration'] != 0)
@@ -93,7 +93,7 @@
 			values_meal['sync']        = dt0 ;
 			values_meal['device']      = device_id ;
 
-		        Q.push(db_asocArray2insertorupdate(dbinfo,"meals",values_meal,'id')) ;
+		        Q.push(db_asocArray2insertorupdate(dbinfo,"meals",values_meal,Array('id','device'))) ;
             }
 
 	    if (lino['measure'] != 0)
@@ -108,7 +108,7 @@
 			values_measure['sync']     = dt0 ;
 			values_measure['device']   = device_id ;
 
-		        Q.push(db_asocArray2insertorupdate(dbinfo,"measures",values_measure,'id')) ;
+		        Q.push(db_asocArray2insertorupdate(dbinfo,"measures",values_measure,Array('id','device'))) ;
             }
         }
 
