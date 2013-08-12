@@ -62,7 +62,7 @@
                           t++ ;
 
 			  if (typeof tokens[t] !== 'undefined' && tokens[t] !== null) {
-			      document.form10x.elements['values_measure[measure]'].value = parseInt(tokens[t]) ;
+			      document.form10x.elements['values_measure[measure]'].value = parseInt(tokens[t], 10) ;
                               t++ ;
                           }
 
@@ -82,12 +82,12 @@
                           }
 
 			  if (typeof tokens[t] !== 'undefined' && tokens[t] !== null) {
-			      document.form10x.elements['values_bolus[units]'].value = parseInt(tokens[t]);
+			      document.form10x.elements['values_bolus[units]'].value = parseInt(tokens[t], 10);
                               t++ ;
                           }
 
 			  if (typeof tokens[t] !== 'undefined' && tokens[t] !== null) {
-			      document.form10x.elements['values_bolus[percentage]'].value = parseInt(tokens[t]);
+			      document.form10x.elements['values_bolus[percentage]'].value = parseInt(tokens[t], 10);
                               t++ ;
                           }
 
@@ -103,7 +103,7 @@
                           t++ ;
 
 			  if (typeof tokens[t] !== 'undefined' && tokens[t] !== null) {
-			      document.form10x.elements['values_meal[measure]'].value = parseInt(tokens[t]) ;
+			      document.form10x.elements['values_meal[measure]'].value = parseInt(tokens[t], 10) ;
                               t++ ;
                           }
 
@@ -124,7 +124,7 @@
                           }
 
 			  if (typeof tokens[t] !== 'undefined' && tokens[t] !== null) {
-			      document.formqba.elements['values_basal_activation[percentage]'].value = parseInt(tokens[t]) ;
+			      document.formqba.elements['values_basal_activation[percentage]'].value = parseInt(tokens[t], 10) ;
                               t++ ;
                           }
 

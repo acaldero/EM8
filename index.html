@@ -403,7 +403,8 @@
                 </td>
                 <td width=35%>
                   <center><img height=22 src="icons/after-meal.jpg"></center>
-		<select name="values_measure[name][after]" id="form12gnA" data-mini="true" data-native-menu="true">
+		<select name="values_measure[name][after]" id="form12gnA" 
+                        data-mini="true" data-native-menu="true">
 			   <option value="D0">desayuno</option>
 			   <option value="D1">comida</option>
 			   <option value="D2">merienda</option>
@@ -901,7 +902,7 @@
 
 	        <div class=T_AVERAGE style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
-		     <a href="#" data-role="button" data-mini="true"
+		     <a href="#" data-role="button" data-mini="true" data-theme="b"
                                  onclick='$("#container20x").toggle();
 					  if ($("#container20x").is(":visible"))
 					       $(this).buttonMarkup({theme: "b"});
@@ -1567,12 +1568,24 @@
                 </div>
                 </td>
                 <td width=60%>
-			<input name="values_other[event]" type="text" 
+			<input name="values_other[event]" type="text" id=vmm3
                                size=20 value="" placeholder="exercise, illness, ..."
                                data-mini="true" x-webkit-speech>
                 </td>
-
                 </tr>
+                </table>
+
+		<script>
+                inobj3 = $("#vmm3") ;
+                inobj3.keyup(function () {
+                    if (inobj3.val() != 0)
+                         $("#page10md3").show();
+                    else $("#page10md3").hide();
+		});
+		</script>
+
+                <div id=page10md3 style="display: none;">
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
                 <tr>
 
                 <td width=40%>
@@ -1611,8 +1624,11 @@
                                size=20 value="" placeholder="low, normal, high"
                                data-mini="true" x-webkit-speech>
                 </td>
-
                 </tr>
+                </table>
+                </div>
+
+                <table border=0 width=100% cellpadding=0 cellspacing=0>
                 <tr>
 
                 <td width=40%>
@@ -1792,7 +1808,7 @@
                 </a>
 		<div data-role="popup" id="tttt3" class="ui-content" data-theme="a" style="max-width:0px;">
 		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
-			<font size=-1>{h: hh:mm; c: u}, ...</font>
+			<font size=-1>hh:mm <-c/u -> hh:mm <- ...</font>
 		</a>
 		</div>
 		</td>
@@ -1816,7 +1832,8 @@
                 </td>
                 <td width=60%>
 			<input id=bap1 name="values_basal_activation[percentage]" type="range"  data-mini="true"
-			       size="3" min="0" max="100" value="100" data-show-value="true" data-popup-enabled="true">
+			       size="3" min="0" max="100" value="100" 
+                               data-highlight="true" data-show-value="true" data-popup-enabled="true">
                 </td>
 
                 </tr>

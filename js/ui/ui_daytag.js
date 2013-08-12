@@ -6,13 +6,13 @@
         k.MU = "" ;
         k.BU = "" ;
 
-        hour_begin = parseInt(hour_begin);
-        hour_end   = parseInt(hour_end);
+        hour_begin = parseInt(hour_begin, 10);
+        hour_end   = parseInt(hour_end, 10);
 
         for (k_hour in details) 
         {
-                keyh = parseInt(k_hour.slice(0,2),10);
-                keym = parseInt(k_hour.slice(3,5),10);
+                keyh = parseInt(k_hour.slice(0,2), 10);
+                keym = parseInt(k_hour.slice(3,5), 10);
 
                 if (keyh <  hour_begin) continue ;
                 if (keyh >= hour_end)   continue ;
@@ -51,13 +51,13 @@
         GT = MT = BT = OT = "" ;
         GM = MM = BM = OM = "&nbsp;" ;
 
-        hour_begin = parseInt(hour_begin);
-        hour_end   = parseInt(hour_end);
+        hour_begin = parseInt(hour_begin, 10);
+        hour_end   = parseInt(hour_end, 10);
 
         for (k_hour in details) 
         {
-                keyh = parseInt(k_hour.slice(0,2),10);
-                keym = parseInt(k_hour.slice(3,5),10);
+                keyh = parseInt(k_hour.slice(0,2), 10);
+                keym = parseInt(k_hour.slice(3,5), 10);
 
                 if (keyh <  hour_begin) continue ;
                 if (keyh >= hour_end)   continue ;
@@ -197,15 +197,15 @@
   {
         o = "<table border=0 width=100%>" ;
 
-        hour_begin = parseInt(hour_begin);
-        hour_end   = parseInt(hour_end);
+        hour_begin = parseInt(hour_begin, 10);
+        hour_end   = parseInt(hour_end, 10);
 
         // order members of a object (remember there is not associative arrays in javascript)...
         var details_order = [];
         for (var key in details) 
         {
-             keyh = parseInt(key.slice(0,2),10);
-             keym = parseInt(key.slice(3,5),10);
+             keyh = parseInt(key.slice(0,2), 10);
+             keym = parseInt(key.slice(3,5), 10);
 
              if (keyh <  hour_begin) continue ;
              if (keyh >= hour_end)   continue ;
@@ -602,12 +602,12 @@
         m  = 0 ;
         nm = 0;
 
-        hour_begin = parseInt(hour_begin);
-        hour_end   = parseInt(hour_end);
+        hour_begin = parseInt(hour_begin, 10);
+        hour_end   = parseInt(hour_end, 10);
 
         for (k_hour in details)
         {
-		hour_now = parseInt(k_hour.slice(0,2));
+		hour_now = parseInt(k_hour.slice(0,2), 10);
                 if (hour_now < hour_begin) continue ;
                 if (hour_now > hour_end)   continue ;
 
@@ -620,11 +620,11 @@
 		   switch (s_type)
 		   {
 		       case 'tag_measure':
-			    m = m + parseInt(details[k_hour][k_type]['measure']) ;
+			    m = m + parseInt(details[k_hour][k_type]['measure'], 10) ;
 			    nm++ ;
 			    break ;
 		       case 'untag_measure':
-			    m = m + parseInt(details[k_hour][k_type]['measure']) ;
+			    m = m + parseInt(details[k_hour][k_type]['measure'], 10) ;
 			    nm++ ;
 			    break ;
 		   }

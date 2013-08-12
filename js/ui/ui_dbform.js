@@ -753,7 +753,7 @@
               if (3 == pair.length)
               {
 		  var p_f = pair[2] ;
-		  var p_i = parseInt(pair[1]) ;
+		  var p_i = parseInt(pair[1], 10) ;
 
 		  if (typeof basal_segs[p_i] === 'undefined') {
                           basal_segs[p_i] = new Object();

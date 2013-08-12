@@ -161,7 +161,7 @@
                {
                    var day_arr = new Array() ;
 		   for (day in working_grid[year][month])
-                        day_arr.push(parseInt(day)) ;
+                        day_arr.push(parseInt(day), 10) ;
 
 		   var qs = new Array(" SELECT 'bolus' as 'rt',* FROM bolus " + 
 				      " WHERE strftime('%Y',start)='" + year + "' " +

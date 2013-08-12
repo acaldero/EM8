@@ -39,7 +39,7 @@
 		     keyh = key.slice(0,2);
 		     keym = key.slice(3,5);
 
-		     key_order = keyh*60 + parseInt(keym) ;
+		     key_order = keyh*60 + parseInt(keym, 10) ;
 		     details_order.push([key_order, key]);
 		}
 		details_order.sort(function(a, b) { a = a[0]; b = b[0]; return a < b ? -1 : (a > b ? 1 : 0); });

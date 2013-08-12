@@ -6,8 +6,8 @@
 
             var lino = new Object() ;
 
-	    hour_line = parseInt(line[1].slice(0,2));
-	    min_line  = parseInt(line[1].slice(3,5));
+	    hour_line = parseInt(line[1].slice(0,2), 10);
+	    min_line  = parseInt(line[1].slice(3,5), 10);
 
             dt = new XDate(line[0]) ;
             dt.setHours(hour_line) ;
@@ -18,12 +18,12 @@
             lino['start'] = dt.toString("yyyy-MM-dd HH:mm:ss") ; 
             lino['start'] = lino['start'].substr(0,10) + 'T' + lino['start'].substr(11) + 'Z' ; 
 
-	    lino['measure'] = parseInt("0" + line[2]) ;
-	    lino['units']   = parseInt("0" + line[13]) ;
+	    lino['measure'] = parseInt("0" + line[2], 10) ;
+	    lino['units']   = parseInt("0" + line[13], 10) ;
 
-	    racion_gr = parseInt("0" + line[15]) ;
-	    racion_r  = parseInt("0" + line[16]) ;
-	    racion_i  = parseInt("0" + line[17]) ;
+	    racion_gr = parseInt("0" + line[15], 10) ;
+	    racion_r  = parseInt("0" + line[16], 10) ;
+	    racion_i  = parseInt("0" + line[17], 10) ;
 
             lino['ration'] = racion_r ;
 	    if (racion_gr != 0)
