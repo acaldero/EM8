@@ -392,7 +392,8 @@
 				    "   </b></font>" +
 				    "  </td>\n" +
 				    "  <td align=center rowspan=2 width=85%>\n" +
-				    "    <font size=2><b>" + details[k_hour][k_type]['type'] + " &nbsp; " + details[k_hour][k_type]['percentage'] + "% &nbsp; " + 
+				    "    <font size=2><b>" + details[k_hour][k_type]['type'] + " &nbsp; " + 
+							     details[k_hour][k_type]['percentage'] + "% <br>" + 
 					 associated_stop + "</b></font>" +
 				    "  </td>\n" +
 				    "  </tr>\n" +
@@ -551,7 +552,11 @@
 				    "<a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
 				    "   data-position-to=window data-theme=d " + 
 				    "   data-inline=true data-transition=fade>" + 
-                                    "    <img src=icons/faucet-2.png height=30>" + "</a>" +
+                                    "    <img src=icons/faucet-2.png height=35>" + 
+                                    "</a><br>" +
+				    "    <font size=2><b>" + details[k_hour][k_type]['pattern'] + " &nbsp; " + 
+                                                             details[k_hour][k_type]['percentage'] + "%" + 
+                                    "    </b></font>" + 
 				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
 				    "         data-overlay-theme=b " + 
 				    "         data-corners=false data-tolerance=\"30,15\">" +
@@ -591,11 +596,7 @@
 				    "    </b></font>" +
 				    "  </td>\n" +
 				    "  <td align=center rowspan=1 width=85%>\n" + 
-				    "    <font size=2><b>" + details[k_hour][k_type]['pattern'] + " &nbsp; " + 
-                                                             details[k_hour][k_type]['percentage'] + "%<br>" + 
-                                    "    </b></font>" + 
-				    "    <br>" + segs_more + 
-				    "    <font size=2><b>" + res.short + "</b></font>" +
+					  segs_more + "<font size=2 color=gray><b>" + res.short + "</b></font>" +
 				    "  </td>\n" +
 				    "  </tr>\n" +
 				    "  </table>\n" +

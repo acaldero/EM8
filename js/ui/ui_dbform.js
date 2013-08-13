@@ -6,10 +6,10 @@
 	// action - measures
 	if (-1 == values_measure['id']) // no existe
 	     if (values_measure['measure'] != 0)
-		  Q = db_asocArray2insert("measures",values_measure,Array('id','device'));
+		  Q = db_asocArray2insert("measures",values_measure,Array('id'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("measures",values_measure,Array('id','device'));
+		  Q = db_asocArray2update("measures",values_measure,Array('id'));
 
         if (Q != "")
             Qs.push(Q);
@@ -18,10 +18,10 @@
 	// action - meals
 	if (-1 == values_meal['id']) // no existe
 	     if (values_meal['measure'] != 0)
-		  Q = db_asocArray2insert("meals",values_meal,Array('id','device')) ;
+		  Q = db_asocArray2insert("meals",values_meal,Array('id')) ;
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("meals",values_meal,Array('id','device')) ;
+		  Q = db_asocArray2update("meals",values_meal,Array('id')) ;
 
         if (Q != "")
             Qs.push(Q);
@@ -30,10 +30,10 @@
 	// action - bolus
 	if (-1 == values_bolus['id']) // no existe
 	     if (values_bolus['units'] != 0)
-		  Q = db_asocArray2insert("bolus",values_bolus,Array('id','device')); 
+		  Q = db_asocArray2insert("bolus",values_bolus,Array('id')); 
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("bolus",values_bolus,Array('id','device')); 
+		  Q = db_asocArray2update("bolus",values_bolus,Array('id')); 
 
         if (Q != "")
             Qs.push(Q);
@@ -46,10 +46,10 @@
 	// action - other
 	if (-1 == values_other['id']) // no existe
 	     if ("" != values_other['event'])
-		  Q = db_asocArray2insert("events",values_other,Array('id','device'));
+		  Q = db_asocArray2insert("events",values_other,Array('id'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("events",values_other,Array('id','device'));
+		  Q = db_asocArray2update("events",values_other,Array('id'));
 
         if (Q != "") {
             Qs.push(Q);
@@ -63,10 +63,10 @@
 
 	if (-1 == values_basal_activation['id']) // no existe
 	     if (values_basal_activation['percentage'] != 0)
-		  Q = db_asocArray2insert("basal_activations",values_basal_activation,Array('id','device'));
+		  Q = db_asocArray2insert("basal_activations",values_basal_activation,Array('id'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("basal_activations",values_basal_activation,Array('id','device'));
+		  Q = db_asocArray2update("basal_activations",values_basal_activation,Array('id'));
 
         if (Q != "") {
             Qs.push(Q);
@@ -80,10 +80,10 @@
 
 	if (-1 == values_basal_definition['id']) // no existe
 	     if (0 != values_basal_definition['neltos'])
-		  Q = db_asocArray2insert("basal_definitions",values_basal_definition,Array('id','device'));
+		  Q = db_asocArray2insert("basal_definitions",values_basal_definition,Array('id'));
 	     else Q = "" ;
 	else // existe
-		  Q = db_asocArray2update("basal_definitions",values_basal_definition,Array('id','device'));
+		  Q = db_asocArray2update("basal_definitions",values_basal_definition,Array('id'));
 
         if (Q != "") {
             Qs.push(Q);
@@ -644,6 +644,7 @@
                 {
 		     res.short += segs[i].c + " | " ;
 		     res.long  += "<tr>" + 
+			          "<td align=left><font color=gray>" + (i+1) + "&nbsp;&nbsp;</font></td>" +
 			          "<td>" + segs[i].h + "</td>" +
 			          "<td>&#8592;</td>" + 
 			          "<td>" + segs[i].c + "</td>" + 

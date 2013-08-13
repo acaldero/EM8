@@ -1743,7 +1743,7 @@
 		        var res  = dbform_fill_segments(segs) ;
 
 		        $("#ba_segments1").val(res.short) ;
-		        $("#ba_segments2").html(res.long) ;
+		        $("#ba_segments2").html("<font size=+1>" + res.long + "</font>") ;
 
 	                break;
 	            }
@@ -1761,6 +1761,7 @@
 			<input type=hidden   name="values_basal_activation[device]"   value="">
 
 			<input type=hidden   name="values_basal_activation[segments]" value="">
+			<input type=hidden   name="values_basal_activation[neltos]"   value="">
 
                 <td width=40%>
 		<a href="#tttt1" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
@@ -1784,24 +1785,6 @@
                 <tr>
 
                 <td width=40%>
-		<a href="#tttt2" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
-                   data-role="button" data-inline="true" data-mini="true" data-shadow="false">
-			<div class=T_N_SECTIONS style="display: inline;"></div>
-                </a>
-		<div data-role="popup" id="tttt2" class="ui-content" data-theme="a" style="max-width:0px;">
-		<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
-			<font size=-1>0, 1, ...</font>
-		</a>
-		</div>
-		</td>
-                <td width=60%>
-			<input type=text   name="values_basal_activation[neltos]" readonly>
-		</td>
-
-		</tr>
-                <tr>
-
-                <td width=40%>
 		<a href="#tttt3" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
                    data-role="button" data-inline="true" data-mini="true" data-shadow="false">
                         Segs.
@@ -1815,10 +1798,11 @@
                 <td width=60%>
 			<input id=ba_segments1 type=text readonly
 			       onclick='$("#tttt3b").popup("open"); return false;'>
-			<div data-role="popup" id="tttt3b" class="ui-content" data-theme="a">
-			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
-			        <div id=ba_segments2 style="margin: 0px; overflow: auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-			</a>
+			<div data-role="popup" id="tttt3b" class="ui-content" 
+			     data-overlay-theme=b data-theme=a data-corners=false>
+			<a href="#" data-rel="back" class="ui-btn-right" data-iconpos=notext
+			   data-role="button" data-theme="a" data-icon="delete"></a>
+			      <div id=ba_segments2 style="margin: 0px; overflow: auto;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
 		</td>
 
@@ -2154,6 +2138,8 @@
 
         function load_ui_forms ()
         {
+            var status = 0;
+
             try 
             {
                 // quick
@@ -2194,7 +2180,9 @@
 		$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 		$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
             } 
-            catch (e) { return -1; }
+            catch (e) { status = -1; }
+
+            return status ;
         }
 
         function load_ui ()
@@ -2262,7 +2250,7 @@
 
         function load_data ()
         {
-		vector_details = db_db2js(ls1.rmysql_url,working_grid,ls1.user_id,load_ui) ;
+		vector_details = db_db2js(ls1.rmysql_url, working_grid, ls1.user_id, load_ui) ;
         }
 
         function load_database ()
