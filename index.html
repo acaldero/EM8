@@ -729,10 +729,39 @@
 		       </textarea>
                </div>
 
+<script>
+     function export_handleSave ( f_name, csv )
+     {
+	   window.requestFileSystem(window.PERSISTENT, 50*1024*1024, function(fs) 
+           {
+	         console.log("export: file name is " + f_name);
+		 fs.root.getFile(f_name, {create: true, exclusive: true}, function(fileEntry) 
+		 {
+		      fileEntry.createWriter(function(fileWriter) 
+		      {
+			  fileWriter.onwrite = function (evt) {
+			     console.log("export: write completed");
+			     alert("data saved!");
+			  };
+			  console.log("export: try to write...");
+			  fileWriter.write(csv);
+		      }, daytag_errorHandler);
+		 }, daytag_errorHandler);
+	   }, daytag_errorHandler);
+     }
+</script>
+
                <div data-role="fieldcontain">
 		       <a href="javascript: void 0;" 
 			  data-role="button" data-mini="false" data-inline="true"
-			  class="download_csv" download="export_em.csv"><div class=T_EXPORT style="display: inline;"></div></a>
+			  class="download_csv" download="export_em.csv"><div class=T_EXPORT style="display: inline;"></div><br><font color=gray size=-1>(web browser)</font></a>
+		       <a href="#" 
+			  data-role="button" data-mini="false" data-inline="true"
+			  onclick="var now = XDate();
+                                   var f_name = 'exported-' + now.getFullYear() + '-' + (now.getMonth()+1) + '.csv' ;
+				   var d_name = '/storage/sdcard0/Download/';
+                                   export_handleSave(d_name + f_name, '' + $('#ta16').val());
+				   return false;"><div class=T_EXPORT style="display: inline;"></div><br><font color=gray size=-1>(local file)</font></a>
                </div>
                </center>
 	</div><!-- /collapsible -->
