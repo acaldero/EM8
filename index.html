@@ -61,6 +61,7 @@
     <script type='text/javascript' src="js/ui/stats_byhour.js"></script>
     <script type='text/javascript' src="js/ui/stats_measures_cloud.js"></script>
     <script type='text/javascript' src="js/ui/stats_avg.js"></script>
+    <script type='text/javascript' src="js/ui/stats_basaldef.js"></script>
 
 </HEAD>
 
@@ -943,6 +944,7 @@
 					    stats_byhour_draw();
 					    stats_bytarget_draw();
 					    stats_measures_cloud_draw(); 
+					    stats_basaldef_draw();
 					}
                                      $.mobile.loading("hide"); },200); 
                                 return false;'
@@ -2076,6 +2078,7 @@
      <li><a href="#page23"
 	       onclick='o=db_js2csv(vector_details,ls1.user_login,ls1.user_id);
 			$("#ta16").html(o).trigger("create");
+			$("#ta16").css('height', '100px');
 			middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
 			$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 			$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
@@ -2176,6 +2179,7 @@
                 // export
 	        o = db_js2csv(vector_details, ls1.user_login, ls1.user_id);
 		$("#ta16").html(o).trigger("create");
+		$("#ta16").css('height', '100px');
 		middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
 		$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 		$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");

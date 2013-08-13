@@ -569,7 +569,7 @@
 	      form.elements['values_bolus[percentage]'].value  = values_bolus['percentage'] ;
 	      form.elements['values_bolus[name]'].value        = values_bolus['name'] ;
 
-                      if (parseInt(values_bolus['units']) != 0)
+                      if (parseInt(values_bolus['units'], 10) != 0)
                            $("#page10md1").show();
                       else $("#page10md1").hide();
 
@@ -586,7 +586,7 @@
 	      form.elements['values_meal[measure]'].value    = values_meal['measure'] ;
 	      form.elements['values_meal[image]'].value      = values_meal['image'] ;
 
-                      if (parseInt(values_meal['measure']) != 0)
+                      if (parseInt(values_meal['measure'], 10) != 0)
                            $("#page10md2").show();
                       else $("#page10md2").hide();
 
@@ -802,7 +802,7 @@
 
   function ui_basal_sections ( neltos, basal_segs_json )
   {
-         neltos = parseInt(neltos) ;
+         neltos = parseInt(neltos, 10) ;
          if (neltos == 0) 
              return "" ;
 

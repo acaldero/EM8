@@ -29,6 +29,9 @@ http://stackoverflow.com/questions/2882472/php-send-file-to-user
 http://stackoverflow.com/questions/5501536/jquery-mobile-slider-change-event
 http://stackoverflow.com/questions/4263858/change-value-of-flip-toggle-dynamically-with-jquery-mobile
 http://stackoverflow.com/questions/17287521/cannot-call-methods-on-slider-prior-to-initialization-attempt-to-call-method-va
+http://stackoverflow.com/questions/18038751/change-height-and-slide-down-a-textarea
+http://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and-path-in-javascript
+http://stackoverflow.com/questions/17190654/how-to-create-text-file-in-given-directory-in-iphone-and-android
 
 http://webdesign.about.com/od/htmltags/qt/tipdivblock.htm
 http://css-tricks.com/forums/discussion/9546/solved-jquery-append-text-to-textarea/p1
