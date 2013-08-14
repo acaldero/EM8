@@ -59,7 +59,7 @@
 		    tooltip: {
 			formatter: function() {
 			    return '<b>'+ this.series.name +'</b><br/>'+
-				   Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' (mg/dL)';
+				   this.x + '~' + (parseInt(this.x,10)+1) + ': '+ this.y;
 			}
 		    },
 		    plotOptions: {

@@ -360,7 +360,6 @@
 	  form.elements['values_bolus[name]'].value        = value_name ;
 
               $("#page10md1").hide();
-              $("#page10bap1").slider("refresh");
 
 	  form.elements['values_meal[id]'].value         = -1;
 	  form.elements['values_meal[user]'].value       = ls1.user_id;

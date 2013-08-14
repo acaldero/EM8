@@ -2122,7 +2122,7 @@
 	       onclick='o=db_js2csv(vector_details,ls1.user_login,ls1.user_id);
 			var ta16 = $("#ta16");
 			ta16.html(o).trigger("create");
-			ta16.css("height", "100px").refresh();
+			ta16.css("height", "100px");
 			middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
 			$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 			$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
@@ -2224,7 +2224,7 @@
 	        o = db_js2csv(vector_details, ls1.user_login, ls1.user_id);
 		var ta16 = $("#ta16");
 		ta16.html(o).trigger("create");
-		ta16.css("height", "100px").refresh();
+		ta16.css("height", "100px");
 		middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
 		$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 		$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");

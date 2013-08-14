@@ -40,7 +40,8 @@
 
 		       if (typeof vector_details['basalact'] === 'undefined') 
 		           vector_details['basalact'] = new Array() ;
-		       vector_details["basalact"][results.rows.item(i).start] = js_record ;
+
+		       vector_details['basalact'].push(js_record) ;
 
 		       continue;
                    }
@@ -134,7 +135,8 @@
 
 		       if (typeof vector_details['basalact'] === 'undefined') 
 		           vector_details['basalact'] = new Array() ;
-		       vector_details["basalact"][results.rows.item(i).start] = js_record ;
+
+		       vector_details["basalact"].push(js_record) ;
                    }
 		}
 

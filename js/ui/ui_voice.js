@@ -24,6 +24,7 @@
       var oh1 = stats_byhour_getDefinition();
       var ot1 = stats_bytarget_getDefinition();
       var obd = stats_basaldef_getDefinition();
+      var oba = stats_basalact_getDefinition();
       var oc3 = stats_measures_cloud_getDefinition(); 
 
       var bh1 = new Highcharts.Chart(oh1.b1);
@@ -33,6 +34,7 @@
       var ct1 = new Highcharts.Chart(ot1.c1);
       var mt1 = new Highcharts.Chart(ot1.m1);
       var bd1 = new Highcharts.Chart(obd);
+      var ba1 = new Highcharts.Chart(oba);
       var cc3 = new Highcharts.Chart(oc3);
   }
 

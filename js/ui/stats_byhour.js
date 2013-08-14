@@ -58,8 +58,8 @@
 */
 		    tooltip: {
 			formatter: function() {
-			    return ''+
-				this.x +': '+ this.y +' (mg/dL)';
+			    return '<b>'+ this.series.name +'</b><br/>'+
+				   this.x + '~' + (parseInt(this.x,10)+1) + ': '+ this.y;
 			}
 		    },
 		    plotOptions: {
@@ -126,8 +126,8 @@
 */
 		    tooltip: {
 			formatter: function() {
-			    return ''+
-				this.x +': '+ this.y +' (mg/dL)';
+			    return '<b>'+ this.series.name +'</b><br/>'+
+				   this.x + '~' + (parseInt(this.x,10)+1) + ': '+ this.y;
 			}
 		    },
 		    plotOptions: {
@@ -194,8 +194,8 @@
 */
 		    tooltip: {
 			formatter: function() {
-			    return ''+
-				this.x +': '+ this.y +' (mg/dL)';
+			    return '<b>'+ this.series.name +'</b><br/>'+
+				   this.x + '~' + (parseInt(this.x,10)+1) + ': '+ this.y;
 			}
 		    },
 		    plotOptions: {
