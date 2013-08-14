@@ -1,5 +1,5 @@
 
-	function stats_basaldef_draw () 
+	function stats_basaldef_getDefinition () 
         {
                 // 1.- get options
 		var options1 = {
@@ -46,7 +46,7 @@
                          var wh = parseInt(wsegs[j].h.slice(0,2), 10);
                          var wm = parseInt(wsegs[j].h.slice(3,5), 10);
  			 var wc = parseFloat(wsegs[j].c);
-                         var data_seg = new Array(Date.UTC(1970, 0, 1, wh, wm), wc) ;
+                         var data_seg = new Array(Date.UTC(1972, 0, 1, wh, wm), wc) ;
                          data1.data.push(data_seg) ;
 
                          if (j+1 < wsegs.length) 
@@ -54,7 +54,7 @@
                              var wh = parseInt(wsegs[j+1].h.slice(0,2), 10);
                              var wm = parseInt(wsegs[j+1].h.slice(3,5), 10);
  			     var wc = parseFloat(wsegs[j].c);
-                             var data_seg = new Array(Date.UTC(1970, 0, 1, wh, wm), wc) ;
+                             var data_seg = new Array(Date.UTC(1972, 0, 1, wh, wm), wc) ;
                              data1.data.push(data_seg) ;
                          }
 		    }
@@ -63,6 +63,6 @@
 		}
 
                 // 3.- building the chart
-		var chart1 = new Highcharts.Chart(options1);
+                return options1 ;
         }
 

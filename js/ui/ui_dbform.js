@@ -359,6 +359,9 @@
 	  form.elements['values_bolus[stop]'].value        = now ;
 	  form.elements['values_bolus[name]'].value        = value_name ;
 
+              $("#page10md1").hide();
+              $("#page10bap1").slider("refresh");
+
 	  form.elements['values_meal[id]'].value         = -1;
 	  form.elements['values_meal[user]'].value       = ls1.user_id;
 	  form.elements['values_meal[device]'].value     = ls1.device_id;
@@ -368,6 +371,8 @@
 	  form.elements['values_meal[tag]'].value        = '' ;
 	  form.elements['values_meal[measure]'].value    = 0 ;
 	  form.elements['values_meal[image]'].value      = '' ;
+
+              $("#page10md2").hide();
   }
 
   function dbform_fill0_other ( form, now, value_name )

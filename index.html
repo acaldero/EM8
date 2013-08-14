@@ -463,11 +463,11 @@
                 </td>
                 <td width=35%>
 	        <input name="values_bolus[units][before]" type="number" value="0" size=4 data-mini="true"
-                       id=z11bB onclick='knobIt(z11bB,$("#z11bB").val(),0,80,0.5); return true;'>
+                       id=z11bB onclick='knobIt(z11bB,$("#z11bB").val(),0,40,0.5); return true;'>
 		</td>
                 <td width=35%>
 	        <input name="values_bolus[units][after]" type="number" value="0" size=4 data-mini="true"
-                       id=z11bA onclick='knobIt(z11bA,$("#z11bA").val(),0,80,0.5); return true;'>
+                       id=z11bA onclick='knobIt(z11bA,$("#z11bA").val(),0,40,0.5); return true;'>
 		</td>
                 </tr>
 	   </table>
@@ -514,11 +514,11 @@
                 </td>
                 <td width=35%>
 	        <input name="values_meal[measure][before]" type="number" value="0" size=4 data-mini="true"
-                       id=z11dB onclick='knobIt(z11dB,$("#z11dB").val(),0,80,0.5); return true;'>
+                       id=z11dB onclick='knobIt(z11dB,$("#z11dB").val(),0,40,0.5); return true;'>
                 </td>
                 <td width=35%>
 	        <input name="values_meal[measure][after]" type="number" value="0" size=4 data-mini="true"
-                       id=z11dA onclick='knobIt(z11dA,$("#z11dA").val(),0,80,0.5); return true;'>
+                       id=z11dA onclick='knobIt(z11dA,$("#z11dA").val(),0,40,0.5); return true;'>
                 </td>
                 </tr>
 	   </table>
@@ -741,7 +741,7 @@
 		      {
 			  fileWriter.onwrite = function (evt) {
 			     console.log("export: write completed");
-			     alert("data saved!");
+			     alert("data saved in: " + f_name);
 			  };
 			  console.log("export: try to write...");
 			  fileWriter.write(csv);
@@ -758,7 +758,11 @@
 		       <a href="#" 
 			  data-role="button" data-mini="false" data-inline="true"
 			  onclick="var now = XDate();
-                                   var f_name = 'exported-' + now.getFullYear() + '-' + (now.getMonth()+1) + '.csv' ;
+                                   var f_name = 'exported-em' + 
+						     '-' + now.getFullYear() + 
+						     '-' + (now.getMonth()+1) + 
+						     '-' + now.getDate() + 
+						     '.csv' ;
 				   var d_name = '/storage/sdcard0/Download/';
                                    export_handleSave(d_name + f_name, '' + $('#ta16').val());
 				   return false;"><div class=T_EXPORT style="display: inline;"></div><br><font color=gray size=-1>(local file)</font></a>
@@ -969,11 +973,21 @@
                        onclick='$.mobile.loading("show"); 
 				var interval = setInterval(function(){ 
                                      clearInterval(interval); 
-					if (typeof vector_details !== "undefined") {
-					    stats_byhour_draw();
-					    stats_bytarget_draw();
-					    stats_measures_cloud_draw(); 
-					    stats_basaldef_draw();
+					if (typeof vector_details !== "undefined") 
+					{
+						    var oh1 = stats_byhour_getDefinition();
+						    var ot1 = stats_bytarget_getDefinition();
+						    var obd = stats_basaldef_getDefinition();
+						    var oc3 = stats_measures_cloud_getDefinition(); 
+
+						    var bh1 = new Highcharts.Chart(oh1.b1);
+						    var ch1 = new Highcharts.Chart(oh1.c1);
+						    var mh1 = new Highcharts.Chart(oh1.m1);
+						    var bt1 = new Highcharts.Chart(ot1.b1);
+						    var ct1 = new Highcharts.Chart(ot1.c1);
+						    var mt1 = new Highcharts.Chart(ot1.m1);
+						    var bd1 = new Highcharts.Chart(obd);
+						    var cc3 = new Highcharts.Chart(oc3);
 					}
                                      $.mobile.loading("hide"); },200); 
                                 return false;'
@@ -2106,8 +2120,9 @@
      </li>
      <li><a href="#page23"
 	       onclick='o=db_js2csv(vector_details,ls1.user_login,ls1.user_id);
-			$("#ta16").html(o).trigger("create");
-			$("#ta16").css('height', '100px');
+			var ta16 = $("#ta16");
+			ta16.html(o).trigger("create");
+			ta16.css("height", "100px").refresh();
 			middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
 			$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 			$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
@@ -2207,13 +2222,17 @@
 
                 // export
 	        o = db_js2csv(vector_details, ls1.user_login, ls1.user_id);
-		$("#ta16").html(o).trigger("create");
-		$("#ta16").css('height', '100px');
+		var ta16 = $("#ta16");
+		ta16.html(o).trigger("create");
+		ta16.css("height", "100px").refresh();
 		middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
 		$(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
 		$(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
             } 
             catch (e) { status = -1; }
+
+	    var interval = setInterval(function(){ clearInterval(interval); 
+ 				                   $.mobile.loading("hide"); },125); 
 
             return status ;
         }
@@ -2283,6 +2302,7 @@
 
         function load_data ()
         {
+                $.mobile.loading("show"); 
 		vector_details = db_db2js(ls1.rmysql_url, working_grid, ls1.user_id, load_ui) ;
         }
 

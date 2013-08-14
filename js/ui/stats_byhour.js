@@ -1,16 +1,8 @@
 
-	function stats_byhour_draw () 
+	function stats_byhour_getDefinition () 
         {
-	        var chart1;
-	        var chart2;
-	        var chart3;
-
-                var data1;
-                var data2;
-                var data3;
-
                 // 1.- get options
-		options1 = {
+		var options1 = {
 		    chart: {
 			renderTo: 'container5',
 			type: 'column'
@@ -52,6 +44,7 @@
 			    text: 'Insulina (unidades)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -62,6 +55,7 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
 			    return ''+
@@ -76,7 +70,7 @@
 		    },
 		};
 
-		options2 = {
+		var options2 = {
 		    chart: {
 			renderTo: 'container7',
 			type: 'column'
@@ -118,6 +112,7 @@
 			    text: 'Raciones (10 gr ch.)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -128,6 +123,7 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
 			    return ''+
@@ -142,7 +138,7 @@
 		    },
 		};
 
-		options3 = {
+		var options3 = {
 		    chart: {
 			renderTo: 'container9',
 			type: 'column'
@@ -184,6 +180,7 @@
 			    text: 'Glucosa en sangre (mg/dL)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -194,6 +191,7 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
 			    return ''+
@@ -219,9 +217,9 @@
                    if ("basaldef" == i) continue;
                    if ("basalact" == i) continue;
 
-                   data1 = new Array() ;
-                   data2 = new Array() ;
-                   data3 = new Array() ;
+                   var data1 = new Array() ;
+                   var data2 = new Array() ;
+                   var data3 = new Array() ;
 
                    data1.name = data2.name = data3.name = i ;
 
@@ -230,7 +228,7 @@
                    data3.data = new Array() ;
 
 		   for (k=0; k<24; k++) {
-                        data1.data[k] = data2.data[k] = data3.data[k] = 0 ;
+                        data1.data[k] = data2.data[k] = data3.data[k] = null ;
                    }
 
                    for (j in vector_details[i])
@@ -249,10 +247,11 @@
 		   options3.series.push(data3) ;
 		}
 
-
-                // 3.- building the chart
-		chart1 = new Highcharts.Chart(options1);
-		chart2 = new Highcharts.Chart(options2);
-		chart3 = new Highcharts.Chart(options3);
+                // 3.- return chart definitions
+                var oh1 = new Array();
+                oh1.b1 = options1 ;
+                oh1.c1 = options2 ;
+                oh1.m1 = options3 ;
+                return oh1 ;
         }
 

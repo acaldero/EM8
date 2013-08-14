@@ -1,11 +1,8 @@
 
-	function stats_measures_cloud_draw () 
+	function stats_measures_cloud_getDefinition () 
         {
-	        var chart;
-                var dat_bbyh;
-
-                // 1.- get options
-		options = {
+                // 1.- new options
+		var options = {
 		    chart: {
 			renderTo: 'containerA',
 			type: 'scatter'
@@ -47,6 +44,7 @@
 			    text: 'Glucosa en sangre (mg/dL)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -57,10 +55,11 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
-			    return ''+
-				this.x +': '+ this.y +' (mg/dL)';
+			    return '<b>'+ this.series.name +'</b><br/>'+
+				   Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' (mg/dL)';
 			}
 		    },
 		    plotOptions: {
@@ -100,20 +99,24 @@
                    data_s3.name = i ;
                    data_s3.data = new Array() ;
 		   for (k=0; k<24; k++)
-                        data_s3.data[k] = 0 ;
+                        data_s3.data[k] = null ;
 
+                   var empty = 1;
                    for (j in vector_details[i])
 		   {
 		       k = parseInt(j.match(/(\d+)/g)[0]);
-		       if (vector_details[i][j]['measure'])
+		       if (vector_details[i][j]['measure']) {
 			    data_s3.data[k] = parseInt(vector_details[i][j]['measure']['measure']) ;
+			    empty = 0;
+                       }
 		   }
 
-                   options.series.push(data_s3) ;
+                   if (0 == empty)
+                       options.series.push(data_s3) ;
 		}
 
 
-                // 3.- building the chart
-		chart = new Highcharts.Chart(options);
+                // 3.- return chart definition
+                return options;
         }
 

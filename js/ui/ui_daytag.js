@@ -768,8 +768,8 @@
                             "      dbform_fill0_other(document.form11x,'" + k0 + "');" +
                             "      dbform_fill0_basalactivation(document.formqba,'" + k0 + "');" +
                             "      dbform_fill0_basaldefinition(document.formbd,'" + k0 + "');" +
-			    "      $('#p-qm-mmb').collapsible('expand');" +
-                            "      $.mobile.changePage('#page-quickmenu');" + "\"><c>+</c></div>\n" +
+			    "      $.mobile.changePage('#page-quickmenu');" + 
+			    "      $('#p-qm-mmb').collapsible('expand');" + "\"><c>+</c></div>\n" +
 			     "</td>" +
 			     "</tr>" +
 			     "</table>" +
@@ -851,9 +851,9 @@
                             " dbform_fill0_other(document.form11x,'" + k0 + "');" +
                             " dbform_fill0_basalactivation(document.formqba,'" + k0 + "');" +
                             " dbform_fill0_basaldefinition(document.formbd,'" + k0 + "');" +
+			    " $.mobile.changePage('#page-quickmenu');" + 
 			    " $('#p-qm-mmb').collapsible('expand');" +
-                            " $.mobile.changePage('#page-quickmenu');" + 
-                           "\"><c>+</c></div>\n" +
+                            "\"><c>+</c></div>\n" +
               "  </td>" + 
               " </tr>" + 
               " </table>\n" +

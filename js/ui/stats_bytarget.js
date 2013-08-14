@@ -1,16 +1,8 @@
 
-	function stats_bytarget_draw () 
+	function stats_bytarget_getDefinition () 
         {
-	        var chart1;
-	        var chart2;
-	        var chart3;
-
-                var dat_bbyt;
-                var dat_mbyt;
-                var dat_gbyt;
-
                 // 1.- get options
-		options1 = {
+		var options1 = {
 		    chart: {
 			renderTo: 'container4',
 			type: 'column'
@@ -37,6 +29,7 @@
 			    text: 'Insulina (unidades)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -47,6 +40,7 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
 			    return ''+
@@ -61,7 +55,7 @@
 		    },
 		};
 
-		options2 = {
+		var options2 = {
 		    chart: {
 			renderTo: 'container6',
 			type: 'column'
@@ -88,6 +82,7 @@
 			    text: 'Raciones (10 gr ch.)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -98,6 +93,7 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
 			    return ''+
@@ -112,7 +108,7 @@
 		    },
 		};
 
-		options3 = {
+		var options3 = {
 		    chart: {
 			renderTo: 'container8',
 			type: 'column'
@@ -139,6 +135,7 @@
 			    text: 'Glucosa en sangre (mg/dL)'
 			}
 		    },
+/*
 		    legend: {
 			layout: 'vertical',
 			backgroundColor: '#FFFFFF',
@@ -149,6 +146,7 @@
 			floating: true,
 			shadow: true
 		    },
+*/
 		    tooltip: {
 			formatter: function() {
 			    return ''+
@@ -219,9 +217,11 @@
 		}
 
 
-                // 3.- building the chart
-		chart1 = new Highcharts.Chart(options1);
-		chart2 = new Highcharts.Chart(options2);
-		chart3 = new Highcharts.Chart(options3);
+                // 3.- return chart definitions
+                var ot1 = new Array();
+                ot1.b1 = options1 ;
+                ot1.c1 = options2 ;
+                ot1.m1 = options3 ;
+                return ot1 ;
         }
 

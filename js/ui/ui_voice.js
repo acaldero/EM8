@@ -20,9 +20,20 @@
       $("#container9").hide();
       $("#containerA").hide();
 
-      stats_byhour_draw(); 
-      stats_bytarget_draw(); 
-      stats_measures_cloud_draw();
+      // build the charts
+      var oh1 = stats_byhour_getDefinition();
+      var ot1 = stats_bytarget_getDefinition();
+      var obd = stats_basaldef_getDefinition();
+      var oc3 = stats_measures_cloud_getDefinition(); 
+
+      var bh1 = new Highcharts.Chart(oh1.b1);
+      var ch1 = new Highcharts.Chart(oh1.c1);
+      var mh1 = new Highcharts.Chart(oh1.m1);
+      var bt1 = new Highcharts.Chart(ot1.b1);
+      var ct1 = new Highcharts.Chart(ot1.c1);
+      var mt1 = new Highcharts.Chart(ot1.m1);
+      var bd1 = new Highcharts.Chart(obd);
+      var cc3 = new Highcharts.Chart(oc3);
   }
 
 
