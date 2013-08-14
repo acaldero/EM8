@@ -8,14 +8,14 @@
 			type: 'bar'
 		    },
 		    title: {
-			text: 'Basals act.'
+			text: 'Basal act.'
 		    },
 		    xAxis: {
-			categories: ['Month']
+			categories: ['Activation hours']
 		    },
 		    yAxis: {
 			title: {
-			    text: 'Basal'
+			    text: ''
 			},
 			min: 0
 		    },
