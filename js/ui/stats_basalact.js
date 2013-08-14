@@ -1,4 +1,14 @@
 
+        function stats_basalact_toHuman ( hours )
+        {
+                if (hours < 24)
+                    return hours + 'h' ;
+
+                ndays = (parseFloat(hours) / 24.0).toFixed(0) ;
+                nhours = (hours - ndays*24).toFixed(1) ;
+                return ndays + 'd ' + nhours + 'h' ;
+        }
+
 	function stats_basalact_getDefinition () 
         {
                 // 1.- get options
@@ -8,10 +18,10 @@
 			type: 'bar'
 		    },
 		    title: {
-			text: 'Basal act.'
+			text: 'Basal activations'
 		    },
 		    xAxis: {
-			categories: ['Activation hours']
+			categories: ['Activation<br>hours']
 		    },
 		    yAxis: {
 			title: {
@@ -23,6 +33,11 @@
 			backgroundColor: '#FFFFFF',
 			reversed: true
 		    },
+                    tooltip: {
+                        formatter: function() {
+                            return '<b>'+ this.series.name +'</b><br/>' + stats_basalact_toHuman(this.y);
+                        }
+                    },
 		    plotOptions: {
 			series: {
 			    stacking: 'normal'
@@ -30,13 +45,17 @@
 		    }
 		};
 
+                if (typeof vector_details['basalact'] === 'undefined')
+                    return options1;
+
 
                 // 2.- get data
 		options1.series = new Array() ;
                 for (i=0; i<vector_details['basalact'].length; i++)
 		{
                     var data1 = new Object() ;
-                    data1.name = vector_details['basalact'][i].pattern ;
+                    data1.name = vector_details['basalact'][i].pattern + ' ' + 
+			         vector_details['basalact'][i].percentage + '%' ;
                     data1.data = new Array() ;
 
                     d1 = new XDate(vector_details['basalact'][i].start) ;
