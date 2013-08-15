@@ -42,7 +42,6 @@
 		           vector_details['basalact'] = new Array() ;
 
 		       vector_details['basalact'].push(js_record) ;
-
 		       continue;
                    }
 
@@ -137,6 +136,7 @@
 		           vector_details['basalact'] = new Array() ;
 
 		       vector_details["basalact"].push(js_record) ;
+		       continue;
                    }
 		}
 
@@ -193,19 +193,19 @@
 				      " WHERE user='" + login_id + "' " +
 				      " AND   neltos!=0" +
 				      " ORDER BY sync;",
-				      " SELECT 'basalact' as 'rt',* FROM basal_activations " + 
-				      " WHERE strftime('%Y',start)='" + year + "' " +
-				      " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
-				      " AND   user='" + login_id + "' " +
-				      " AND   percentage!=0" +
-				      " ORDER BY start;",
                                       " SELECT 'last_basalact' as 'rt',* FROM basal_activations " +
 		                      " WHERE strftime('%Y',start)<='" + year + "' " +
 		                      " AND   strftime('%m',start)<='" + ("0" + month).slice(-2) + "' " +
 		                      " AND   user='" + login_id + "' " +
                                       " AND   percentage!=0 " +
                                       " ORDER BY start DESC " +
-                                      " LIMIT 1 ") ;
+                                      " LIMIT 1 ",
+				      " SELECT 'basalact' as 'rt',* FROM basal_activations " + 
+				      " WHERE strftime('%Y',start)='" + year + "' " +
+				      " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
+				      " AND   user='" + login_id + "' " +
+				      " AND   percentage!=0" +
+				      " ORDER BY start;") ;
 
                    db_webdb2js_aux(day_arr,qs,0,vector_details,ok_handler) ;
                } 

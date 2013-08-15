@@ -18,7 +18,7 @@
 			type: 'bar'
 		    },
 		    title: {
-			text: 'Basal activations'
+			text: 'Basal Activations'
 		    },
 		    xAxis: {
 			categories: ['Activation<br>hours']
@@ -50,6 +50,12 @@
 
 
                 // 2.- get data
+                d_now = new XDate();
+                d_end = new XDate(ls1.year, ls1.month, XDate.getDaysInMonth(ls1.year, ls1.month));
+                if (d_now.getMonth() == ls1.month)
+                     d_last = d_end;
+                else d_last = d_now ;
+
 		options1.series = new Array() ;
                 for (i=0; i<vector_details['basalact'].length; i++)
 		{
@@ -60,7 +66,7 @@
 
                     d1 = new XDate(vector_details['basalact'][i].start) ;
                     if ((i+1) == vector_details['basalact'].length)
-                         d2 = new XDate() ;
+                         d2 = d_last ;
                     else d2 = new XDate(vector_details['basalact'][i+1].start) ;
 
                     var h = Number(d1.diffHours(d2).toFixed(1)) ;

@@ -549,7 +549,7 @@
 			    var res  = dbform_fill_segments(segs) ;
 
                             var segs_more = 
-				    "<a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
+				    "<a href=#b" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
 				    "   data-position-to=window data-theme=d " + 
 				    "   data-inline=true data-transition=fade>" + 
                                     "    <img src=icons/faucet-2.png height=35>" + 
@@ -557,7 +557,7 @@
 				    "    <font size=2><b>" + details[k_hour][k_type]['pattern'] + " &nbsp; " + 
                                                              details[k_hour][k_type]['percentage'] + "%" + 
                                     "    </b></font>" + 
-				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
+				    "    <div data-role=popup id=b" + details[k_hour][k_type]['id'] + 
 				    "         data-overlay-theme=b " + 
 				    "         data-corners=false data-tolerance=\"30,15\">" +
 				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 

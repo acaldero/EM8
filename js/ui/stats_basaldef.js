@@ -8,10 +8,7 @@
 			type: 'spline'
 		    },
 		    title: {
-			text: 'Basals'
-		    },
-		    subtitle: {
-			text: 'defined basals'
+			text: 'Defined Basals'
 		    },
 		    xAxis: {
 			type: 'datetime'
@@ -46,7 +43,7 @@
                          var wh = parseInt(wsegs[j].h.slice(0,2), 10);
                          var wm = parseInt(wsegs[j].h.slice(3,5), 10);
  			 var wc = parseFloat(wsegs[j].c);
-                         var data_seg = new Array(Date.UTC(1972, 0, 1, wh, wm), wc) ;
+                         var data_seg = new Array(Date.UTC(ls1.year, ls1.month-1, 1, wh, wm), wc) ;
                          data1.data.push(data_seg) ;
 
                          if (j+1 < wsegs.length) 
@@ -54,7 +51,7 @@
                              var wh = parseInt(wsegs[j+1].h.slice(0,2), 10);
                              var wm = parseInt(wsegs[j+1].h.slice(3,5), 10);
  			     var wc = parseFloat(wsegs[j].c);
-                             var data_seg = new Array(Date.UTC(1972, 0, 1, wh, wm), wc) ;
+                             var data_seg = new Array(Date.UTC(ls1.year, ls1.month-1, 1, wh, wm), wc) ;
                              data1.data.push(data_seg) ;
                          }
 		    }
