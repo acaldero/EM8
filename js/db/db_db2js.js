@@ -9,7 +9,12 @@
   function db_db2basalselect ( vector_details, select_name, pattern, login_id )
   {
            var o_options = "<OPTION value=\"\"></OPTION>";
-           for(var i=0; i<vector_details['basaldef'].length; i++)
+
+           var last = 0;
+           if (typeof vector_details['basaldef'] !== 'undefined')
+               last = vector_details['basaldef'].length;
+
+           for(var i=0; i<last; i++)
            {
                 result_pattern = vector_details['basaldef'][i]['pattern'] ;
                 if (result_pattern == pattern)
@@ -20,16 +25,4 @@
            $(select_name).html("").html(o_options).selectmenu().selectmenu("refresh");
   }
 
-  function db_db2basaldatalist ( vector_details, select_name, pattern, login_id )
-  {
-	   var dataList = $(select_name);
-	   dataList.empty();
-           for(var i=0; i<vector_details['basaldef'].length; i++)
-	   {         
-                result_pattern = vector_details['basaldef'][i]['pattern'] ;
-		var opt = $("<option></option>").attr("value", result_pattern);
-		dataList.append(opt);
-	   }
-	   dataList.trigger("refresh");
-  }
 

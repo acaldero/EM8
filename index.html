@@ -62,6 +62,7 @@
     <script type='text/javascript' src="js/ui/stats_measures_cloud.js"></script>
     <script type='text/javascript' src="js/ui/stats_avg.js"></script>
     <script type='text/javascript' src="js/ui/stats_basaldef.js"></script>
+    <script type='text/javascript' src="js/ui/stats_basalact.js"></script>
 
 </HEAD>
 
@@ -865,6 +866,41 @@
                                data-icon="delete" data-inline="true"><div class=T_CLOSE style="display: inline;"></div></a>
              </div>
 
+             <br>
+             <a href="#header" data-role="button" data-theme="c" data-mini="true"
+			       onclick='$.mobile.loading("show"); 
+					var interval = setInterval(function(){ 
+					        clearInterval(interval); 
+						if (typeof vector_details !== "undefined") 
+						{
+						    var oh1 = stats_byhour_getDefinition();
+						    var ot1 = stats_bytarget_getDefinition();
+						    var obd = stats_basaldef_getDefinition();
+						    var oba = stats_basalact_getDefinition();
+						    var oc3 = stats_measures_cloud_getDefinition(); 
+
+						  var pbu1 = $("#pbupdate");
+						  pbu1.html("0%");
+						    var bh1 = new Highcharts.Chart(oh1.b1);
+						    var ch1 = new Highcharts.Chart(oh1.c1);
+						  pbu1.html("25%");
+						    var mh1 = new Highcharts.Chart(oh1.m1);
+						    var bt1 = new Highcharts.Chart(ot1.b1);
+						  pbu1.html("50%");
+						    var ct1 = new Highcharts.Chart(ot1.c1);
+						    var mt1 = new Highcharts.Chart(ot1.m1);
+						  pbu1.html("75%");
+						    var bd1 = new Highcharts.Chart(obd);
+						    var ba1 = new Highcharts.Chart(oba);
+						  pbu1.html("90%");
+						    var cc3 = new Highcharts.Chart(oc3);
+						  pbu1.html("");
+						}
+					        $.mobile.loading("hide"); },200); 
+					return false;'
+                               data-icon="refresh" data-inline="false"><div class=T_UPDATE style="display: inline;"></div><div id="pbupdate"></div></a>
+             <br>
+
 	        <div class=T_MEASURES style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
@@ -971,27 +1007,6 @@
                 <td width=5%>&nbsp;</td>
                 <td width=4%>
 		    <a href="#table" 
-                       onclick='$.mobile.loading("show"); 
-				var interval = setInterval(function(){ 
-                                     clearInterval(interval); 
-					if (typeof vector_details !== "undefined") 
-					{
-						    var oh1 = stats_byhour_getDefinition();
-						    var ot1 = stats_bytarget_getDefinition();
-						    var obd = stats_basaldef_getDefinition();
-						    var oc3 = stats_measures_cloud_getDefinition(); 
-
-						    var bh1 = new Highcharts.Chart(oh1.b1);
-						    var ch1 = new Highcharts.Chart(oh1.c1);
-						    var mh1 = new Highcharts.Chart(oh1.m1);
-						    var bt1 = new Highcharts.Chart(ot1.b1);
-						    var ct1 = new Highcharts.Chart(ot1.c1);
-						    var mt1 = new Highcharts.Chart(ot1.m1);
-						    var bd1 = new Highcharts.Chart(obd);
-						    var cc3 = new Highcharts.Chart(oc3);
-					}
-                                     $.mobile.loading("hide"); },200); 
-                                return false;'
 		       data-role="button" data-theme="b" data-mini="true"
                        data-shadow="false" data-iconshadow="false"><div class=T_SELECT style="display: inline;"></div></a></li>
                 </td>
@@ -1668,9 +1683,11 @@
                                size=20 value="" placeholder="low, normal, high"
                                data-mini="true" x-webkit-speech>
                 </td>
+
                 </tr>
                 </table>
                 </div>
+
 
                 <table border=0 width=100% cellpadding=0 cellspacing=0>
                 <tr>
@@ -1978,11 +1995,20 @@
 		</a>
 		</div>
 		</td>
-                <td width=60%>
-                        <input type="text" id="bd_pattern" name="values_basaldef,pattern" data-mini="true"
-                               list="bd_pattern_list" onchange="handle_completeDefinition(document.formbd); 
-     							        return false;" x-webkit-speech>
-                        <datalist id="bd_pattern_list"></datalist>
+                <td width=50%>
+                        <input type="text" id="bd_pattern" name="values_basaldef,pattern" 
+			       data-mini="true"
+                               onchange="handle_completeDefinition(document.formbd); 
+     				         return false;" x-webkit-speech>
+		</td>
+                <td width=10%>
+			<SELECT id=bd_pattern_list name="bd_pattern_list"  
+			        data-mini="true"
+                                onchange="var s_value = document.formbd.elements['bd_pattern_list'].value;
+					  document.formbd.elements['values_basaldef,pattern'].value = s_value;
+                                          document.formbd.elements['bd_pattern_list'].value = '';
+                                          handle_completeDefinition(document.formbd); 
+					  return false;"></SELECT>
 		</td>
 
 		<tr>
@@ -1999,7 +2025,7 @@
 		</a>
 		</div>
 		</td>
-                <td width=60%>
+                <td colspan=2 width=60%>
 			<select id=neltos name="neltos" data-mini="true"
 				onchange='ne = this.selectedIndex;
 					  var values_basal = ui_basal_form2def(document.formbd); 
@@ -2043,7 +2069,7 @@
 		</a>
 		</div>
 		</td>
-                <td width=60%>
+                <td colspan=2 width=60%>
                         <input type="text" id="total_area" name="total_area" data-mini="true" readonly>
 		</td>
 
@@ -2051,7 +2077,7 @@
 		</tr>
 
 
-                <td colspan=2>
+                <td colspan=3>
 			<center>
 			  <button name="a-update"
 				  data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
@@ -2059,7 +2085,7 @@
 					       dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
 						   //$('#page-quickmenu').dialog('close');
 						   load_data();
-                                                   alert('basal updated');
+                                                   alert('basal updated!');
 					       });
  					   else alert('error: empty pattern');
 					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
@@ -2119,11 +2145,11 @@
      </li>
      <li><a href="#page23"
 	       onclick='try {
-                          o=db_js2csv(vector_details,ls1.user_login,ls1.user_id);
-	                  $("#ta16").val(o);
-			  middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
-			  $(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
-			  $(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
+                            var o = db_js2csv(vector_details,ls1.user_login,ls1.user_id);
+			    $("#ta16").val(o); 
+			    middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
+			    $(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
+			    $(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
                         } catch (e) {}
 			return true;'>
         <img src="icons/glyphish/44-shoebox.png" height=55px>
@@ -2216,8 +2242,8 @@
 		dbform_fill0_quick_2(document.form12x);
 
                 // basal-pattern-list
-		db_db2basaldatalist(vector_details,"#bd_pattern_list","normal",ls1.user_id) ;
-		db_db2basalselect  (vector_details,"#ba_pattern","normal",ls1.user_id) ;
+		db_db2basalselect (vector_details, "#ba_pattern",      "standard", ls1.user_id) ;
+		db_db2basalselect (vector_details, "#bd_pattern_list", "",         ls1.user_id) ;
 
                 // export
 	        o = db_js2csv(vector_details, ls1.user_login, ls1.user_id);
