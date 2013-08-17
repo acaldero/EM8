@@ -433,8 +433,8 @@
 	  form.elements['values_basaldef,device'].value  = ls1.device_id;
 	  form.elements['values_basaldef,pattern'].value = '';
 
-	  form.elements['total_area'].value              = 0;
-	  form.elements['neltos'].value                  = 0;
+	  form.elements['total_area'].value = 0;
+	  form.elements['neltos'].value     = 0;
           var select2 = $("#neltos").selectmenu().selectmenu("refresh", true) ;
 
           $("#basal_sections").html("").trigger("refresh");
