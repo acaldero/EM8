@@ -431,6 +431,13 @@
 	  form.elements['values_basaldef,id'].value      = -1;
 	  form.elements['values_basaldef,user'].value    = ls1.user_id;
 	  form.elements['values_basaldef,device'].value  = ls1.device_id;
+	  form.elements['values_basaldef,pattern'].value = '';
+
+	  form.elements['total_area'].value              = 0;
+	  form.elements['neltos'].value                  = 0;
+          var select2 = $("#neltos").selectmenu().selectmenu("refresh", true) ;
+
+          $("#basal_sections").html("").trigger("refresh");
 
           ui_basal_fillselect(vector_details, "#bd_pattern_list", "") ;
   }
@@ -848,7 +855,7 @@
          basal_segs = JSON.parse(basal_segs_json) ;
 
 	 o = "<center>" +
-	     "<table border=0 class=\"none\" cellpadding=0>" +
+	     "<table border=0 class=\"none\" cellpadding=2>" +
 	     "<tr>" +
 	     "<td align=center width=50%><small><b>" + T['BEGIN'] + "</b></small></td>" +
 	     "<td align=center width=50%><small><b>" + T['UNI']   + "</b></small></td>" +
@@ -884,12 +891,13 @@
 			"    <td height=50% align=center>" +
 			"	<div style=\"border-right:1px solid #000; height:55px; width:5%\"></div>" +
 			"    </td>" +
-			"   <td width=50% valign=middle rowspan=1>" +
+			"   <td width=50% valign=middle>" +
 			"	<input name=\"values_basaldef," + i + ",c\" " + 
+			"              type=number min=0 max=99 step=.01 size=3 data-mini=true data-inline=true" +
                         "              onchange=\"var values_basal = ui_basal_form2def(document.formbd); " + 
-                        "                         document.formbd.total_area.value = ui_basal_area(values_basal['segments'],'00:00','23:59'); " + 
+                        "                     document.formbd.total_area.value = ui_basal_area(values_basal['segments'],'00:00','23:59');"+ 
 		        "		          return false;\" " +
-			"              type=number min=0 max=99 step=any size=3 data-mini=\"true\" value=\"" + bd_i_c + "\">" +
+			"              value=\"" + bd_i_c + "\">" +
 			"    </td>" +
 			"</tr>" ;
 	 }
