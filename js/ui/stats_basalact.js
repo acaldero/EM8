@@ -50,11 +50,12 @@
 
 
                 // 2.- get data
+                var xdate_month = parseInt(ls1.month) - 1;
+                d_end = new XDate(ls1.year, xdate_month, XDate.getDaysInMonth(ls1.year, xdate_month));
                 d_now = new XDate();
-                d_end = new XDate(ls1.year, ls1.month, XDate.getDaysInMonth(ls1.year, ls1.month));
-                if (d_now.getMonth() == ls1.month)
-                     d_last = d_end;
-                else d_last = d_now ;
+                if (d_now.getMonth() == xdate_month)
+                     d_last = d_now;
+                else d_last = d_end ;
 
 		options1.series = new Array() ;
                 for (i=0; i<vector_details['basalact'].length; i++)

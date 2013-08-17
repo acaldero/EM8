@@ -162,38 +162,46 @@
           {
                for (month in working_grid[year])
                {
+                   var min_day = 32 ;
                    var day_arr = new Array() ;
-		   for (day in working_grid[year][month])
-                        day_arr.push(parseInt(day), 10) ;
+		   for (day in working_grid[year][month]) {
+                        var nday = parseInt(day) ;
+                        if (nday < min_day)
+                            min_day = nday ;
+                        day_arr.push(nday, 10) ;
+                   }
+
+		   var twodigits_month = ("0" + month).slice(-2) ;
+		   var twodigits_mday  = ("0" + min_day).slice(-2) ;
 
 		   qs = new Array() ;
 		   qs.push(" SELECT 'bolus' as 'rt',* FROM bolus " + 
 			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
+			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   units!=0" +
 			   " ORDER BY start;") ;
 		   qs.push(" SELECT 'meal' as 'rt',* FROM meals " + 
 			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
+			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   measure!=0" +
 			   " ORDER BY start;") ;
 	           qs.push(" SELECT 'measure' as 'rt',* FROM measures " + 
 			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
+			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   measure!=0" +
 			   " ORDER BY start;") ;
 	           qs.push(" SELECT 'event' as 'rt',* FROM events " + 
 			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
+			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   event!=''" +
 			   " ORDER BY start;") ;
 	           qs.push(" SELECT 'basalact' as 'rt',* FROM basal_activations " + 
 			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + ("0" + month).slice(-2) + "' " +
+			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   percentage!=0" +
 			   " ORDER BY start;") ;
@@ -202,7 +210,8 @@
 		      {
 		         qs.push(" SELECT 'last_basalact' as 'rt',* FROM basal_activations " +
 		                 " WHERE strftime('%Y',start)<='" + year + "' " +
-		                 " AND   strftime('%m',start)<='" + ("0" + month).slice(-2) + "' " +
+		                 " AND   strftime('%m',start)<='" + twodigits_month + "' " +
+		                 " AND   strftime('%d',start)<'"  + twodigits_mday  + "' " +
 		                 " AND   user='" + login_id + "' " +
                                  " AND   percentage!=0 " +
                                  " ORDER BY start DESC " +

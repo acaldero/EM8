@@ -411,6 +411,12 @@
 	  form.elements['values_basal_activation[device]'].value       = ls1.device_id;
 	  form.elements['values_basal_activation[start]'].value        = now ;
 	  form.elements['values_basal_activation[percentage]'].value   = 100 ;
+	  form.elements['values_basal_activation[neltos]'].value       = 0 ;
+	  form.elements['values_basal_activation[segments]'].value     = '' ;
+
+	  $("#ba_segments1").val('') ;
+
+          ui_basal_fillselect(vector_details, "#ba_pattern", "standard");
   }
 
   function dbform_fill0_basaldefinition ( form, now )
@@ -425,6 +431,8 @@
 	  form.elements['values_basaldef,id'].value      = -1;
 	  form.elements['values_basaldef,user'].value    = ls1.user_id;
 	  form.elements['values_basaldef,device'].value  = ls1.device_id;
+
+          ui_basal_fillselect(vector_details, "#bd_pattern_list", "") ;
   }
 
   function dbform_fill0_quick_2 ( form, now, value_name )
@@ -678,10 +686,6 @@
 	      form.elements['values_basal_activation[segments]'].value   = values_basal_activation['segments'] ;
 	      form.elements['values_basal_activation[percentage]'].value = values_basal_activation['percentage'] ;
 
-              var select2 = $("#ba_pattern") ;
-              select2.selectmenu() ;
-              select2.selectmenu("refresh", true) ;
-
 	      var segs = JSON.parse(values_basal_activation['segments']) ;
               var res  = dbform_fill_segments(segs) ;
 
@@ -689,6 +693,18 @@
               $("#ba_segments2").html(res.long) ;
 
               $("#bap1").slider("refresh");
+
+              var select2  = $("#ba_pattern") ;
+                var bpattern = values_basal_activation['pattern'] ;
+                var options2 = $("option", select2) ;
+                var refopt4  = options2.get(bpattern) ;
+	        if (typeof refopt4 === 'undefined') {
+                    refopt4 = $("<option>").attr('selected',true).attr('value',bpattern).text(bpattern) ;
+                    select2.append(refopt4) ;
+                }
+	 	else $(refopt4).attr('selected', true);
+              select2.selectmenu() ;
+              select2.selectmenu("refresh", true) ;
           }
   }
 
@@ -757,6 +773,25 @@
   /*
    * Basal
    */
+
+  function ui_basal_fillselect ( vector_details, select_name, pattern )
+  {
+           var o_options = "<OPTION value=\"\"></OPTION>";
+
+           var last = 0;
+           if (typeof vector_details['basaldef'] !== 'undefined')
+               last = vector_details['basaldef'].length;
+
+           for(var i=0; i<last; i++)
+           {
+                result_pattern = vector_details['basaldef'][i]['pattern'] ;
+                if (result_pattern == pattern)
+                     o_options += "<option value=\"" + result_pattern + "\" SELECTED>" + result_pattern + "</OPTION>";
+                else o_options += "<option value=\"" + result_pattern + "\">"          + result_pattern + "</OPTION>";
+           }
+
+           $(select_name).html("").html(o_options).selectmenu().selectmenu("refresh");
+  }
 
   function ui_basal_form2def ( basal_form )
   {
