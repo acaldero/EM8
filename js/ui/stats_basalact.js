@@ -73,7 +73,8 @@
                     var h = Number(d1.diffHours(d2).toFixed(1)) ;
                     data1.data.push(h) ;
 
-		    options1.series.push(data1) ;
+                    if (h > 0)
+		       options1.series.push(data1) ;
 		}
 
 
