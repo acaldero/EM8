@@ -176,32 +176,27 @@
 
 		   qs = new Array() ;
 		   qs.push(" SELECT 'bolus' as 'rt',* FROM bolus " + 
-			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
+			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   units!=0" +
 			   " ORDER BY start;") ;
 		   qs.push(" SELECT 'meal' as 'rt',* FROM meals " + 
-			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
+			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   measure!=0" +
 			   " ORDER BY start;") ;
 	           qs.push(" SELECT 'measure' as 'rt',* FROM measures " + 
-			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
+			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   measure!=0" +
 			   " ORDER BY start;") ;
 	           qs.push(" SELECT 'event' as 'rt',* FROM events " + 
-			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
+			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   event!=''" +
 			   " ORDER BY start;") ;
 	           qs.push(" SELECT 'basalact' as 'rt',* FROM basal_activations " + 
-			   " WHERE strftime('%Y',start)='" + year + "' " +
-			   " AND   strftime('%m',start)='" + twodigits_month + "' " +
+			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   percentage!=0" +
 			   " ORDER BY start;") ;
@@ -209,9 +204,7 @@
                    if (1 == first_period) 
 		      {
 		         qs.push(" SELECT 'last_basalact' as 'rt',* FROM basal_activations " +
-		                 " WHERE strftime('%Y',start)<='" + year + "' " +
-		                 " AND   strftime('%m',start)<='" + twodigits_month + "' " +
-		                 " AND   strftime('%d',start)<'"  + twodigits_mday  + "' " +
+		                 " WHERE strftime('%Y-%m-%d',start)<='" + year + "-" + twodigits_month + "-" + twodigits_mday + "' " +
 		                 " AND   user='" + login_id + "' " +
                                  " AND   percentage!=0 " +
                                  " ORDER BY start DESC " +
