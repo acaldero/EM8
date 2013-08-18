@@ -62,7 +62,7 @@
         var Qs = new Array() ;
 
 	if (-1 == values_basal_activation['id']) // no existe
-	     if (values_basal_activation['percentage'] != 0)
+	     if ("" != values_basal_activation['pattern'])
 		  Q = db_asocArray2insert("basal_activations",values_basal_activation,Array('id'));
 	     else Q = "" ;
 	else // existe

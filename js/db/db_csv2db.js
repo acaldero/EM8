@@ -93,7 +93,7 @@
 			values_basal_activation['sync']       = fields[i][11] ;
 			values_basal_activation['device']     = fields[i][12] ;
 
-                        if (0 == values_basal_activation['percentage'])
+                        if ("" == values_basal_activation['pattern'])
                              Q.push(db_asocArray2delete("basal_activations",values_basal_activation,Array('id'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"basal_activations",values_basal_activation,Array('id'))) ;
                    break;
@@ -108,7 +108,7 @@
 			values_basal_definition['sync']       = fields[i][9] ;
 			values_basal_definition['device']     = fields[i][10] ;
 
-                        if (0 == values_basal_definition['percentage'])
+                        if (0 == values_basal_definition['neltos'])
                              Q.push(db_asocArray2delete("basal_definitions",values_basal_definition,Array('id'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"basal_definitions",values_basal_definition,Array('id'))) ;
                    break;

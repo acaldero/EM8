@@ -27,7 +27,7 @@
                    }
 
                    if (results.rows.item(i).rt == 'last_basalact')
-                   { // TODO: check this part is what we expected of it
+                   {
 		       js_record = { "id":         results.rows.item(i).id,
 				     "pattern":    results.rows.item(i).pattern,
 				     "neltos":     results.rows.item(i).neltos,
@@ -198,7 +198,7 @@
 	           qs.push(" SELECT 'basalact' as 'rt',* FROM basal_activations " + 
 			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
-			   " AND   percentage!=0" +
+			   " AND   pattern!=''" +
 			   " ORDER BY start;") ;
 
                    if (1 == first_period) 
@@ -206,7 +206,7 @@
 		         qs.push(" SELECT 'last_basalact' as 'rt',* FROM basal_activations " +
 		                 " WHERE strftime('%Y-%m-%d',start)<='" + year + "-" + twodigits_month + "-" + twodigits_mday + "' " +
 		                 " AND   user='" + login_id + "' " +
-                                 " AND   percentage!=0 " +
+                                 " AND   pattern!='' " +
                                  " ORDER BY start DESC " +
                                  " LIMIT 1 ");
 			 qs.push(" SELECT 'basaldef' as 'rt',* FROM basal_definitions " + 

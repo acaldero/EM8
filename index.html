@@ -1919,9 +1919,7 @@
 			<center>
 			  <button name="a-update"
 				  data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
-				  onclick="if (document.formqba.elements['values_basal_activation[pattern]'].value != '')
-                                                dbform_action_basal_act(ls1.rmysql_url, document.formqba, do_closeonly);
- 					   else alert('error: empty pattern');
+				  onclick="dbform_action_basal_act(ls1.rmysql_url, document.formqba, do_closeonly);
 					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
 			  <button name="a-insert"
 				  data-theme="c" data-corners="false" data-inline="true" data-icon="plus"
