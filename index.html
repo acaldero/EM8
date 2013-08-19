@@ -879,26 +879,28 @@
 						    var oba = stats_basalact_getDefinition();
 						    var oc3 = stats_measures_cloud_getDefinition(); 
 
-						  var pbu1 = $("#pbupdate");
-						  pbu1.html("0%");
-						    var bh1 = new Highcharts.Chart(oh1.b1);
-						    var ch1 = new Highcharts.Chart(oh1.c1);
-						  pbu1.html("25%");
-						    var mh1 = new Highcharts.Chart(oh1.m1);
-						    var bt1 = new Highcharts.Chart(ot1.b1);
-						  pbu1.html("50%");
-						    var ct1 = new Highcharts.Chart(ot1.c1);
-						    var mt1 = new Highcharts.Chart(ot1.m1);
-						  pbu1.html("75%");
-						    var bd1 = new Highcharts.Chart(obd);
-						    var ba1 = new Highcharts.Chart(oba);
-						  pbu1.html("90%");
-						    var cc3 = new Highcharts.Chart(oc3);
-						  pbu1.html("");
+					            if ($("#container5").is(":visible"))
+						        var bh1 = new Highcharts.Chart(oh1.b1);
+					            if ($("#container7").is(":visible"))
+						        var ch1 = new Highcharts.Chart(oh1.c1);
+					            if ($("#container9").is(":visible"))
+						        var mh1 = new Highcharts.Chart(oh1.m1);
+					            if ($("#container4").is(":visible"))
+						        var bt1 = new Highcharts.Chart(ot1.b1);
+					            if ($("#container6").is(":visible"))
+						        var ct1 = new Highcharts.Chart(ot1.c1);
+					            if ($("#container8").is(":visible"))
+						        var mt1 = new Highcharts.Chart(ot1.m1);
+					            if ($("#container0").is(":visible"))
+						        var bd1 = new Highcharts.Chart(obd);
+					            if ($("#container1").is(":visible"))
+						        var ba1 = new Highcharts.Chart(oba);
+					            if ($("#containerA").is(":visible"))
+						        var cc3 = new Highcharts.Chart(oc3);
 						}
 					        $.mobile.loading("hide"); },200); 
 					return false;'
-                               data-icon="refresh" data-inline="false"><div class=T_UPDATE style="display: inline;"></div><div id="pbupdate"></div></a>
+                               data-icon="refresh" data-inline="false"><div class=T_UPDATE style="display: inline;"></div></a>
              <br>
 
 	        <div class=T_MEASURES style="display: inline;"></div>
