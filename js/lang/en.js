@@ -39,6 +39,7 @@
         translate['en']['ABOUT']	 = 'About' ;
         translate['en']['CMD']	 	 = 'Command' ;
         translate['en']['MENU']	 	 = 'Menu' ;
+        translate['en']['LOCATION']	 = 'Location' ;
 
 	// on-line help
         translate['en']['AMD_HM']	 	= 'year-month-day h:m' ;
@@ -79,7 +80,6 @@
         translate['en']['BASALS_TYPES']	 	= 'Defined basals' ;
         translate['en']['BASALS_ACT']	 	= 'Basals activations' ;
         translate['en']['N_SECTIONS']	 	= '# sections' ;
-        translate['en']['UNI']	 	 	= 'Uni.' ;
         translate['en']['UNITS']	 	= 'Units' ;
         translate['en']['PLATFORM']	 	= 'Platform' ;
         translate['en']['COLORS']	 	= 'Colors' ;

@@ -70,6 +70,7 @@
 	$('div.T_ACTIVATE').html(T['ACTIVATE']);
 	$('div.T_STATUS').html(T['STATUS']);
 	$('div.T_TOTALPERDAY').html(T['TOTALPERDAY']);
+	$('div.T_LOCATION').html(T['LOCATION']);
 
 	$('div.T_AFTERMEAL').html(T['AFTERMEAL']);
 	$('div.T_DAYSTARTAT').html(T['DAYSTARTAT']);

@@ -39,6 +39,7 @@
         translate['es']['ABOUT']	 = 'Acerca de' ;
         translate['es']['CMD']	 	 = 'Mandato' ;
         translate['es']['MENU']	 	 = 'Men&uacute;' ;
+        translate['es']['LOCATION']	 = 'Localizaci&oacute;n' ;
 
 	// on-line help
         translate['es']['AMD_HM']	 	= 'a&ntilde;o-mes-d&iacute;a h:m' ;
@@ -79,7 +80,6 @@
         translate['es']['BASALS_TYPES']		= 'Tipos definidos' ;
         translate['es']['BASALS_ACT']		= 'Activaciones' ;
         translate['es']['N_SECTIONS']		= '# tramos' ;
-        translate['es']['UNI']	 		= 'Unid.' ;
         translate['es']['UNITS']		= 'Unidades' ;
         translate['es']['PLATFORM']		= 'Plataforma' ;
         translate['es']['COLORS']		= 'Colores' ;
