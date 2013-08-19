@@ -40,8 +40,9 @@
                     },
 		    plotOptions: {
 			series: {
-			    stacking: 'normal'
-			}
+			    stacking: 'normal',
+                            animation: false
+                        }
 		    }
 		};
 

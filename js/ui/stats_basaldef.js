@@ -24,6 +24,11 @@
 				return '<b>'+ this.series.name +'</b><br/>'+
 				Highcharts.dateFormat('%H:%M', this.x) +': '+ this.y +' U/h';
 			}
+		    },
+		    plotOptions: {
+                        series: {
+                            animation: false
+                        }
 		    }
 		};
 

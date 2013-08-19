@@ -34,6 +34,7 @@ http://stackoverflow.com/questions/736513/how-do-i-parse-a-url-into-hostname-and
 http://stackoverflow.com/questions/17190654/how-to-create-text-file-in-given-directory-in-iphone-and-android
 http://stackoverflow.com/questions/9453421/how-to-round-float-numbers
 http://stackoverflow.com/questions/6601952/programmatically-create-select-list
+http://stackoverflow.com/questions/13831501/highcharts-turn-animation-false-for-line-chart
 
 http://webdesign.about.com/od/htmltags/qt/tipdivblock.htm
 http://css-tricks.com/forums/discussion/9546/solved-jquery-append-text-to-textarea/p1
