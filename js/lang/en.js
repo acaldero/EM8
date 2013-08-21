@@ -40,6 +40,7 @@
         translate['en']['CMD']	 	 = 'Command' ;
         translate['en']['MENU']	 	 = 'Menu' ;
         translate['en']['LOCATION']	 = 'Location' ;
+        translate['en']['EXIT']	         = 'Exit' ;
 
 	// on-line help
         translate['en']['AMD_HM']	 	= 'year-month-day h:m' ;

@@ -20,13 +20,17 @@
 
 	$.when(deviceReadyDeferred, jqmReadyDeferred).done(function() { load_database(); }) ;
 
-	$(document).bind("mobileinit", function() {
+	$(document).bind("mobileinit", function()
+        {
 	    $.mobile.defaultDialogTransition = "none";
 	    $.mobile.defaultPageTransition = "none";
-	    $.mobile.phonegapNavigationEnabled = true;
+	    $.mobile.phonegapNavigationEnabled = false; // true if form validation...;
 	    $.mobile.buttonMarkup.hoverDelay = 500 ;
     $.mobile.useFastClick = true; 
     $.mobile.touchOverflowEnabled = true;
+            $.support.cors = true;
+    $.mobile.allowCrossDomainPages = true;
+    $.mobile.pushStateEnabled = false;
 	    jqmReadyDeferred.resolve();
 	});
 </script>
@@ -74,7 +78,7 @@
 
     <div data-role="header" data-theme="a" align=right data-position-fixed="true">
 	<h1><div class=T_DIARY style="display: inline;"></div></h1>
-	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	<a href="#navmenu" data-icon="bars" data-theme="b" 
 	   data-iconpos="right" data-inline="true" data-rel="dialog" 
            data-iconshadow="false" data-shadow="true" 
            data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
@@ -168,7 +172,7 @@
 
     <div data-role="header" data-theme="a" align=right data-position-fixed="true">
 	<h1><div class=T_ANNOTATE style="display: inline;"></div></h1>
-	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	<a href="#navmenu" data-icon="bars" data-theme="b" 
 	   data-iconpos="right" data-inline="true" data-rel="dialog" 
            data-iconshadow="false" data-shadow="true" 
            data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
@@ -678,7 +682,7 @@
 
     <div data-role="header" data-theme="a" align=right data-position-fixed="true">
 	<h1><div class=T_INTERCHANGE style="display: inline;"></div></h1>
-	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	<a href="#navmenu" data-icon="bars" data-theme="b" 
 	   data-iconpos="right" data-inline="true" data-rel="dialog" 
            data-iconshadow="false" data-shadow="true" 
            data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
@@ -845,7 +849,7 @@
 
     <div data-role="header" data-theme="a" align=right data-position-fixed="true">
 	<h1><div class=T_TRACE style="display: inline;"></div></h1>
-	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	<a href="#navmenu" data-icon="bars" data-theme="b" 
 	   data-iconpos="right" data-inline="true" data-rel="dialog" 
            data-iconshadow="false" data-shadow="true" 
            data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
@@ -1049,7 +1053,7 @@
 
     <div data-role="header" data-theme="a" align=right data-position-fixed="true">
 	<h1><div class=T_CONFIG style="display: inline;"></div></h1>
-	<a href="#navmenu" data-icon="gear" data-theme="b" 
+	<a href="#navmenu" data-icon="bars" data-theme="b" 
 	   data-iconpos="right" data-inline="true" data-rel="dialog" 
            data-iconshadow="false" data-shadow="true" 
            data-transition="none"><div class=T_MENU style="display: inline;"></div></a>
@@ -2117,6 +2121,25 @@
 </div>
 
 
+<script>
+    function showConfirm() 
+    {
+        navigator.notification.confirm (
+            'Do you really want to exit?',  // message
+            exitFromApp,        // callback to invoke with index of button pressed
+            'Exit',             // title
+            'Cancel,OK'         // buttonLabels
+        );
+    }
+ 
+    function exitFromApp(buttonIndex) 
+    {
+      if (2 == buttonIndex)
+          navigator.app.exitApp();
+    }
+</script>
+
+
 <div id=navmenu
      data-role="panel" data-animate="fade" data-position="left" 
      data-display="overlay" data-theme="a" style="width: 270px">
@@ -2163,6 +2186,12 @@
      </li>
      </ul>
 
+
+     <div align=left>
+     <a href="#" onclick="showConfirm(); return false;" 
+	         data-rel="close" data-role="button" data-theme="a" data-mini="true"
+		 data-icon="arrow-l" data-inline="true"><div class=T_EXIT style="display: inline;"></div></a>
+     </div>
 </div>
 
 
