@@ -30,7 +30,7 @@
     $.mobile.touchOverflowEnabled = true;
             $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
-    $.mobile.pushStateEnabled = false;
+    $.mobile.pushStateEnabled = true; // false push a bug: knobit + soft_keyboard appears at same time
 	    jqmReadyDeferred.resolve();
 	});
 </script>
