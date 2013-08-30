@@ -110,6 +110,7 @@
 	$('div.T_VERSION').html(T['VERSION']);
 	$('div.T_AUTHOR').html(T['AUTHOR']);
 	$('div.T_LICENCE').html(T['LICENCE']);
+	$('div.T_REPOSITORY').html(T['REPOSITORY']);
 
 	$('div.T_IMPORT').html(T['IMPORT']);
 	$('div.T_EXPORT').html(T['EXPORT']);

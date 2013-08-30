@@ -140,6 +140,7 @@
         translate['en']['VERSION']	 = 'Version' ;
         translate['en']['AUTHOR']	 = 'Author' ;
         translate['en']['LICENCE']	 = 'Licence' ;
+        translate['en']['REPOSITORY']	 = 'Repository' ;
 
         translate['en']['IMPORT']	 = 'Import' ;
         translate['en']['EXPORT']	 = 'Export' ;

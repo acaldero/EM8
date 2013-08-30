@@ -1096,11 +1096,76 @@
 			</div>
 
 
+			<div id=identity data-role="collapsible" data-theme=a>
+		        <h3><div class=T_IDENTITY style="display: inline;"></div>&nbsp;&nbsp;<span id=identity-icon1></span></h3>
+
+				<center>
+				<form id=formuc name=formuc action="#page25" method="post" data-ajax="false">
+					   <input name="values_user[oldid]"    type="hidden" value="">
+				   	   <input name="values_user[oldlogin]" type="hidden" value="">
+
+				<table border=0 width=100% cellpadding=2>
+				<tr>
+				<td width=30%>
+				  <a href="#ss20" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
+				     data-role="button" data-inline="true" data-mini="true" data-shadow="false">New ID</a>
+				  <div data-role="popup" id="ss20" class="ui-content" data-theme="a" style="max-width:0px;">
+				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+				  <font size=-1>1, 2, 3, ...</font>
+				  </a>
+				  </div>
+				</td>
+				<td width=70%>
+					<input name="values_user[newid]"    type="number" value="" x-webkit-speech>
+				</td>
+				</tr>
+
+				<tr>
+				<td width=30%>
+				  <a href="#ss21" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
+				     data-role="button" data-inline="true" data-mini="true" data-shadow="false">New Login</a>
+				  <div data-role="popup" id="ss21" class="ui-content" data-theme="a" style="max-width:0px;">
+				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+				  <font size=-1>name_without_spaces</font>
+				  </a>
+				  </div>
+				</td>
+				<td width=70%>
+				   	<input name="values_user[newlogin]" type="text"   value="" x-webkit-speech>
+				</td>
+				</tr>
+
+				<tr>
+				<td colspan=2 align=center width=20%> 
+					<center>
+					  <button name="o-insert"
+						  data-theme="a" data-corners="false" data-inline="true" data-icon="refresh"
+						  onclick="nl1 = document.formuc.elements['values_user[newlogin]'].value;
+							   document.formuc.elements['values_user[newlogin]'].value = nl1.replace(' ','_');
+						           dbform_action_user(ls1.rmysql_url, document.formuc);
+							   ls1.user_id = document.formuc.elements['values_user[newid]'].value;
+							   ls1.user_login = document.formuc.elements['values_user[newlogin]'].value;
+						           $('#identity-icon1').html('<font color=gray size=-1>' + 
+									          ls1.user_login + ', ' + ls1.user_id + 
+									          '</font>');
+							   alert('updated!');
+                                                           return false;"><div class=T_UPDATE style="display: inline;"></div></button>
+					</center>
+				</td>
+				</tr>
+				</table>
+
+			        </form>
+				</center>
+
+			</div>
+
+
 			<div id=ajustes data-role="collapsible" data-theme=a data-collapsed="false">
 		        <h3><div class=T_AJUSTS style="display: inline;"></div>&nbsp;&nbsp;<span id=ajust-icon2></span></h3>
 
 				<center>
-			        <form id=formaj1 name=formaj1 action="#" method="post" data-ajax="false">
+			        <form id=formaj1 name=formaj1 action="#page25" method="post" data-ajax="false">
 
 				<table border=0 width=100% cellpadding=2>
 				<tr>
@@ -1145,7 +1210,8 @@
 	                              $("#ajust-icon2").html("<font color=gray size=-1>" + 
            						     ls1.aftermeal_hours + ", " + ls1.newday_hour + 
            						     "</font>");
-                                      return true;'><div class=T_UPDATE style="display: inline;"></div></button>
+				      alert("updated!");
+                                      return false;'><div class=T_UPDATE style="display: inline;"></div></button>
 				    </center>
 				</td>
 				</tr>
@@ -1165,8 +1231,9 @@
 				<tr>
 				<td align=left>
                                        <b><div class=T_VERSION style="display: inline;"></div></b>: em8.alpha-9 <br>
-                                       <b><div class=T_AUTHOR  style="display: inline;"></div></b>: Alejandro Calder&oacute;n Mateos <br>
-                                       <b><div class=T_LICENCE style="display: inline;"></div></b>: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL 3</a>
+                                       <b><div class=T_LICENCE style="display: inline;"></div></b>: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL 3</a> <br>
+                                       <b><div class=T_REPOSITORY style="display: inline;"></div></b>: <a href="https://github.com/acaldero/EM8">https://github.com/acaldero/EM8</a> <br> <br>
+                                       <b><div class=T_AUTHOR     style="display: inline;"></div></b>: Alejandro Calder&oacute;n Mateos <br>
 				</td>
 				</tr>
 				</table>
@@ -2258,13 +2325,12 @@
 		document.formaj1.elements['values_user[aftermeal_hours]'].value = ls1.aftermeal_hours;
 		document.formaj1.elements['values_user[newday_hour]'].value     = ls1.newday_hour;
 
-                // config - conn 
-                document.formsync.elements['user_login'].value = ls1.user_login;
-		document.formra.elements['rmysql_url'].value = ls1.rmysql_url ;
-
                 // config - ajust 
 	        $("#ajust-icon2").html("<font color=gray size=-1>" + 
 				       ls1.aftermeal_hours + ", " + ls1.newday_hour + 
+				       "</font>");
+	        $("#identity-icon1").html("<font color=gray size=-1>" + 
+				       ls1.user_login + ", " + ls1.user_id + 
 				       "</font>");
 
                 // quick2
@@ -2415,14 +2481,14 @@
 	/* starting user information */
         if (typeof ls1.user_login  === 'undefined') 
         {
-            ls1.user_login      = "acaldero" ;
+            ls1.user_login      = "guest" ;
             ls1.user_id         = "1" ;        
             ls1.lang            = "es" ;       
             ls1.aftermeal_hours = 2 ;
             ls1.newday_hour     = 5 ;
 
 	    ls1.connected       = false ;
-            ls1.rmysql_url        = "" ;
+            ls1.rmysql_url      = "" ;
         }
 
 	/* starting device information */
