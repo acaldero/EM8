@@ -54,3 +54,5 @@ http://community.phonegap.com/nitobi/topics/deviceready_not_firing
 https://github.com/mantisbt-plugins/source-integration/issues/39
 SET @@global.sql_mode = 'NO_ENGINE_SUBSTITUTION';
 
+http://stackoverflow.com/questions/14677232/cant-upload-apk-failed-because-no-androidmanifest-xml-found
+

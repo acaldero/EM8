@@ -2249,7 +2249,7 @@
      <li><a href="#page25">
         <img src="icons/glyphish/106-sliders.png" height=55px>
         <h2><div class=T_CONFIG style="display: inline;"></div></h2>
-        <p>Idiom, connection, ...</p></a>
+        <p>Language, connection, ...</p></a>
      </li>
      </ul>
 
@@ -2491,13 +2491,6 @@
             ls1.rmysql_url      = "" ;
         }
 
-	/* starting device information */
-        if (isMobile()) {
-             ls1.device_id = "s1" ; // TODO: device.uuid;
-        } else {
-             ls1.device_id = "pc1" ;       
-        }
-
         /* translation */
 	T=lang_translate(ls1.lang);
 	$(document).ready(change_idiom) ;
@@ -2516,10 +2509,24 @@
         working_grid = set_working_grid(ls1);
 
         /* initialize code */ 
-	if (isMobile()) {
-	     document.addEventListener("deviceready", function() { try { navigator.splashscreen.hide(); } catch (e) {} 
-                                                                   deviceReadyDeferred.resolve(); }, true);
-        } else { 
+	if (isMobile()) 
+        {
+	     document.addEventListener("deviceready", 
+					function() 
+					{ 
+						try { 
+					  	   navigator.splashscreen.hide() ; 
+             					   ls1.device_id = device.uuid ;
+						} catch (e) { 
+						   alert(e.message); 
+						}
+                                                deviceReadyDeferred.resolve(); 
+					}, 
+					true);
+        } 
+	else 
+	{ 
+             ls1.device_id = "pc1" ; // TODO: identify the PC... let the user choose or detect it?
              deviceReadyDeferred.resolve() ;
         }
 </script>
