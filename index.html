@@ -743,8 +743,8 @@
 			  class="download_csv" download="export_em.csv"><div class=T_EXPORT style="display: inline;"></div><br><font color=gray size=-1>(web browser)</font></a>
 		       <a href="#" 
 			  data-role="button" data-mini="false" data-inline="true"
-			  onclick="var middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
-		                   var f_name = "export-em-" + middlefix + ".csv" ;
+			  onclick="var middlefix = ls1.year + '-' + ('0' + ls1.month).slice(-2) + '-' + ('0' + ls1.today).slice(-2) ;
+		                   var f_name = 'export-em-' + middlefix + '.csv' ;
 				   var d_name = '/storage/sdcard0/Download/';
                                    export_handleSave(d_name + f_name, '' + $('#ta16').val());
 				   return false;"><div class=T_EXPORT style="display: inline;"></div><br><font color=gray size=-1>(local file)</font></a>
