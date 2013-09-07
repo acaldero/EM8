@@ -59,6 +59,9 @@
     <script type='text/javascript' src="js/db/db_cnu2db.js"></script>
     <script type='text/javascript' src="js/db/db_js2csv.js"></script>
     <script type='text/javascript' src="js/ui/ui_dbform.js"></script>
+    <script type='text/javascript' src="js/ui/ui_dbform_action.js"></script>
+    <script type='text/javascript' src="js/ui/ui_dbform_fill0.js"></script>
+    <script type='text/javascript' src="js/ui/ui_dbform_fill2.js"></script>
     <script type='text/javascript' src="js/ui/ui_daytag.js"></script>
     <script type='text/javascript' src="js/ui/ui_voice.js"></script>
     <script type='text/javascript' src="js/ui/stats_bytarget.js"></script>
@@ -288,40 +291,15 @@
 							 preset: 'datetime', dateFormat : "yy-mm-dd", 
 							 timeFormat : "HH:iiZ", separator  : "T" }); });
 
-		function knobIt ( shadow, vnow, vmin, vmax, vstep )
-		{
-		      var obj = $("#x11a");
 
-                      if ('true' != obj.attr('isKnob')) {
-		          obj.knob(); 
-                          obj.attr('isKnob','true') ;
-                      }
-
-		      obj.trigger("configure",{"min": vmin, "max": vmax, "step": vstep, "skin": "tron"}); 
-		      obj.val(vnow).change(); 
-
-		      fillback = shadow; 
-		      $("#popupx11a").popup("open");
+		function meal_camera_successA ( imageURI ) 
+                {
+			dbform_camera_success('#vimageA','vimage2A','vimage3A',imageURI); 
 		}
 
 		function meal_camera_successB ( imageURI ) 
                 {
-		        var image = document.querySelector('#vimageB') ;
-		        image.value = imageURI;
-		        var image = document.getElementById('vimage2B');
-		        image.src = imageURI;
-		        var image = document.getElementById('vimage3B');
-		        image.src = imageURI;
-		}
-
-		function meal_camera_successA ( imageURI ) 
-                {
-		        var image = document.querySelector('#vimageA') ;
-		        image.value = imageURI;
-		        var image = document.getElementById('vimage2A');
-		        image.src = imageURI;
-		        var image = document.getElementById('vimage3A');
-		        image.src = imageURI;
+		        dbform_camera_success('#vimageB','vimage2B','vimage3B',imageURI); 
 		}
 
 		function camera_fail ( message ) 
@@ -452,11 +430,11 @@
                 </td>
                 <td width=35%>
 		<input name="values_measure[measure][before]" type="number" value="0" size=4 data-mini="true"
-                       id=z11aB onclick='knobIt(z11aB,$("#z11aB").val(),0,350,1); return true;'>
+                       id=z11aB onclick='dbform_knobIt(z11aB,$("#z11aB").val(),0,350,1); return true;'>
 		</td>
                 <td width=35%>
 		<input name="values_measure[measure][after]" type="number" value="0" size=4 data-mini="true"
-                       id=z11aA onclick='knobIt(z11aA,$("#z11aA").val(),0,350,1); return true;'>
+                       id=z11aA onclick='dbform_knobIt(z11aA,$("#z11aA").val(),0,350,1); return true;'>
 		</td>
 		</tr>
 
@@ -468,11 +446,11 @@
                 </td>
                 <td width=35%>
 	        <input name="values_bolus[units][before]" type="number" value="0" size=4 data-mini="true"
-                       id=z11bB onclick='knobIt(z11bB,$("#z11bB").val(),0,40,0.5); return true;'>
+                       id=z11bB onclick='dbform_knobIt(z11bB,$("#z11bB").val(),0,40,0.5); return true;'>
 		</td>
                 <td width=35%>
 	        <input name="values_bolus[units][after]" type="number" value="0" size=4 data-mini="true"
-                       id=z11bA onclick='knobIt(z11bA,$("#z11bA").val(),0,40,0.5); return true;'>
+                       id=z11bA onclick='dbform_knobIt(z11bA,$("#z11bA").val(),0,40,0.5); return true;'>
 		</td>
                 </tr>
 	   </table>
@@ -486,11 +464,11 @@
                 <td width=25%><font size=+0 color=gray><div class=T_PERCENTAGE style="display: inline;"></div></font></td>
                 <td width=35%>
 	        <input name="values_bolus[percentage][before]" type="number" value="100" size=4 data-mini="true"
-                       id=z11cB onclick='knobIt(z11cB,$("#z11cB").val(),0,100,1); return true;'>
+                       id=z11cB onclick='dbform_knobIt(z11cB,$("#z11cB").val(),0,100,1); return true;'>
 		</td>
                 <td width=35%>
 	        <input name="values_bolus[percentage][after]" type="number" value="100" size=4 data-mini="true"
-                       id=z11cA onclick='knobIt(z11cA,$("#z11cA").val(),0,100,1); return true;'>
+                       id=z11cA onclick='dbform_knobIt(z11cA,$("#z11cA").val(),0,100,1); return true;'>
 		</td>
 		<tr>
 
@@ -519,11 +497,11 @@
                 </td>
                 <td width=35%>
 	        <input name="values_meal[measure][before]" type="number" value="0" size=4 data-mini="true"
-                       id=z11dB onclick='knobIt(z11dB,$("#z11dB").val(),0,40,0.5); return true;'>
+                       id=z11dB onclick='dbform_knobIt(z11dB,$("#z11dB").val(),0,40,0.5); return true;'>
                 </td>
                 <td width=35%>
 	        <input name="values_meal[measure][after]" type="number" value="0" size=4 data-mini="true"
-                       id=z11dA onclick='knobIt(z11dA,$("#z11dA").val(),0,40,0.5); return true;'>
+                       id=z11dA onclick='dbform_knobIt(z11dA,$("#z11dA").val(),0,40,0.5); return true;'>
                 </td>
                 </tr>
 	   </table>
@@ -871,109 +849,74 @@
              </div>
 
              <br>
-             <a href="#header" data-role="button" data-theme="c" data-mini="true"
-			       onclick='$.mobile.loading("show"); 
-					var interval = setInterval(function(){ 
-					        clearInterval(interval); 
-						if (typeof vector_details !== "undefined") 
-						{
-						    var oh1 = stats_byhour_getDefinition();
-						    var ot1 = stats_bytarget_getDefinition();
-						    var obd = stats_basaldef_getDefinition();
-						    var oba = stats_basalact_getDefinition();
-						    var oc3 = stats_measures_cloud_getDefinition(); 
 
-					            if ($("#container5").is(":visible"))
-						        var bh1 = new Highcharts.Chart(oh1.b1);
-					            if ($("#container7").is(":visible"))
-						        var ch1 = new Highcharts.Chart(oh1.c1);
-					            if ($("#container9").is(":visible"))
-						        var mh1 = new Highcharts.Chart(oh1.m1);
-					            if ($("#container4").is(":visible"))
-						        var bt1 = new Highcharts.Chart(ot1.b1);
-					            if ($("#container6").is(":visible"))
-						        var ct1 = new Highcharts.Chart(ot1.c1);
-					            if ($("#container8").is(":visible"))
-						        var mt1 = new Highcharts.Chart(ot1.m1);
-					            if ($("#container0").is(":visible"))
-						        var bd1 = new Highcharts.Chart(obd);
-					            if ($("#container1").is(":visible"))
-						        var ba1 = new Highcharts.Chart(oba);
-					            if ($("#containerA").is(":visible"))
-						        var cc3 = new Highcharts.Chart(oc3);
-						}
-					        $.mobile.loading("hide"); },200); 
-					return false;'
-                               data-icon="refresh" data-inline="false"><div class=T_UPDATE style="display: inline;"></div></a>
-             <br>
+<script>
+        function container_update ( container_r, button_r, data_r )
+	{
+		  container_r.toggle();
+		  if (container_r.is(":visible")) {
+			if (typeof vector_details !== "undefined") {
+			    $.mobile.loading("show"); 
+			    var interval = setInterval(function(){ 
+				    clearInterval(interval); 
+				    var mh1 = new Highcharts.Chart(data_r);
+				    $.mobile.loading("hide"); },200); 
+			}
+			button_r.buttonMarkup({theme: "b"});
+		  }
+		  else  button_r.buttonMarkup({theme: "a"});
+	}
+</script>
 
 	        <div class=T_MEASURES style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container8").toggle();
-					  if ($("#container8").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var ot1 = stats_bytarget_getDefinition();
+        				  container_update($("#container8"), $(this), ot1.m1) ;
                                           return false;'><div class=T_MEASURES_PER_MEAL style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container9").toggle();
-					  if ($("#container9").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var oh1 = stats_byhour_getDefinition();
+        				  container_update($("#container9"), $(this), oh1.m1) ;
                                           return false;'><div class=T_MEASURES_PER_HOUR style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#containerA").toggle();
-					  if ($("#containerA").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var oc3 = stats_measures_cloud_getDefinition(); 
+        				  container_update($("#containerA"), $(this), oc3) ;
                                           return false;'><div class=T_RANGES_PER_HOUR style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_BOLUS style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container4").toggle();
-					  if ($("#container4").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var ot1 = stats_bytarget_getDefinition();
+        				  container_update($("#container4"), $(this), ot1.b1) ;
                                           return false;'><div class=T_BOLUS_PER_MEAL style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container5").toggle();
-					  if ($("#container5").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var oh1 = stats_byhour_getDefinition();
+        				  container_update($("#container5"), $(this), oh1.b1) ;
                                           return false;'><div class=T_BOLUS_PER_HOUR style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_RATIONS></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container6").toggle();
-					  if ($("#container6").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var ot1 = stats_bytarget_getDefinition();
+        				  container_update($("#container6"), $(this), ot1.c1) ;
                                           return false;'><div class=T_RATIONS_PER_MEAL style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container7").toggle();
-					  if ($("#container7").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var oh1 = stats_byhour_getDefinition();
+        				  container_update($("#container7"), $(this), oh1.c1) ;
                                           return false;'><div class=T_RATIONS_PER_HOUR style="display: inline;"></div></a>
                 </div>
 
 	        <div class=T_BASALS style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container0").toggle();
-					  if ($("#container0").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var obd = stats_basaldef_getDefinition();
+        				  container_update($("#container0"), $(this), obd) ;
                                           return false;'><div class=T_BASALS_TYPES style="display: inline;"></div></a>
 		     <a href="#" data-role="button" data-mini="true"
-                                 onclick='$("#container1").toggle();
-					  if ($("#container1").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+                                 onclick='var oba = stats_basalact_getDefinition();
+        				  container_update($("#container1"), $(this), oba) ;
                                           return false;'><div class=T_BASALS_ACT style="display: inline;"></div></a>
                 </div>
 
@@ -981,9 +924,18 @@
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true" data-theme="b"
                                  onclick='$("#container20x").toggle();
-					  if ($("#container20x").is(":visible"))
-					       $(this).buttonMarkup({theme: "b"});
-					  else $(this).buttonMarkup({theme: "a"});
+					  if ($("#container20x").is(":visible")) {
+						if (typeof vector_details !== "undefined") {
+						    $.mobile.loading("show"); 
+						    var interval = setInterval(function(){ 
+							    clearInterval(interval); 
+							    stats_avg_get($("#container20"),5) ;
+							    $("#slider20").val(5).slider("refresh");
+							    $.mobile.loading("hide"); },200); 
+  						}
+					        $(this).buttonMarkup({theme: "b"});
+        			          }
+					  else  $(this).buttonMarkup({theme: "a"});
                                           return false;'><div class=T_SUMMARY style="display: inline;"></div></a>
                 </div>
     </div>
@@ -1025,7 +977,7 @@
 		<div id="container20x" style="min-width: 90%; min-height: 90%; margin: 0 auto;">
 		   <div id="container20"  style="min-width: 90%; min-height: 90%; margin: 0 auto;"></div>
 	           <div id="slider20x" style="width: min(320px,90%)"> 
-                      <input type="range" name="slider20" id="slider20" value="5" min="1" max="7" style='display:none'>
+                      <input type="range" name="slider20" id="slider20" value="5" min="1" max="30" style='display:none'>
                    </div>
                 </div>
                 </center>
@@ -1230,7 +1182,7 @@
 				<table border=0 width=90% cellpadding=1>
 				<tr>
 				<td align=left>
-                                       <b><div class=T_VERSION style="display: inline;"></div></b>: em8.alpha-9 <br>
+                                       <b><div class=T_VERSION style="display: inline;"></div></b>: em8.alpha-10 <br>
                                        <b><div class=T_LICENCE style="display: inline;"></div></b>: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL 3</a> <br>
                                        <b><div class=T_REPOSITORY style="display: inline;"></div></b>: <a href="https://github.com/acaldero/EM8">https://github.com/acaldero/EM8</a> <br> <br>
                                        <b><div class=T_AUTHOR     style="display: inline;"></div></b>: Alejandro Calder&oacute;n Mateos <br>
@@ -1541,30 +1493,12 @@
 		<script>
 		    function meal_camera_success ( imageURI ) 
                     {
-                        console.log('imageURI: ' + imageURI);
-
-		        var image = document.querySelector('#qimage') ;
-		        image.value = imageURI;
-
-		        var image = document.getElementById('qimage2');
-		        image.src = imageURI;
-
-		        var image = document.getElementById('qimage3');
-		        image.src = imageURI;
+		        dbform_camera_success('#qimage','qimage2','qimage3',imageURI); 
 		    }
 
 		    function other_camera_success ( imageURI ) 
                     {
-                        console.log('imageURI: ' + imageURI);
-
-		        var image = document.querySelector('#oimage') ;
-		        image.value = imageURI;
-
-		        var image = document.getElementById('oimage2');
-		        image.src = imageURI;
-
-		        var image = document.getElementById('oimage3');
-		        image.src = imageURI;
+		        dbform_camera_success('#oimage','oimage2','oimage3',imageURI); 
 		    }
 
 		    function camera_fail ( message ) 
@@ -1763,8 +1697,8 @@
 
 
                 <table border=0 width=100% cellpadding=0 cellspacing=0>
-                <tr>
 
+                <tr>
                 <td width=40%>
                 <a href="#ttt5" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
                    data-role="button" data-inline="true" data-mini="true" data-shadow="false">
@@ -1785,13 +1719,9 @@
                                                            preset: 'datetime', dateFormat : "yy-mm-dd", 
                                                            timeFormat : "HH:iiZ", separator  : "T" }); });
 			</script>
-
                 </tr>
-                <tr>
 
-                </tr>
                 <tr>
-
                 <td width=40%>
                 <a href="#tt9" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
                    data-role="button" data-inline="true" data-mini="true" data-shadow="false">
@@ -1832,10 +1762,9 @@
                    </tr>
                    </table>
                 </td>
-
                 </tr>
-                <tr>
 
+                <tr>
                 <td colspan=2>
 			<center>
 			  <button name="o-update"
@@ -1849,7 +1778,6 @@
 					   return false;"><div class=T_ADD style="display: inline;"></div></button>
 			</center>
                 </td>
-
                 </tr>
                 </table>
 	     </form>
@@ -2030,6 +1958,11 @@
            {
 	       var ba_pattern = formbd.elements['values_basaldef,pattern'].value;
 
+	       if ('' == ba_pattern) {
+		   dbform_fill0_basaldefinition(document.formbd) ;
+                   return;
+	       }
+
 	       var basaldef_length = 0;
 	       if ( (typeof vector_details['basaldef'] !== 'undefined') &&
 	            (typeof vector_details['basaldef'].length !== 'undefined') )
@@ -2050,7 +1983,7 @@
 			$("#basal_sections").html(o).trigger("refresh");
 
                         formbd.total_area.value = ui_basal_area(vector_details['basaldef'][i]['segments'],"00:00","23:59");
-	                break;
+	                return;
 	            }
            }
            </script>
@@ -2214,8 +2147,6 @@
      <a href="#page10" data-rel="close" data-role="button" data-theme="a" data-mini="true"
 		       data-icon="delete" data-inline="true"><div class=T_CLOSE style="display: inline;"></div></a>
      </div>
-
-     <br>
 
      <ul data-role="listview" data-inset="true" class="ui-icon-alt">
      <li><a href="#page11">
