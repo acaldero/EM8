@@ -482,7 +482,7 @@
 			         if ( /^file:\/{3}[^\/]/i.test(window.location.href) && 
                                       /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent) ) 
                                       srcimage = values_other['image'] ;
-                                 else srcimage = "https://127.000.000.01/em.8/php/sync/" +
+                                 else srcimage = ls1.remote_storage_img + "/" +
                                                  values_other['user'] + "/" +  
                                                  values_other['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
 
