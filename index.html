@@ -789,7 +789,13 @@
 		  function okImport(evt) 
                   {
                         load_data() ; // TODO: check that the new info is shown
-		        alert("Data processed!"); 
+		        //alert("Data processed!"); 
+			    $.gritter.add({
+				title: T['IMPORT'],
+				text: T['UPDATED'],
+				sticky: false,
+				time: ls1.gritter_faceout_time
+			    });
 		  }
 
 		  function handleImport() 
@@ -1102,7 +1108,13 @@
 						           $('#identity-icon1').html('<font color=gray size=-1>' + 
 									          ls1.user_login + ', ' + ls1.user_id + 
 									          '</font>');
-							   alert('updated!');
+							   //alert('updated!');
+								    $.gritter.add({
+									title: T['CONFIG'] + ' / ' + T['IDENTITY'],
+									text: T['UPDATED'],
+									sticky: false,
+									time: ls1.gritter_faceout_time
+								    });
                                                            return false;"><div class=T_UPDATE style="display: inline;"></div></button>
 					</center>
 				</td>
@@ -1164,7 +1176,13 @@
 	                              $("#ajust-icon2").html("<font color=gray size=-1>" + 
            						     ls1.aftermeal_hours + ", " + ls1.newday_hour + 
            						     "</font>");
-				      alert("updated!");
+				      //alert("updated!");
+					    $.gritter.add({
+						title: T["CONFIG"] + " / " + T["AJUSTS"],
+						text: T["UPDATED"],
+						sticky: false,
+						time: ls1.gritter_faceout_time
+					    });
                                       return false;'><div class=T_UPDATE style="display: inline;"></div></button>
 				    </center>
 				</td>
@@ -2091,7 +2109,13 @@
 					       dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
 						   //$('#page-quickmenu').dialog('close');
 						   load_data();
-                                                   alert('basal updated!');
+                                                   //alert('basal updated!');
+							    $.gritter.add({
+								title: T['BASAL'],
+								text: T['UPDATED'],
+								sticky: false,
+								time: ls1.gritter_faceout_time
+							    });
 					       });
  					   else alert('error: empty pattern');
 					   return false;"><div class=T_MODIFY style="display: inline;"></div></button>
@@ -2102,7 +2126,13 @@
 					       dbform_action_basal_def(ls1.rmysql_url, document.formbd, function() {
 						   //$('#page-quickmenu').dialog('close');
 						   load_data();
-                                                   alert('new basal available');
+                                                   //alert('new basal available');
+						    $.gritter.add({
+							title: 'Info',
+							text: 'new basal available',
+							sticky: false,
+							time: ls1.gritter_faceout_time
+						    });
 					       });
  					   } else alert('error: empty pattern');
 					   return false;"><div class=T_ADD style="display: inline;"></div></button>
@@ -2389,10 +2419,12 @@
         }
 
 	/* checking HTML5 support */
-	if ( !(window.File && window.FileReader && window.FileList && window.Blob))
+	if ( !(window.File && window.FileReader && window.FileList && window.Blob)) {
 	       alert('The File APIs are not fully supported in this browser.');
-        if ( !('localStorage' in window && window['localStorage'] !== null) )
+	}
+        if ( !('localStorage' in window && window['localStorage'] !== null) ) {
 	       alert('The localStorage APIs are not fully supported in this browser.');
+	}
 
         /* request filesystem quota */
         window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem || window.moz_requestFileSystem;
@@ -2422,6 +2454,8 @@
 
 	    ls1.connected       = false ;
             ls1.rmysql_url      = "" ;
+
+            ls1.gritter_faceout_time = 3000 ;
         }
 
         /* translation */

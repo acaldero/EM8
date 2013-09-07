@@ -105,6 +105,7 @@
         translate['en']['GALLERY']	 = 'gallery' ;
         translate['en']['ACTIVATE2'] 	 = 'activate' ;
         translate['en']['SYNC2']	 = 'sync' ;
+        translate['en']['UPDATED']	 = 'updated' ;
 
         translate['en']['MONDAY']	 = 'M' ;
         translate['en']['TUESDAY']	 = 'T' ;
