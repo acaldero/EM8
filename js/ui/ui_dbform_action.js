@@ -99,7 +99,7 @@
         Q.push("UPDATE bolus    SET user=" + new_id + " WHERE user=" + old_id) ;
         Q.push("UPDATE measures SET user=" + new_id + " WHERE user=" + old_id) ;
         Q.push("UPDATE events   SET user=" + new_id + " WHERE user=" + old_id) ;
-        Q.push("UPDATE basals            SET user=" + new_id + " WHERE user=" + old_id) ;
+        Q.push("UPDATE basal_definitions SET user=" + new_id + " WHERE user=" + old_id) ;
         Q.push("UPDATE basal_activations SET user=" + new_id + " WHERE user=" + old_id) ;
 
 	db_execute(dbinfo,Q) ;
