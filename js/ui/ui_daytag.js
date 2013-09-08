@@ -317,9 +317,9 @@
 				    "       data-position-to=window data-theme=a " + 
 				    "       data-transition=none>" + meal_image1 + "</a>" +
 				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
-				    "         data-overlay-theme=b data-theme=a data-corners=false>" +
+				    "         data-overlay-theme=b data-corners=false>" +
 				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
-				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + meal_image2 + "</div>" +
+				    "            data-iconpos=notext class=\"ui-btn ui-btn-a ui-btn-icon-notext ui-btn-right ui-corner-all ui-icon-delete ui-link ui-shadow\">Close</a>" + meal_image2 + "</div>" +
 				    "     <br><font size=2><b>" + details[k_hour][k_type]['tag'] + "</b></font>" +
 				    "   </td>\n" +
 				    "   </tr>\n" +
@@ -499,7 +499,7 @@
 				    "         data-overlay-theme=b " + 
 				    "         data-corners=false data-tolerance=\"30,15\">" +
 				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
-				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + other_image2 +
+				    "            data-iconpos=notext class=\"ui-btn ui-btn-a ui-btn-icon-notext ui-btn-right ui-corner-all ui-icon-delete ui-link ui-shadow\">Close</a>" + other_image2 +
 				    "    </div>" + "<br>" ;
                             }
 
@@ -561,7 +561,7 @@
 				    "         data-overlay-theme=b " + 
 				    "         data-corners=false data-tolerance=\"30,15\">" +
 				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
-				    "            data-iconpos=notext class=ui-btn-right>Close</a>" + 
+				    "            data-iconpos=notext class=\"ui-btn ui-btn-a ui-btn-icon-notext ui-btn-right ui-corner-all ui-icon-delete ui-link ui-shadow\">Close</a>" + 
 				    "         <div style='margin: 10px;'>" + 
 				    "      <center><font color=blue size=2><b>" + details[k_hour][k_type]['pattern'] + "</b></font></center>" + 
 				           res.long + 
