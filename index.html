@@ -2246,6 +2246,7 @@
 
         function load_monthandyear ( select_month, select_year )
         {
+                $('option', select_month).remove() ;
 		for (i=1; i<=12; i++)
 		     if (i == ls1.month)
                           select_month.append('<option value=' + i + ' selected>' + i + '</option>');
@@ -2255,6 +2256,7 @@
 
                 first_year = parseInt(ls1.year) - 5;
                 last_year  = parseInt(ls1.year) + 5;
+                $('option', select_year).remove() ;
                 for (i=first_year; i<last_year; i++)
                      if (i == ls1.year)
                           select_year.append('<option value=' + i + ' selected>' + i + '</option>');
