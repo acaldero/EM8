@@ -718,7 +718,7 @@
 <script>
      function export_handleSave ( f_name, csv )
      {
-	   window.requestFileSystem(window.PERSISTENT, 50*1024*1024, function(fs) 
+	   window.requestFileSystem(LocalFileSystem.PERSISTENT, 50*1024*1024, function(fs) 
            {
 	         console.log("export: file name is " + f_name);
 		 fs.root.getFile(f_name, {create: true, exclusive: true}, function(fileEntry) 
