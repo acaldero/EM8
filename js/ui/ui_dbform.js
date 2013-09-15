@@ -64,35 +64,35 @@
 	form.elements['values_other[stop]'].value = form.elements['values_other[start]'].value ;
   }
 
-                function dbform_knobIt ( shadow, vnow, vmin, vmax, vstep )
-                {
-                      var obj = $("#x11a");
+	function dbform_knobIt ( shadow, vnow, vmin, vmax, vstep )
+	{
+	      var obj = $("#x11a");
 
-                      if ('true' != obj.attr('isKnob')) {
-                          obj.knob();
-                          obj.attr('isKnob','true') ;
-                      }
+	      if ('true' != obj.attr('isKnob')) {
+		  obj.knob();
+		  obj.attr('isKnob','true') ;
+	      }
 
-                      obj.trigger("configure",{"min": vmin, "max": vmax, "step": vstep, "skin": "tron"});
-                      obj.val(vnow).change();
+	      obj.trigger("configure",{"min": vmin, "max": vmax, "step": vstep, "skin": "tron"});
+	      obj.val(vnow).change();
 
-                      fillback = shadow;
-                      $("#popupx11a").popup("open");
-                }
+	      fillback = shadow;
+	      $("#popupx11a").popup("open");
+	}
 
-                function dbform_camera_success ( form_img_name, big_img_name, small_img_name, imageURI )
-                {
-                        console.log('imageURI: ' + imageURI);
+	function dbform_camera_success ( form_img_name, big_img_name, small_img_name, imageURI )
+	{
+		// console.log('imageURI: ' + imageURI);
 
-                        var image = document.querySelector(form_img_name) ;
-                        image.value = imageURI;
+		var image = document.querySelector(form_img_name) ;
+		image.value = imageURI;
 
-                        var image = document.getElementById(big_img_name);
-                        image.src = imageURI;
+		var image = document.getElementById(big_img_name);
+		image.src = imageURI;
 
-                        var image = document.getElementById(small_img_name);
-                        image.src = imageURI;
-                }
+		var image = document.getElementById(small_img_name);
+		image.src = imageURI;
+	}
 
 
   /*
@@ -134,10 +134,11 @@
 
            for(var i=0; i<last; i++)
            {
-                result_pattern = vector_details['basaldef'][i]['pattern'] ;
+                var result_pattern = vector_details['basaldef'][i]['pattern'] ;
+                var result_id      = vector_details['basaldef'][i]['id'] ;
                 if (result_pattern == pattern)
-                     o_options += "<option value=\"" + result_pattern + "\" SELECTED>" + result_pattern + "</OPTION>";
-                else o_options += "<option value=\"" + result_pattern + "\">"          + result_pattern + "</OPTION>";
+                     o_options += "<option value=\"" + result_id + "\" SELECTED>" + result_pattern + "</OPTION>";
+                else o_options += "<option value=\"" + result_id + "\">"          + result_pattern + "</OPTION>";
            }
 
            $(select_name).html("").html(o_options).selectmenu().selectmenu("refresh");

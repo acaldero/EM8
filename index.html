@@ -1809,13 +1809,14 @@
            <script>
            function handle_completeActivation(formqba) 
            {
-	       var ba_pattern=formqba.elements['values_basal_activation[pattern]'].value;
+	       var ba_id = formqba.elements['values_basal_activation[id]'].value;
 	       for (var i=0; i<vector_details['basaldef'].length; i++) 
                {
-	            if (ba_pattern == vector_details['basaldef'][i]['pattern']) 
+	            if (ba_id == vector_details['basaldef'][i]['id']) 
                     {
-		        formqba.elements['values_basal_activation[neltos]'].value = vector_details['basaldef'][i]['neltos'];
-		        formqba.elements['values_basal_activation[segments]'].value=vector_details['basaldef'][i]['segments'];
+		        formqba.elements['values_basal_activation[pattern]'].value  = vector_details['basaldef'][i]['pattern'];
+		        formqba.elements['values_basal_activation[neltos]'].value   = vector_details['basaldef'][i]['neltos'];
+		        formqba.elements['values_basal_activation[segments]'].value = vector_details['basaldef'][i]['segments'];
 
 		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
 		        var res  = dbform_fill_segments(segs) ;
@@ -1834,7 +1835,7 @@
                 <table border=0 width=100% cellpadding=0 cellspacing=0>
                 <tr>
 
-			<input type=hidden   name="values_basal_activation[id]"       value="">
+			<input type=hidden   name="values_basal_activation[pattern]"  value="">
 			<input type=hidden   name="values_basal_activation[user]"     value="">
 			<input type=hidden   name="values_basal_activation[device]"   value="">
 
@@ -1853,7 +1854,7 @@
 		</div>
                 </td>
                 <td width=60%>
-			<SELECT id=ba_pattern name="values_basal_activation[pattern]"  
+			<SELECT id=ba_pattern name="values_basal_activation[id]"  
                                 onchange="handle_completeActivation(formqba);
 					  return false;"
                                 data-mini="true"></SELECT>
@@ -1970,26 +1971,27 @@
                 <tr>
 
            <script>
-           function handle_completeDefinition(formbd) 
+           function handle_completeDefinition_byId (formbd) 
            {
-	       var ba_pattern = formbd.elements['values_basaldef,pattern'].value;
+	       var ba_id = formbd.elements['values_basaldef,id'].value;
 
-	       if ('' == ba_pattern) {
+	       if (-1 == ba_id) {
 		   dbform_fill0_basaldefinition(document.formbd) ;
                    return;
 	       }
 
 	       var basaldef_length = 0;
 	       if ( (typeof vector_details['basaldef'] !== 'undefined') &&
-	            (typeof vector_details['basaldef'].length !== 'undefined') )
+	            (typeof vector_details['basaldef'].length !== 'undefined') ) {
 	             basaldef_length = vector_details['basaldef'].length;
+               }
 
 	       for (var i=0; i<basaldef_length; i++)
-	            if (ba_pattern == vector_details['basaldef'][i]['pattern']) 
+	            if (ba_id == vector_details['basaldef'][i]['id']) 
                     {
-		        formbd.elements['values_basaldef,id'].value     = vector_details['basaldef'][i]['id'];
-		        formbd.elements['values_basaldef,user'].value   = vector_details['basaldef'][i]['user'];
-		        formbd.elements['values_basaldef,device'].value = vector_details['basaldef'][i]['device'];
+		        formbd.elements['values_basaldef,pattern'].value = vector_details['basaldef'][i]['pattern'];
+		        formbd.elements['values_basaldef,user'].value    = vector_details['basaldef'][i]['user'];
+		        formbd.elements['values_basaldef,device'].value  = vector_details['basaldef'][i]['device'];
 
 		        formbd.elements['neltos'].value = vector_details['basaldef'][i]['neltos'];
 		        var select2 = $("#neltos").selectmenu().selectmenu("refresh", true) ;
@@ -2017,17 +2019,15 @@
 		</td>
                 <td width=50%>
                         <input type="text" id="bd_pattern" name="values_basaldef,pattern" 
-			       data-mini="true"
-                               onchange="handle_completeDefinition(document.formbd); 
-     				         return false;" x-webkit-speech>
+			       data-mini="true" x-webkit-speech>
 		</td>
                 <td width=10%>
 			<SELECT id=bd_pattern_list name="bd_pattern_list"  
 			        data-mini="true"
-                                onchange="var s_value = document.formbd.elements['bd_pattern_list'].value;
-					  document.formbd.elements['values_basaldef,pattern'].value = s_value;
+                                onchange="var s_id = document.formbd.elements['bd_pattern_list'].value;
+					  document.formbd.elements['values_basaldef,id'].value = s_id;
                                           document.formbd.elements['bd_pattern_list'].value = '';
-                                          handle_completeDefinition(document.formbd); 
+                                          handle_completeDefinition_byId(document.formbd); 
 					  return false;"></SELECT>
 		</td>
 
