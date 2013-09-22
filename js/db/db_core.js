@@ -85,7 +85,7 @@
                                key_arr.push(key) ;
                                last++ ;
                        } 
-                       else if (values[key] == -1) {
+                       else if (values[key] != -1) {
                                key_arr.push(key) ;
                                last++ ;
                        }
