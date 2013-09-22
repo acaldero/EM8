@@ -81,8 +81,14 @@
                   var key_arr = [] ;
                   for (key in values)
                   {
-                       key_arr.push(key) ;
-                       last++ ;
+                       if (pk.indexOf(key) == -1) {
+                               key_arr.push(key) ;
+                               last++ ;
+                       } 
+                       else if (values[key] == -1) {
+                               key_arr.push(key) ;
+                               last++ ;
+                       }
                   }
 
                   for (var i=0; i<last; i++)
