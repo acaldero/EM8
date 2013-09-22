@@ -1,8 +1,8 @@
-CREATE TABLE IF NOT EXISTS users ( id INTEGER PRIMARY KEY, name TEXT, password TEXT, scheme TEXT ) ; 
-CREATE TABLE IF NOT EXISTS meals ( id INTEGER PRIMARY KEY, name TEXT, tag TEXT, image TEXT, measure DOUBLE, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT ) ;
-CREATE TABLE IF NOT EXISTS bolus ( id INTEGER PRIMARY KEY, name TEXT, type TEXT, units DOUBLE, percentage INTEGER, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT  );
-CREATE TABLE IF NOT EXISTS measures ( id INTEGER PRIMARY KEY, name TEXT, measure DOUBLE, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT  ) ; 
-CREATE TABLE IF NOT EXISTS basal_definitions ( id INTEGER PRIMARY KEY, pattern TEXT, neltos INTEGER, segments TEXT, user INTEGER, sync DATETIME, device TEXT  ) ;
-CREATE TABLE IF NOT EXISTS basal_activations ( id INTEGER PRIMARY KEY, pattern TEXT, neltos INTEGER, segments TEXT, percentage INTEGER, start DATETIME, user INTEGER, sync DATETIME, device TEXT  ) ;
-CREATE TABLE IF NOT EXISTS events ( id INTEGER PRIMARY KEY, name TEXT, event TEXT, type TEXT, measure TEXT, image TEXT, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT  ) ;
-INSERT INTO users (name) VALUES('acaldero'); 
+CREATE TABLE IF NOT EXISTS users ( id INTEGER, name TEXT, password TEXT, scheme TEXT, PRIMARY KEY(id) ) ; 
+CREATE TABLE IF NOT EXISTS meals ( id INTEGER, name TEXT, tag TEXT, image TEXT, measure DOUBLE, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT, PRIMARY KEY(id, device) ) ;
+CREATE TABLE IF NOT EXISTS bolus ( id INTEGER, name TEXT, type TEXT, units DOUBLE, percentage INTEGER, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT, PRIMARY KEY(id, device)  );
+CREATE TABLE IF NOT EXISTS measures ( id INTEGER, name TEXT, measure DOUBLE, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT, PRIMARY KEY(id, device)  ) ; 
+CREATE TABLE IF NOT EXISTS basal_definitions ( id INTEGER, pattern TEXT, neltos INTEGER, segments TEXT, user INTEGER, sync DATETIME, device TEXT, PRIMARY KEY(id, device)  ) ;
+CREATE TABLE IF NOT EXISTS basal_activations ( id INTEGER, pattern TEXT, neltos INTEGER, segments TEXT, percentage INTEGER, start DATETIME, user INTEGER, sync DATETIME, device TEXT, PRIMARY KEY(id, device)  ) ;
+CREATE TABLE IF NOT EXISTS events ( id INTEGER, name TEXT, event TEXT, type TEXT, measure TEXT, image TEXT, start DATETIME, stop DATETIME, user INTEGER, sync DATETIME, device TEXT, PRIMARY KEY(id, device)  ) ;
+INSERT INTO users (name) VALUES('guest');

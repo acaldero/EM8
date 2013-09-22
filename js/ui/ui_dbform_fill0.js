@@ -51,6 +51,8 @@
 	  form.elements['values_meal[image]'].value      = '' ;
 
               $("#page10md2").hide();
+
+	  dbform_camera_success('#qimage','qimage2','qimage3',''); 
   }
 
   function dbform_fill0_other ( form, now, value_name )
@@ -192,5 +194,8 @@
 		  form.elements['values_meal[tag][after]'].value         = '' ;
 		  form.elements['values_meal[measure][after]'].value     = 0 ;
 		  form.elements['values_meal[image][after]'].value       = '' ;
+
+	  dbform_camera_success('#vimageA','vimage2A','vimage3A',''); 
+	  dbform_camera_success('#vimageB','vimage2B','vimage3B',''); 
   }
 

@@ -81,10 +81,8 @@
                   var key_arr = [] ;
                   for (key in values)
                   {
-                       if (pk.indexOf(key) == -1) {
-                           key_arr.push(key) ;
-                           last++ ;
-                       }
+                       key_arr.push(key) ;
+                       last++ ;
                   }
 
                   for (var i=0; i<last; i++)
