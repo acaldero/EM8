@@ -24,7 +24,7 @@
 			values_bolus['device']     = fields[i][13] ;
 
                         if (0 == values_bolus['units'])
-                             Q.push(db_asocArray2delete("bolus",values_bolus,Array('id'))) ;
+                             Q.push(db_asocArray2delete("bolus",values_bolus,Array('id','device','user'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"bolus",values_bolus,Array('id'))) ;
                    break;
 
@@ -42,7 +42,7 @@
 			values_meal['device']      = fields[i][13] ;
 
                         if (0 == values_meal['measure'])
-                             Q.push(db_asocArray2delete("meals",values_meal,Array('id'))) ;
+                             Q.push(db_asocArray2delete("meals",values_meal,Array('id','device','user'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"meals",values_meal,Array('id'))) ;
                    break;
 
@@ -58,7 +58,7 @@
 			values_measure['device']   = fields[i][11] ;
 
                         if (0 == values_measure['measure'])
-                             Q.push(db_asocArray2delete("measures",values_measure,Array('id'))) ;
+                             Q.push(db_asocArray2delete("measures",values_measure,Array('id','device','user'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"measures",values_measure,Array('id'))) ;
                    break;
 
@@ -77,7 +77,7 @@
 			values_other['device']     = fields[i][14] ;
 
                         if ("" == values_other['event'])
-                             Q.push(db_asocArray2delete("events",values_other,Array('id'))) ;
+                             Q.push(db_asocArray2delete("events",values_other,Array('id','device','user'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"events",values_other,Array('id'))) ;
                    break;
 
@@ -94,7 +94,7 @@
 			values_basal_activation['device']     = fields[i][12] ;
 
                         if ("" == values_basal_activation['pattern'])
-                             Q.push(db_asocArray2delete("basal_activations",values_basal_activation,Array('id'))) ;
+                             Q.push(db_asocArray2delete("basal_activations",values_basal_activation,Array('id','device','user'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"basal_activations",values_basal_activation,Array('id'))) ;
                    break;
 
@@ -109,7 +109,7 @@
 			values_basal_definition['device']     = fields[i][10] ;
 
                         if (0 == values_basal_definition['neltos'])
-                             Q.push(db_asocArray2delete("basal_definitions",values_basal_definition,Array('id'))) ;
+                             Q.push(db_asocArray2delete("basal_definitions",values_basal_definition,Array('id','device','user'))) ;
                         else Q.push(db_asocArray2insertorupdate(dbinfo,"basal_definitions",values_basal_definition,Array('id'))) ;
                    break;
            }
