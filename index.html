@@ -195,7 +195,7 @@
 
 	<div data-role="collapsible-set">
 
-	  <div data-role="collapsible" data-theme="a" data-corners="false" data-content-theme="c" 
+	  <div data-role="collapsible" data-theme="a" data-corners="false" data-content-theme="a" 
                data-inset="true" data-collapsed="false">
           <h3><div class=T_VOICE  style="display: inline;"></div></h3>
 
@@ -262,7 +262,7 @@
           </div>
 
 
-	  <div data-role="collapsible" data-theme="a" data-corners="false" data-content-theme="c" id=wquick
+	  <div data-role="collapsible" data-theme="a" data-corners="false" data-content-theme="a" id=wquick
                data-inset="true" data-collapsed="false">
           <h3><div class=T_QUICK  style="display: inline;"></div></h3>
 
@@ -680,7 +680,7 @@
 
 	<div data-role="collapsible-set">
 
-	<div data-role="collapsible" data-theme="c" data-corners="false" data-content-theme="d" 
+	<div data-role="collapsible" data-theme="c" data-corners="false" data-content-theme="a" 
              data-inset="true" data-collapsed="true">
 	<h3><div class=T_EXPORT style="display: inline;"></div></h3>
 
@@ -752,7 +752,7 @@
                </center>
 	</div><!-- /collapsible -->
 
-	<div data-role="collapsible" data-theme="c" data-content-theme="d" data-corners="false"
+	<div data-role="collapsible" data-theme="c" data-content-theme="a" data-corners="false"
              data-inset="true" data-collapsed="true">
 	<h3> <div class=T_IMPORT style="display: inline;"></div> </h3>
 
@@ -2442,19 +2442,19 @@
                                               ls1.today = dt.getDate() ;
 
 	/* starting user information */
-        if (typeof ls1.user_login  === 'undefined') 
-        {
-            ls1.user_login      = "guest" ;
-            ls1.user_id         = "1" ;        
-            ls1.lang            = "es" ;       
-            ls1.aftermeal_hours = 2 ;
-            ls1.newday_hour     = 5 ;
+        if (typeof ls1.lang                 === 'undefined') ls1.lang            = "en" ;       
+        if (typeof ls1.gritter_faceout_time === 'undefined') ls1.gritter_faceout_time = 3000 ;
 
-	    ls1.connected       = false ;
-            ls1.rmysql_url      = "" ;
+        if (typeof ls1.user_login         === 'undefined') ls1.user_login      = "guest" ;
+        if (typeof ls1.user_id            === 'undefined') ls1.user_id         = "1" ;        
+        if (typeof ls1.aftermeal_hours    === 'undefined') ls1.aftermeal_hours = 2 ;
+        if (typeof ls1.newday_hour        === 'undefined') ls1.newday_hour     = 5 ;
+        if (typeof ls1.measure_range_1    === 'undefined') ls1.measure_range_1 = 150 ;
+        if (typeof ls1.measure_range_2    === 'undefined') ls1.measure_range_2 = 200 ;
+        if (typeof ls1.measure_range_3    === 'undefined') ls1.measure_range_3 = 300 ;
 
-            ls1.gritter_faceout_time = 3000 ;
-        }
+        if (typeof ls1.connected          === 'undefined') ls1.connected       = false ;
+        if (typeof ls1.rmysql_url         === 'undefined') ls1.rmysql_url      = "" ;
 
         /* translation */
 	T=lang_translate(ls1.lang);
