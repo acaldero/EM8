@@ -41,6 +41,8 @@
         translate['en']['MENU']	 	 = 'Menu' ;
         translate['en']['LOCATION']	 = 'Location' ;
         translate['en']['EXIT']	         = 'Exit' ;
+        translate['en']['PERSONAL']	 = 'Personal' ;
+        translate['en']['DEVICE']	 = 'Device' ;
 
 	// on-line help
         translate['en']['AMD_HM']	 	= 'year-month-day h:m' ;
@@ -91,6 +93,7 @@
 
         translate['en']['AFTERMEAL']	 	= 'After meal at...' ;
         translate['en']['DAYSTARTAT']	 	= 'Day start at...' ;
+        translate['en']['MEASUREGOALS']	 	= 'Measure goals...' ;
 
         translate['en']['SELECT']	 = 'select' ;
         translate['en']['CLOSE']	 = 'close' ;

@@ -72,9 +72,12 @@
 	$('div.T_TOTALPERDAY').html(T['TOTALPERDAY']);
 	$('div.T_LOCATION').html(T['LOCATION']);
 	$('div.T_EXIT').html(T['EXIT']);
+	$('div.T_PERSONAL').html(T['PERSONAL']);
+	$('div.T_DEVICE').html(T['DEVICE']);
 
 	$('div.T_AFTERMEAL').html(T['AFTERMEAL']);
 	$('div.T_DAYSTARTAT').html(T['DAYSTARTAT']);
+	$('div.T_MEASUREGOALS').html(T['MEASUREGOALS']);
 
 	$('div.T_SELECT').html(T['SELECT']);
 	$('div.T_CLOSE').html(T['CLOSE']);

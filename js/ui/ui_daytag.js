@@ -671,11 +671,11 @@
         if (0 == measures) return "#f1f1f1" ;
 
         o = "#CCFF33" ; // green
-        if      ( (measures > 150) && (measures < 200) )
+        if      ( (measures > ls1.measure_range_1) && (measures < ls1.measure_range_2) )
                o = "#FFFF99" ;  // yellow
-        else if ( (measures > 200) && (measures < 300) )
+        else if ( (measures > ls1.measure_range_2) && (measures < ls1.measure_range_3) )
                o = "#FFDD11" ;  // orange
-        else if ( (measures > 300) )
+        else if ( (measures > ls1.measure_range_3) )
                o = "red" ;
 
         return o ;

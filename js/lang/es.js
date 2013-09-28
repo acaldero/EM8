@@ -41,6 +41,8 @@
         translate['es']['MENU']	 	 = 'Men&uacute;' ;
         translate['es']['LOCATION']	 = 'Localizaci&oacute;n' ;
         translate['es']['EXIT']	         = 'Salir' ;
+        translate['es']['PERSONAL']	 = 'Personal' ;
+        translate['es']['DEVICE']	 = 'Dispositivo' ;
 
 	// on-line help
         translate['es']['AMD_HM']	 	= 'a&ntilde;o-mes-d&iacute;a h:m' ;
@@ -91,6 +93,7 @@
 
         translate['es']['AFTERMEAL']	 	= 'Despu&eacute;s de comer a las...' ;
         translate['es']['DAYSTARTAT']	 	= 'El d&iacute;a comienza a las...' ;
+        translate['es']['MEASUREGOALS']	 	= 'Objetivo de medidas...' ;
 
         translate['es']['SELECT']	 = 'seleccionar' ;
         translate['es']['CLOSE']	 = 'cerrar' ;
