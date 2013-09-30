@@ -258,27 +258,28 @@
                                     values_bolus        = details[k_hour]['bolus'] ;
                                 }
 
-			    if ( (associated_measure_m != "&nbsp;") && (associated_bolus_u == "&nbsp;") )
-                                 default_img = "icons/empty_ta-5.png" ;
-                            else default_img = "icons/empty_dish.jpg" ;
-
                             img_id1 = "mi" + values_meal['id'] + "a" ;
-                            img_id2 = "mi" + values_meal['id'] + "b" ;
-                            meal_image1 = "<img id=" + img_id1 + " height=80 class=popphoto src=\"" + default_img + "\" style=\"max-height:512px;\">" ;
-                            meal_image2 = "<img id=" + img_id2 + " height=80 class=popphoto src=\"" + default_img + "\" style=\"max-height:512px;\">" ;
+
                             if ( ("" != values_meal['image']) && (null != values_meal['image']) )
                             {
-			         if ( /^file:\/{3}[^\/]/i.test(window.location.href) && 
-                                      /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent) ) 
-                                      srcimage = values_meal['image'] ;
-                                 else srcimage = ls1.remote_storage_img + "/" +
-                                                 values_meal['user'] + "/" +  
+				 if (ls1.device_id == values_meal['device'])
+                                      srcimage = values_meal['image'];
+				 else srcimage = ls1.storage_img_prefix + '/' +
                                                  values_meal['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
 
-                                 meal_image1 = "<img id=" + img_id1 + 
-                                             " height=80 class=popphoto style=\"max-height:512px;\" src=\"" + srcimage + "\">";
-                                 meal_image2 = "<img id=" + img_id2 + 
-				             "           class=popphoto style=\"max-height:512px;\" src=\"" + srcimage + "\">";
+                                 meal_image1 = "<img id=" + img_id1 + " rel=meals " +
+					       "     height=80 style=\"max-height:512px;\" " + 
+					       "     class=lazy src=icons/empty_dish.jpg data-original=\"" + srcimage + "\">";
+                            }
+                            else
+                            {
+			         if ( (associated_measure_m != "&nbsp;") && (associated_bolus_u == "&nbsp;") )
+                                      srcimage = "icons/empty_ta-5.png" ;
+                                 else srcimage = "icons/empty_dish.jpg" ;
+
+                                 meal_image1 = "<img id=" + img_id1 + " rel=meals " +
+					       "     height=80 style=\"max-height:512px;\" " + 
+                                               "     src=\"" + srcimage + "\">" ;
                             }
 
                             // console.log('ui_daytag.daytag_summary.*_meal: update o');
@@ -313,13 +314,11 @@
 				    "     </b></font>" +
 				    "   </td>\n" +
 				    "   <td align=center rowspan=3 width=85%>\n" +
-				    "    <a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
-				    "       data-position-to=window data-theme=a " + 
-				    "       data-transition=none>" + meal_image1 + "</a>" +
-				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
-				    "         data-overlay-theme=b data-corners=false>" +
-				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
-				    "            data-iconpos=notext class=\"ui-btn ui-btn-a ui-btn-icon-notext ui-btn-right ui-corner-all ui-icon-delete ui-link ui-shadow\">Close</a>" + meal_image2 + "</div>" +
+				    "    <a href=" + srcimage + 
+                                    "       rel=lightbox-meals " + 
+				    "       title=\"" + 
+					      T['DESCRIPTION'] + ": " + details[k_hour][k_type]['tag'] + "<br>" + 
+					      T['RATIONS']     + ": " + details[k_hour][k_type]['measure'] + "\">" + meal_image1 + "</a>" +
 				    "     <br><font size=2><b>" + details[k_hour][k_type]['tag'] + "</b></font>" +
 				    "   </td>\n" +
 				    "   </tr>\n" +
@@ -479,28 +478,18 @@
                             other_image = "&nbsp;" ;
                             if ( ("" != values_other['image']) && (null != values_other['image']) )
                             {
-			         if ( /^file:\/{3}[^\/]/i.test(window.location.href) && 
-                                      /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent) ) 
-                                      srcimage = values_other['image'] ;
-                                 else srcimage = ls1.remote_storage_img + "/" +
-                                                 values_other['user'] + "/" +  
+				 if (ls1.device_id == values_other['device'])
+                                      srcimage = values_other['image'];
+				 else srcimage = ls1.storage_img_prefix + '/' +
                                                  values_other['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
 
                                  img_id1 = "oi" + values_other['id'] + "a" ;
-                                 img_id2 = "oi" + values_other['id'] + "b" ;
-                                 other_image1 = "<img id=" + img_id1 + " height=80 src=\"" + srcimage + "\">" ;
-                                 other_image2 = "<img id=" + img_id2 + " height=80 src=\"" + srcimage + "\">" ;
 
-                                 other_image = 
-				    "<a href=#i" + details[k_hour][k_type]['id'] + " data-rel=popup " + 
-				    "   data-position-to=window data-theme=d " + 
-				    "   data-inline=true data-transition=fade>" + other_image1 + "</a>" +
-				    "    <div data-role=popup id=i" + details[k_hour][k_type]['id'] + 
-				    "         data-overlay-theme=b " + 
-				    "         data-corners=false data-tolerance=\"30,15\">" +
-				    "	      <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
-				    "            data-iconpos=notext class=\"ui-btn ui-btn-a ui-btn-icon-notext ui-btn-right ui-corner-all ui-icon-delete ui-link ui-shadow\">Close</a>" + other_image2 +
-				    "    </div>" + "<br>" ;
+                                 other_image = "<a href=" + srcimage + " class=lightbox-others>" +
+                                               "<img id=" + img_id1 + " rel=others " +
+					       "     height=80 style=\"max-height:512px;\" " +
+					       "     class=lazy src=icons/detective5.jpg data-original=\"" + srcimage + "\">" +
+					       "</a>" ;
                             }
 
 			    o = o + "" +
@@ -530,7 +519,8 @@
                                            details[k_hour][k_type]['event'] + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
-				    "  <td align=center rowspan=1 width=85%>\n" + other_image + 
+				    "  <td align=center rowspan=1 width=85%>\n" + 
+				         other_image + 
 				    "    <font size=2><b>" + details[k_hour][k_type]['type'] + " &nbsp; " + 
                                                              details[k_hour][k_type]['measure'] + "</b></font>" +
 				    "  </td>\n" +
@@ -653,19 +643,6 @@
   }
 
   // auxiliar function
-  function daytag_showhide(id)
-  {
-         if (document.getElementById) 
-         {
-               obj = document.getElementById(id);
-               if (obj.style.display == "none") {
-                   obj.style.display = "";
-               } else {
-                   obj.style.display = "none";
-               }
-         }
-  }
-
   function daytag_summary_color ( measures )
   {
         if (0 == measures) return "#f1f1f1" ;
@@ -748,7 +725,8 @@
 		c = daytag_summary_color(measures / 2);
 		u += "<td class=calendar-day valign=middle bgcolor=" + c + "><center>" ;
 		u += "<div class=day-number " + 
-				 "     onclick=\"daytag_showhide('m" + list_day + "');\">" + list_day + "</div>\n" ;
+		     "     onclick=\"$('#m" + list_day + "').toggle();$('img.lazy').lazyload({skip_invisible: false});return false;\">" + 
+		     list_day + "</div>\n" ;
 
 		moreinfo +=  "<div id=\"m" + list_day + "\" align=left " + // " class=shadow1 " +
 			     "     style=\"display: none; position:relative; z-index:1; width: 100%; " +

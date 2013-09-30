@@ -65,7 +65,7 @@
 	   if (lino['units'] != 0)
            {
 			values_bolus = new Array();
-			values_bolus['id']         = 0 ;
+			values_bolus['id']         = -1 ;
 			values_bolus['name']       = lino['name'] ;
 			values_bolus['type']       = "normal" ;
 			values_bolus['units']      = lino['units'] ;
@@ -82,7 +82,7 @@
 	    if (lino['ration'] != 0)
             {
 			values_meal = new Array();
-			values_meal['id']          = 0 ;
+			values_meal['id']          = -1 ;
 			values_meal['name']        = lino['name'] ;
 			values_meal['tag']         = "" ;
 			values_meal['measure']     = lino['ration'] ;
@@ -99,7 +99,7 @@
 	    if (lino['measure'] != 0)
             {
 			values_measure = new Array();
-			values_measure['id']       = 0 ;
+			values_measure['id']       = -1 ;
 			values_measure['name']     = lino['name'] ;
 			values_measure['measure']  = lino['measure'] ;
 			values_measure['start']    = lino['start'] ;
