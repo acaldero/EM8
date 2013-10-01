@@ -1241,7 +1241,6 @@
 
 			</div>
 
-
 			<div id=location data-role="collapsible" data-theme=a data-collapsed="false">
 		        <h3><div class=T_LOCATION style="display: inline;"></div></h3>
 
@@ -1266,29 +1265,11 @@
 				</tr>
 
 				<tr>
-				<td width=20%>
-				  <a href="#ss28" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
-				     data-role="button" data-inline="true" data-mini="true" data-shadow="false">Remote IMG</a>
-				  <div data-role="popup" id="ss28" class="ui-content" data-theme="a" style="max-width:0px;">
-				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
-				  <font size=-1>"http://host/path/to/gallery/"</font>
-				  </a>
-				  </div>
-				</td>
-				<td width=80%>
-					<input name="remote_storage_img" type="text" id=remote_storage_img 
-                                               data-mini=true value="">
-				</td>
-				</tr>
-
-
-				<tr>
 				<td colspan=2 align=center width=20%> 
 				    <center>
 				        <button name="ra-update"
 						data-theme="a" data-corners="false" data-inline="true" data-icon="refresh"
 						onclick="ls1.local_storage_img  = document.formra.elements['local_storage_img'].value;
-						         ls1.remote_storage_img = document.formra.elements['remote_storage_img'].value;
 							 //alert('updated!');
 							    $.gritter.add({
 								title: T['CONFIG'] + ' / ' + T['LOCATION'],
@@ -2411,8 +2392,7 @@
 		document.formaj1.elements["values_user[measure_range_3]"].value = ls1.measure_range_3 ;
 
                 // config - conn 
-		document.formra.elements['local_storage_img'].value  = ls1.local_storage_img ;
-		document.formra.elements['remote_storage_img'].value = ls1.remote_storage_img ;
+		document.formra.elements['local_storage_img'].value = ls1.local_storage_img ;
 
                 // config - ajust 
 	        $("#ajust-icon2").html("<font color=gray size=-1>" + 

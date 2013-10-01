@@ -264,7 +264,7 @@
                             {
 				 if (ls1.device_id == values_meal['device'])
                                       srcimage = values_meal['image'];
-				 else srcimage = ls1.storage_img_prefix + '/' +
+				 else srcimage = ls1.local_storage_img + '/' +
                                                  values_meal['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
 
                                  meal_image1 = "<img id=" + img_id1 + " rel=meals " +
@@ -480,7 +480,7 @@
                             {
 				 if (ls1.device_id == values_other['device'])
                                       srcimage = values_other['image'];
-				 else srcimage = ls1.storage_img_prefix + '/' +
+				 else srcimage = ls1.local_storage_img + '/' +
                                                  values_other['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
 
                                  img_id1 = "oi" + values_other['id'] + "a" ;
