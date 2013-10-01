@@ -1242,6 +1242,72 @@
 			</div>
 
 
+			<div id=location data-role="collapsible" data-theme=a data-collapsed="false">
+		        <h3><div class=T_LOCATION style="display: inline;"></div></h3>
+
+				<center>
+			        <form id=formra name=formra action="#" method="post" data-ajax="false">
+
+				<table border=0 width=100% cellpadding=2>
+				<tr>
+				<td width=20%>
+				  <a href="#ss27" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
+				     data-role="button" data-inline="true" data-mini="true" data-shadow="false">Local IMG</a>
+				  <div data-role="popup" id="ss27" class="ui-content" data-theme="a" style="max-width:0px;">
+				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+				  <font size=-1>"/path/to/Gallery"</font>
+				  </a>
+				  </div>
+				</td>
+				<td width=80%>
+					<input name="local_storage_img" type="text" id=local_storage_img 
+                                               data-mini=true value="">
+				</td>
+				</tr>
+
+				<tr>
+				<td width=20%>
+				  <a href="#ss28" data-rel="popup" data-inline="true" data-transition="none" data-theme="a"
+				     data-role="button" data-inline="true" data-mini="true" data-shadow="false">Remote IMG</a>
+				  <div data-role="popup" id="ss28" class="ui-content" data-theme="a" style="max-width:0px;">
+				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
+				  <font size=-1>"http://host/path/to/gallery/"</font>
+				  </a>
+				  </div>
+				</td>
+				<td width=80%>
+					<input name="remote_storage_img" type="text" id=remote_storage_img 
+                                               data-mini=true value="">
+				</td>
+				</tr>
+
+
+				<tr>
+				<td colspan=2 align=center width=20%> 
+				    <center>
+				        <button name="ra-update"
+						data-theme="a" data-corners="false" data-inline="true" data-icon="refresh"
+						onclick="ls1.local_storage_img  = document.formra.elements['local_storage_img'].value;
+						         ls1.remote_storage_img = document.formra.elements['remote_storage_img'].value;
+							 //alert('updated!');
+							    $.gritter.add({
+								title: T['CONFIG'] + ' / ' + T['LOCATION'],
+								text: T['UPDATED'],
+								sticky: false,
+								time: ls1.gritter_faceout_time
+							    });
+							 return false;"><div class=T_UPDATE style="display: inline;"></div></button>
+				    </center>
+				</td>
+				</tr>
+				</table>
+
+				</form>
+				</center>
+
+			</div>
+
+
 			<div id=sesion data-role="collapsible" data-theme=a data-collapsed="false">
 		        <h3><div class=T_ABOUT style="display: inline;"></div></h3>
 
@@ -2344,6 +2410,10 @@
 		document.formaj1.elements["values_user[measure_range_2]"].value = ls1.measure_range_2 ;
 		document.formaj1.elements["values_user[measure_range_3]"].value = ls1.measure_range_3 ;
 
+                // config - conn 
+		document.formra.elements['local_storage_img'].value  = ls1.local_storage_img ;
+		document.formra.elements['remote_storage_img'].value = ls1.remote_storage_img ;
+
                 // config - ajust 
 	        $("#ajust-icon2").html("<font color=gray size=-1>" + 
 				       ls1.aftermeal_hours + "," + 
@@ -2351,7 +2421,8 @@
 				       ls1.measure_range_1 + "-" + ls1.measure_range_2 + "-" + ls1.measure_range_3 +
 				       "</font>");
 	        $("#identity-icon1").html("<font color=gray size=-1>" + 
-				       ls1.user_login + ", " + ls1.user_id + 
+				       ls1.user_login + "," + 
+			               ls1.user_id + 
 				       "</font>");
 
                 // quick2
@@ -2524,6 +2595,8 @@
         if (typeof ls1.measure_range_1    === 'undefined') ls1.measure_range_1 = 150 ;
         if (typeof ls1.measure_range_2    === 'undefined') ls1.measure_range_2 = 200 ;
         if (typeof ls1.measure_range_3    === 'undefined') ls1.measure_range_3 = 300 ;
+
+        url_base = "http://127.0.0.1/" ;
 
         if (typeof ls1.connected          === 'undefined') ls1.connected       = false ;
         if (typeof ls1.rmysql_url         === 'undefined') ls1.rmysql_url      = "" ;
