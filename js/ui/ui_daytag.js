@@ -554,7 +554,7 @@
 				    "            data-iconpos=notext class=\"ui-btn ui-btn-a ui-btn-icon-notext ui-btn-right ui-corner-all ui-icon-delete ui-link ui-shadow\">Close</a>" + 
 				    "         <div style='margin: 10px;'>" + 
 				    "      <center><font color=blue size=2><b>" + details[k_hour][k_type]['pattern'] + "</b></font></center>" + 
-				           res.long + 
+				           res.long_v + 
 				    "         </div>" +
 				    "    </div>" + "<br>" ;
 
@@ -586,7 +586,7 @@
 				    "    </b></font>" +
 				    "  </td>\n" +
 				    "  <td align=center rowspan=1 width=85%>\n" + 
-					  segs_more + "<font size=2 color=gray><b>" + res.short + "</b></font>" +
+					  segs_more + "<font size=2 color=gray><b>" + res.short_v + "</b></font>" +
 				    "  </td>\n" +
 				    "  </tr>\n" +
 				    "  </table>\n" +

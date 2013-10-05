@@ -154,8 +154,8 @@
 	      var segs = JSON.parse(values_basal_activation['segments']) ;
               var res  = dbform_fill_segments(segs) ;
 
-              $("#ba_segments1").val(res.short) ;
-              $("#ba_segments2").html(res.long) ;
+              $("#ba_segments1").val(res.short_v) ;
+              $("#ba_segments2").html(res.long_v) ;
 
               $("#bap1").slider("refresh");
 

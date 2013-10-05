@@ -103,13 +103,13 @@
   {
 	var res = new Object() ;
 
-	res.short = "" ;
-	res.long = "" ;
+	res.short_v = "" ;
+	res.long_v = "" ;
 
 	for (i=0; i<segs.length-1; i++) 
 	{
-	     res.short += segs[i].c + " | " ;
-	     res.long  += "<tr>" + 
+	     res.short_v += segs[i].c + " | " ;
+	     res.long_v  += "<tr>" + 
 			  "<td align=left><font color=gray>" + (i+1) + "&nbsp;&nbsp;</font></td>" +
 			  "<td>" + segs[i].h + "</td>" +
 			  "<td>&#8592;</td>" + 
@@ -119,7 +119,7 @@
 			  "</tr>";
 	}
 
-	res.long = "<table border=0>" + res.long + "</table>" ;
+	res.long_v = "<table border=0>" + res.long_v + "</table>" ;
 
 	return res;
   }
