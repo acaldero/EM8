@@ -53,7 +53,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};
@@ -109,7 +109,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};
@@ -165,7 +165,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};

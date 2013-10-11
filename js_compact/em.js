@@ -3758,7 +3758,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};
@@ -3814,7 +3814,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};
@@ -3870,7 +3870,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};
@@ -4009,7 +4009,7 @@
 			    borderWidth: 0
 			},
 		        series: {
-		    	    animation: false
+		    	    animation: true
 		        }
 		    },
 		};
@@ -4080,7 +4080,7 @@
 			    borderWidth: 0
 			},
 		        series: {
-		    	    animation: false
+		    	    animation: true
 		        }
 		    },
 		};
@@ -4151,7 +4151,7 @@
 			    borderWidth: 0
 			},
 		        series: {
-		    	    animation: false
+		    	    animation: true
 		        }
 		    },
 		};
@@ -4275,7 +4275,7 @@
 			    borderWidth: 0
                         },
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    },
 		};
@@ -4335,7 +4335,6 @@
         {
                 var avgs;
 
-
                 // 1.- initial values
 		avgs = new Array() ;
 
@@ -4358,7 +4357,11 @@
                 }
 
                 // 2.- get data
-                dt = new XDate() ;
+                nt = new XDate() ;
+                dt = new XDate(ls1.year, ls1.month-1, ls1.today) ;
+                if (ls1.month != (nt.getMonth()+1))
+                    dt = new XDate(ls1.year, ls1.month-1, XDate.getDaysInMonth(ls1.year, ls1.month-1)) ;
+
                 s2 = dt.toString("yyyy-MM-dd") ;
                 for (i=0; i<ndays; i++)
                 {
@@ -4395,7 +4398,7 @@
                 return avgs ;
         }
 
-	function stats_avg_get ( container, ndays ) 
+	function stats_avg_get ( ndays ) 
         {
             var avgs;
             var htmlo;
@@ -4470,7 +4473,7 @@
 
                 htmlo += "</table></font>" ;
 
-                container.html(htmlo).trigger("create") ;
+                return htmlo ;
         }
 
 
@@ -4502,7 +4505,7 @@
 		    },
 		    plotOptions: {
                         series: {
-                            animation: false
+                            animation: true
                         }
 		    }
 		};
@@ -4586,7 +4589,7 @@
 		    plotOptions: {
 			series: {
 			    stacking: 'normal',
-                            animation: false
+                            animation: true
                         }
 		    }
 		};

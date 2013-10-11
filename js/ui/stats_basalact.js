@@ -41,7 +41,7 @@
 		    plotOptions: {
 			series: {
 			    stacking: 'normal',
-                            animation: false
+                            animation: true
                         }
 		    }
 		};

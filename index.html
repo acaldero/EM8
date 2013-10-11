@@ -89,7 +89,7 @@
                     <select name="d_month" id="select-month1" data-theme="f" data-native-menu="true"
                             onchange="ls1.month=this.options[this.selectedIndex].value;
 				      working_grid=set_working_grid(ls1);
-        			      load_database();">
+        			      load_database(); return false;">
                     </select>
                 </form>
                 </td>
@@ -98,7 +98,7 @@
                     <select name="d_year" id="select-year1" data-theme="f" data-native-menu="true"
                             onchange="ls1.year=this.options[this.selectedIndex].value;
 				      working_grid=set_working_grid(ls1);
-        			      load_database();">
+        			      load_database(); return false;">
                     </select>
                 </form>
                 </td>
@@ -696,7 +696,7 @@
 			    <select name="d_month" id="select-month2" data-theme="f"
 				    onchange="ls1.month=this.options[this.selectedIndex].value;
 					      working_grid=set_working_grid(ls1);
-					      load_database();">
+        			              load_database(); return false;">
 			    </select>
 			</form>
 			</td>
@@ -705,7 +705,7 @@
 			    <select name="d_year" id="select-year2" data-theme="f"
 				    onchange="ls1.year=this.options[this.selectedIndex].value;
 					      working_grid=set_working_grid(ls1);
-					      load_database();">
+        			              load_database(); return false;">
 			    </select>
 			</form>
 			</td>
@@ -717,28 +717,6 @@
 		       <textarea id=ta16 name=ta16></textarea>
                        </div>
                </div>
-
-<script>
-     function export_handleSave ( f_name, csv )
-     {
-	   window.requestFileSystem(LocalFileSystem.PERSISTENT, 50*1024*1024, function(fs) 
-           {
-	         console.log("export: file name is " + f_name);
-		 fs.root.getFile(f_name, {create: true, exclusive: true}, function(fileEntry) 
-		 {
-		      fileEntry.createWriter(function(fileWriter) 
-		      {
-			  fileWriter.onwrite = function (evt) {
-			     console.log("export: write completed");
-			     alert("data saved in: " + f_name);
-			  };
-			  console.log("export: try to write...");
-			  fileWriter.write(csv);
-		      }, daytag_errorHandler);
-		 }, daytag_errorHandler);
-	   }, daytag_errorHandler);
-     }
-</script>
 
                <div data-role="fieldcontain">
 		       <a href="javascript: void 0;" id=export_web
@@ -857,24 +835,6 @@
 
              <br>
 
-<script>
-        function container_update ( container_r, button_r, data_r )
-	{
-		  container_r.toggle();
-		  if (container_r.is(":visible")) {
-			if (typeof vector_details !== "undefined") {
-			    $.mobile.loading("show"); 
-			    var interval = setInterval(function(){ 
-				    clearInterval(interval); 
-				    var mh1 = new Highcharts.Chart(data_r);
-				    $.mobile.loading("hide"); },200); 
-			}
-			button_r.buttonMarkup({theme: "b"});
-		  }
-		  else  button_r.buttonMarkup({theme: "a"});
-	}
-</script>
-
 	        <div class=T_MEASURES style="display: inline;"></div>
                 <div data-role="controlgroup" data-type="horizontal">
 		     <a href="#" data-role="button" data-mini="true"
@@ -936,8 +896,10 @@
 						    $.mobile.loading("show"); 
 						    var interval = setInterval(function(){ 
 							    clearInterval(interval); 
-							    stats_avg_get($("#container20"),5) ;
-							    $("#slider20").val(5).slider("refresh");
+					    		    var ndays = $("#slider20").val() ;
+							    var htmlo = stats_avg_get(ndays) ;
+							    $("#container20").html(htmlo).trigger("create") ;
+							    $("#slider20").val(ndays).slider("refresh");
 							    $.mobile.loading("hide"); },200); 
   						}
 					        $(this).buttonMarkup({theme: "b"});
@@ -956,7 +918,7 @@
                     <select name="d_month" id="select-month3" data-theme="f"
 			    onchange="ls1.month=this.options[this.selectedIndex].value;
 				      working_grid=set_working_grid(ls1);
-				      load_database();">
+        			      load_database(); return false;">
                     </select>
                 </form>
                 </td>
@@ -965,7 +927,7 @@
                     <select name="d_year" id="select-year3" data-theme="f"
 			    onchange="ls1.year=this.options[this.selectedIndex].value;
 				      working_grid=set_working_grid(ls1);
-				      load_database();">
+        			      load_database(); return false;">
                     </select>
                 </form>
                 </td>
@@ -1583,68 +1545,6 @@
                    </table>
                 </td>
 
-		<script>
-		    function meal_camera_success ( imageURI ) 
-                    {
-		        dbform_camera_success('#qimage','qimage2','qimage3',imageURI); 
-		    }
-
-		    function other_camera_success ( imageURI ) 
-                    {
-		        dbform_camera_success('#oimage','oimage2','oimage3',imageURI); 
-		    }
-
-		    function camera_fail ( message ) 
-                    {
-		        alert('Failed because: ' + message);
-		    }
-
-		    function get_photo_camera ( camera_success, camera_fail )
-                    {
-			navigator.camera.getPicture(camera_success, 
-                                                    camera_fail, 
-                                                    { quality: 80, 
-						      encodingType: Camera.EncodingType.JPEG,
-						      saveToPhotoAlbum: true,
-                                                      destinationType: Camera.DestinationType.FILE_URI }); 
-		    }
-
-		    function get_photo_gallery ( camera_success, camera_fail )
-                    {
-                        navigator.camera.getPicture(camera_success, 
-                                                    camera_fail, 
-                                                    { quality: 80, 
-						      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                                                      destinationType: Camera.DestinationType.FILE_URI }); 
-		    }
-
-
-                function do_closeonly () 
-                {
-                   console.log('index.html:do_closeonly:Done.');
-
-                   load_data() ;
-                   $('#page-quickmenu').dialog('close') ;
-                }
-
-                function do_nextandclose () 
-                {
-                   console.log('index.html:do_nextandclose:Done.');
-
-                   dbform_fill_nextquick(document.form10x);  
-                   do_closeonly();
-                }
-
-                function do_quick_action_modify ( ) 
-                {
-		   if (document.form10x.elements['values_measure[name]'].value != 0) 
-                        dbform_action_quick(ls1.rmysql_url, document.form10x, do_nextandclose) ;
-                   else dbform_action_quick(ls1.rmysql_url, document.form10x, do_closeonly) ;
-
-                   return false;
-                }
-		</script>
-
                 </tr>
                 </table>
                 </div>
@@ -1883,30 +1783,6 @@
                   data-collapsed=true data-corners="false">
 	     <h3><div class=T_ACTIVATE style="display: inline;"></div></h3>
 
-           <script>
-           function handle_completeActivation(formqba) 
-           {
-	       var ba_id = formqba.elements['values_basal_activation[id]'].value;
-	       for (var i=0; i<vector_details['basaldef'].length; i++) 
-               {
-	            if (ba_id == vector_details['basaldef'][i]['id']) 
-                    {
-		        formqba.elements['values_basal_activation[pattern]'].value  = vector_details['basaldef'][i]['pattern'];
-		        formqba.elements['values_basal_activation[neltos]'].value   = vector_details['basaldef'][i]['neltos'];
-		        formqba.elements['values_basal_activation[segments]'].value = vector_details['basaldef'][i]['segments'];
-
-		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
-		        var res  = dbform_fill_segments(segs) ;
-
-		        $("#ba_segments1").val(res.short_v) ;
-		        $("#ba_segments2").html("<font size=+1>" + res.long_v + "</font>") ;
-
-	                break;
-	            }
-	       }
-           }
-           </script>
-
 		<form id=formqba  name=formqba action="#" method="post" data-ajax="false">
 
                 <table border=0 width=100% cellpadding=0 cellspacing=0>
@@ -2049,42 +1925,6 @@
 
                 <table border=0 width=100% cellpadding=0 cellspacing=0>
                 <tr>
-
-           <script>
-           function handle_completeDefinition_byId (formbd) 
-           {
-	       var ba_id = formbd.elements['values_basaldef,id'].value;
-
-	       if (-1 == ba_id) {
-		   dbform_fill0_basaldefinition(document.formbd) ;
-                   return;
-	       }
-
-	       var basaldef_length = 0;
-	       if ( (typeof vector_details['basaldef'] !== 'undefined') &&
-	            (typeof vector_details['basaldef'].length !== 'undefined') ) {
-	             basaldef_length = vector_details['basaldef'].length;
-               }
-
-	       for (var i=0; i<basaldef_length; i++)
-	            if (ba_id == vector_details['basaldef'][i]['id']) 
-                    {
-		        formbd.elements['values_basaldef,pattern'].value = vector_details['basaldef'][i]['pattern'];
-		        formbd.elements['values_basaldef,user'].value    = vector_details['basaldef'][i]['user'];
-		        formbd.elements['values_basaldef,device'].value  = vector_details['basaldef'][i]['device'];
-
-		        formbd.elements['neltos'].value = vector_details['basaldef'][i]['neltos'];
-		        var select2 = $("#neltos").selectmenu().selectmenu("refresh", true) ;
-
-			var o = ui_basal_sections(vector_details['basaldef'][i]['neltos'], 
- 				                  vector_details['basaldef'][i]['segments']);
-			$("#basal_sections").html(o).trigger("refresh");
-
-                        formbd.total_area.value = ui_basal_area(vector_details['basaldef'][i]['segments'],"00:00","23:59");
-	                return;
-	            }
-           }
-           </script>
 
                 <td width=40%>
 		<a href="#ttttt1" data-rel="popup" data-inline="true" data-transition="none" data-theme="c"
@@ -2230,25 +2070,6 @@
 </div>
 
 
-<script>
-    function showConfirm() 
-    {
-        navigator.notification.confirm (
-            'Do you really want to exit?',  // message
-            exitFromApp,        // callback to invoke with index of button pressed
-            'Exit',             // title
-            'Cancel,OK'         // buttonLabels
-        );
-    }
- 
-    function exitFromApp(buttonIndex) 
-    {
-      if (2 == buttonIndex)
-          navigator.app.exitApp();
-    }
-</script>
-
-
 <div id=navmenu
      data-role="panel" data-animate="fade" data-position="left" 
      data-display="overlay" data-theme="a" style="width: 270px">
@@ -2268,7 +2089,10 @@
         <h2><div class=T_DIARY style="display: inline;"></div></h2>
         <p>Day, week, ...</p></a>
      </li>
-     <li><a href="#page24">
+     <li><a href="#page24"
+            onclick='$.mobile.changePage("#page24");
+		     load_graphs();
+		     return true;'>
         <img src="icons/charts.png" height=55px>
         <h2><div class=T_TRACE style="display: inline;"></div></h2>
         <p>Avg, per hour, ...</p></a>
@@ -2302,7 +2126,188 @@
 </div>
 
 
+
 <script>
+        //
+        // Auxiliar (camera handler)
+        //
+	function meal_camera_success ( imageURI ) 
+	{
+		dbform_camera_success('#qimage','qimage2','qimage3',imageURI); 
+	}
+
+	function other_camera_success ( imageURI ) 
+	{
+		dbform_camera_success('#oimage','oimage2','oimage3',imageURI); 
+	}
+
+	function camera_fail ( message ) 
+	{
+		alert('Failed because: ' + message);
+	}
+
+	function get_photo_camera ( camera_success, camera_fail )
+	{
+		navigator.camera.getPicture(camera_success, 
+					    camera_fail, 
+					    { quality: 80, 
+					      encodingType: Camera.EncodingType.JPEG,
+					      saveToPhotoAlbum: true,
+					      destinationType: Camera.DestinationType.FILE_URI }); 
+	}
+
+	function get_photo_gallery ( camera_success, camera_fail )
+	{
+		navigator.camera.getPicture(camera_success, 
+					    camera_fail, 
+					    { quality: 80, 
+					      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+					      destinationType: Camera.DestinationType.FILE_URI }); 
+	}
+
+	function do_closeonly () 
+	{
+	   console.log('index.html:do_closeonly:Done.');
+
+	   load_data() ;
+	   $('#page-quickmenu').dialog('close') ;
+	}
+
+	function do_nextandclose () 
+	{
+	   console.log('index.html:do_nextandclose:Done.');
+
+	   dbform_fill_nextquick(document.form10x);  
+	   do_closeonly();
+        }
+
+        function do_quick_action_modify ( ) 
+        {
+	   if (document.form10x.elements['values_measure[name]'].value != 0) 
+		dbform_action_quick(ls1.rmysql_url, document.form10x, do_nextandclose) ;
+	   else dbform_action_quick(ls1.rmysql_url, document.form10x, do_closeonly) ;
+
+	   return false;
+        }
+
+        //
+        // Auxiliar (event handlers)
+        //
+        function export_handleSave ( f_name, csv )
+        {
+	    window.requestFileSystem(LocalFileSystem.PERSISTENT, 50*1024*1024, function(fs) 
+            {
+	         console.log("export: file name is " + f_name);
+		 fs.root.getFile(f_name, {create: true, exclusive: true}, function(fileEntry) 
+		 {
+		      fileEntry.createWriter(function(fileWriter) 
+		      {
+			  fileWriter.onwrite = function (evt) {
+			     console.log("export: write completed");
+			     alert("data saved in: " + f_name);
+			  };
+			  console.log("export: try to write...");
+			  fileWriter.write(csv);
+		      }, daytag_errorHandler);
+		 }, daytag_errorHandler);
+	    }, daytag_errorHandler);
+        }
+
+        function container_update ( container_r, button_r, data_r )
+	{
+		  container_r.toggle();
+		  if (container_r.is(":visible")) {
+			if (typeof vector_details !== "undefined") {
+			    $.mobile.loading("show"); 
+			    var interval = setInterval(function(){ 
+				    clearInterval(interval); 
+				    var mh1 = new Highcharts.Chart(data_r);
+				    $.mobile.loading("hide"); },200); 
+			}
+			button_r.buttonMarkup({theme: "b"});
+		  }
+		  else  button_r.buttonMarkup({theme: "a"});
+	}
+
+        function handle_completeActivation(formqba) 
+        {
+	       var ba_id = formqba.elements['values_basal_activation[id]'].value;
+	       for (var i=0; i<vector_details['basaldef'].length; i++) 
+               {
+	            if (ba_id == vector_details['basaldef'][i]['id']) 
+                    {
+		        formqba.elements['values_basal_activation[pattern]'].value  = vector_details['basaldef'][i]['pattern'];
+		        formqba.elements['values_basal_activation[neltos]'].value   = vector_details['basaldef'][i]['neltos'];
+		        formqba.elements['values_basal_activation[segments]'].value = vector_details['basaldef'][i]['segments'];
+
+		        var segs = JSON.parse(vector_details['basaldef'][i]['segments']);
+		        var res  = dbform_fill_segments(segs) ;
+
+		        $("#ba_segments1").val(res.short_v) ;
+		        $("#ba_segments2").html("<font size=+1>" + res.long_v + "</font>") ;
+
+	                break;
+	            }
+	       }
+        }
+
+        function handle_completeDefinition_byId (formbd) 
+        {
+	       var ba_id = formbd.elements['values_basaldef,id'].value;
+
+	       if (-1 == ba_id) {
+		   dbform_fill0_basaldefinition(document.formbd) ;
+                   return;
+	       }
+
+	       var basaldef_length = 0;
+	       if ( (typeof vector_details['basaldef'] !== 'undefined') &&
+	            (typeof vector_details['basaldef'].length !== 'undefined') ) {
+	             basaldef_length = vector_details['basaldef'].length;
+	       }
+
+	       for (var i=0; i<basaldef_length; i++)
+               {
+	            if (ba_id == vector_details['basaldef'][i]['id']) 
+                    {
+		        formbd.elements['values_basaldef,pattern'].value = vector_details['basaldef'][i]['pattern'];
+		        formbd.elements['values_basaldef,user'].value    = vector_details['basaldef'][i]['user'];
+		        formbd.elements['values_basaldef,device'].value  = vector_details['basaldef'][i]['device'];
+
+		        formbd.elements['neltos'].value = vector_details['basaldef'][i]['neltos'];
+		        var select2 = $("#neltos").selectmenu().selectmenu("refresh", true) ;
+
+			var o = ui_basal_sections(vector_details['basaldef'][i]['neltos'], 
+ 				                  vector_details['basaldef'][i]['segments']);
+			$("#basal_sections").html(o).trigger("refresh");
+
+                        formbd.total_area.value = ui_basal_area(vector_details['basaldef'][i]['segments'],"00:00","23:59");
+	                return;
+	            }
+               }
+        }
+
+	function showConfirm() 
+	{
+		navigator.notification.confirm (
+		    'Do you really want to exit?',  // message
+		    exitFromApp,        // callback to invoke with index of button pressed
+		    'Exit',             // title
+		    'Cancel,OK'         // buttonLabels
+		);
+	}
+	 
+	function exitFromApp(buttonIndex) 
+	{
+	      if (2 == buttonIndex)
+		  navigator.app.exitApp();
+	}
+
+
+        //
+        // Main
+        //
+
 	function isMobile() {
 	    return /^file:\/{3}[^\/]/i.test(window.location.href) 
 	        && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent) ;
@@ -2344,6 +2349,47 @@
                      else select_year.append('<option value=' + i + '         >' + i + '</option>');
                 select_year.selectmenu();
                 select_year.selectmenu('refresh', true);
+        }
+
+        function load_graphs ()
+        {
+	  	  if (typeof vector_details === "undefined") 
+                      return;
+
+		  var ot1 = stats_bytarget_getDefinition();
+		  var oh1 = stats_byhour_getDefinition();
+		  var oc3 = stats_measures_cloud_getDefinition(); 
+		  var obd = stats_basaldef_getDefinition();
+		  var oba = stats_basalact_getDefinition();
+
+		  var containers = Array($("#container8"), $("#container9"), $("#containerA"), 
+				         $("#container4"), $("#container5"), $("#container6"), 
+				         $("#container7"), $("#container0"), $("#container1"));
+
+		  var contents   = Array(ot1.m1, oh1.m1, oc3,
+				         ot1.b1, oh1.b1, ot1.c1,
+				         oh1.c1, obd, oba);
+
+		  $.each(containers, function( index, value ) {
+			  if (value.is(":visible")) {
+				    $.mobile.loading("show"); 
+				    var interval = setInterval(function(){
+					    clearInterval(interval); 
+					    var mh1 = new Highcharts.Chart(contents[index]);
+					    $.mobile.loading("hide"); }, 200); 
+			  }
+		  });
+
+		  if ($("#container20x").is(":visible")) {
+			 $.mobile.loading("show"); 
+			 var interval = setInterval(function(){ 
+					    clearInterval(interval); 
+					    var ndays = $("#slider20").val() ;
+					    var htmlo = stats_avg_get(ndays) ;
+					    $("#container20").html(htmlo).trigger("create") ;
+					    $("#slider20").val(ndays).slider("refresh");
+					    $.mobile.loading("hide"); }, 200); 
+		  }
         }
 
         function load_ui_forms ()
@@ -2401,7 +2447,9 @@
             catch (e) { status = -1; }
 
 	    var interval = setInterval(function(){ clearInterval(interval); 
- 				                   $.mobile.loading("hide"); },125); 
+ 				                   $.mobile.loading("hide"); }, 10); 
+
+            load_graphs() ;
 
             return status ;
         }
@@ -2415,8 +2463,11 @@
 
                 // * seguimiento
                 load_monthandyear($("#select-month3"), $("#select-year3")) ;
-                stats_avg_get($("#container20"),5) ;
-                $("#slider20x").on("change",function(e){stats_avg_get($("#container20"),e.target.value);}) ;
+	        var ndays = $("#slider20").val() ;
+                var htmlo = stats_avg_get(ndays) ;
+                $("#container20").html(htmlo).trigger("create") ;
+                $("#slider20x").on("change", function(e) { var htmlo = stats_avg_get(e.target.value);
+                                                           $("#container20").html(htmlo).trigger("create"); }) ;
 
                 // * diario
                 load_monthandyear($("#select-month1"), $("#select-year1")) ;
