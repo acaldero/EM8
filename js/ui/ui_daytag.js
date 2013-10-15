@@ -195,8 +195,6 @@
 
   function daytag_summary ( details, defdate, hour_begin, hour_end, back_url )
   {
-        o = "<table border=0 width=100%>" ;
-
         hour_begin = parseInt(hour_begin, 10);
         hour_end   = parseInt(hour_end, 10);
 
@@ -215,7 +213,12 @@
         }
 	details_order.sort(function(a, b) { a = a[0]; b = b[0]; return a < b ? -1 : (a > b ? 1 : 0); });
 
+        if (0 == details_order.length) 
+            return "" ;
+
         // print summary...
+        o = "<table border=0 width=100%>" ;
+
         //console.log('ui_daytag.daytag_summary.details_order.length: ' + details_order.length);
         for (var i=0; i<details_order.length; i++) 
         {
@@ -520,7 +523,7 @@
 				    "    </b></font>" +
 				    "  </td>\n" +
 				    "  <td align=center rowspan=1 width=85%>\n" + 
-				         other_image + 
+					other_image + 
 				    "    <font size=2><b>" + details[k_hour][k_type]['type'] + " &nbsp; " + 
                                                              details[k_hour][k_type]['measure'] + "</b></font>" +
 				    "  </td>\n" +
@@ -658,6 +661,42 @@
         return o ;
   }
 
+  function daytag_update_day_month ( year, month, list_day, vector_details, back_url )
+  {
+        // k + k2
+        var k     = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + list_day).slice(-2) ;
+        var ndate = new Date(year,month,list_day+1);
+        var k2    =        ndate.getFullYear() + "-" +
+                    ('0' + ndate.getMonth()).slice(-2) + "-" +
+                    ('0' + ndate.getDate()).slice(-2) ;
+
+        // measures + day_info
+        measures = 0 ;
+        day_info = "&nbsp;" ;
+        if (! ((typeof vector_details[k] === "undefined") || (Object.keys(vector_details[k]).length == 0)) )
+        {
+            measures = daytag_summary_measures(vector_details[k],ls1.newday_hour,24) ;
+            day_info = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+        }
+        if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
+        {
+            measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour) ;
+            day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+        }
+
+        // obj* <- value*
+        d = new Object() ;
+
+        d.obj_html1   = $("#di" + list_day) ;
+        d.obj_color1  = $("#h"  + list_day) ;
+        d.obj_color2  = $("#s"  + list_day) ;
+
+        d.value_color = daytag_summary_color(measures / 2) ;
+        d.value_html  = day_info ;
+
+        return d ;
+  }
+
   function daytag_show_month ( year, month, day, cal_head, vector_details, back_url )
   {
 	// http://davidwalsh.name/php-calendar
@@ -723,23 +762,24 @@
 		}
 
 		c = daytag_summary_color(measures / 2);
-		u += "<td class=calendar-day valign=middle bgcolor=" + c + "><center>" ;
+		u += "<td  class=calendar-day valign=middle " + " id=\"h" + list_day + "\"" +
+                     "     bgcolor=" + c + "><center>" ;
 		u += "<div class=day-number " + 
 		     "     onclick=\"$('#m" + list_day + "').toggle();$('img.lazy').lazyload({skip_invisible: false});return false;\">" + 
 		     list_day + "</div>\n" ;
 
-		moreinfo +=  "<div id=\"m" + list_day + "\" align=left " + // " class=shadow1 " +
-			     "     style=\"display: none; position:relative; z-index:1; width: 100%; " +
-			     "                               line-height: 18px;\">\n" +
-			     "<div style=\"background-color:" + c + "\">" + 
-			     "<table border=0 width=100%>" +
-			     "<tr>" +
-			     "<td>" +
-			     "<c>" + list_day + " / " + month + " / " + year + "</c>" + 
-			     "</td>" +
-			     "<td align=center>" +
-	         "    <div data-role=none align=center style='width: 50%; text-decoration: none; border-bottom:1px dashed;'" +
-                 "         onclick=\"" + 
+		moreinfo += "<div id=\"m" + list_day + "\" align=left " + // " class=shadow1 " +
+			    "     style=\"display: none; position:relative; z-index:1; width: 100%; line-height: 18px;\">\n" +
+			    "<div id=\"s" + list_day + "\" " + 
+			    "     style=\"background-color:" + c + "\">" + 
+			    "<table border=0 width=100%>" +
+			    "<tr>" +
+			    "<td>" +
+			    "<c>" + list_day + " / " + month + " / " + year + "</c>" + 
+			    "</td>" +
+			    "<td align=center>" +
+	                    "    <div data-role=none align=center style='width: 50%; text-decoration: none; border-bottom:1px dashed;'" +
+                            "         onclick=\"" + 
                             "      $('a#pageqmclose').attr('href','#" + back_url + "');" +
                             "      $('form#form10x').attr('action','#" + back_url + "');" +
                             "      dbform_fill0_quick(document.form10x,'" + k0 + "');" +
@@ -752,7 +792,9 @@
 			     "</tr>" +
 			     "</table>" +
 			     "</div>\n" + 
+			     "<div id=\"di" + list_day + "\">\n" + 
 			     day_info + 
+			     "</div>\n" + 
 			     "</div>\n" ;
 		u += "</center></td>" ;
 

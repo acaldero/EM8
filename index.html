@@ -2169,7 +2169,10 @@
 	{
 	   console.log('index.html:do_closeonly:Done.');
 
-	   load_data() ;
+           if ('D31' != ls1.view)
+                load_data() ;
+           else update_data() ;
+
 	   $('#page-quickmenu').dialog('close') ;
 	}
 
@@ -2390,6 +2393,57 @@
 					    $("#slider20").val(ndays).slider("refresh");
 					    $.mobile.loading("hide"); }, 200); 
 		  }
+        }
+
+        function update_ui ()
+        {
+              middlefix = ls1.year + "-" + ('0' + ls1.month).slice(-2) + "-" + ('0' + ls1.today).slice(-2) ;
+
+                // * seguimiento
+                var ndays = $("#slider20").val() ;
+                var htmlo = stats_avg_get(ndays) ;
+                $("#container20").html(htmlo).trigger("create") ;
+                $("#slider20x").on("change", function(e) { var htmlo = stats_avg_get(e.target.value);
+                                                           $("#container20").html(htmlo).trigger("create"); }) ;
+                load_graphs() ;
+
+                // * diario (update only)
+                var udate = new XDate(document.form10x.elements['values_measure[start]'].value) ;
+
+                if ('D31' == ls1.view)
+                {
+                   var d = daytag_update_day_month(udate.getFullYear(), 
+						   udate.getMonth()+1, 
+						   udate.getDate(),
+                                                   vector_details, 
+                                                   document.form10x.action);
+                   d.obj_html1.html(d.value_html).trigger("create");
+                   d.obj_color1.css({background: d.value_color});
+                   d.obj_color2.css({background: d.value_color});
+                }
+
+                $("img.lazy").lazyload(c);
+                $('#diary_div').find("a[rel^='lightbox']").slimbox({overlayFadeDuration:1, resizeDuration:1, 
+                                                                    imageFadeDuration:1, captionAnimationDuration:1});
+
+                // export
+                o = db_js2csv(vector_details, ls1.user_login, ls1.user_id);
+                $("#ta16").val(o);
+                middlefix = ls1.year + "-" + ("0" + ls1.month).slice(-2) + "-" + ("0" + ls1.today).slice(-2) ;
+                $(".download_csv").attr("href","data:application/csv;charset=utf-8,"+encodeURIComponent(o));
+                $(".download_csv").attr("download", "export_em_" + middlefix + ".csv");
+
+                // the rest
+                var interval = setInterval(function(){ clearInterval(interval); 
+                                                       $.mobile.loading("hide"); }, 10); 
+
+                return 0 ;
+        }
+
+        function update_data ()
+        {
+                $.mobile.loading("show"); 
+                vector_details = db_db2js(ls1.rmysql_url, working_grid, ls1.user_id, update_ui) ;
         }
 
         function load_ui_forms ()

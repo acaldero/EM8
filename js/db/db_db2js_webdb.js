@@ -48,7 +48,11 @@
                    // timestamp event
 		   dt = new XDate(results.rows.item(i).start);
 
-		   if ($.inArray(dt.getDate(), day_arr) == -1)
+		   var bid_month = ("0" + (dt.getMonth()+1)).slice(-2) ;
+		   var bid_day   = ("0" + dt.getDate()).slice(-2) ;
+                   var bid_code  = parseInt('1' + bid_month + '1' + bid_day, 10) ;
+
+		   if ($.inArray(bid_code, day_arr) == -1)
 		       continue ;
 
 		   i_h = dt.toUTCString('HH:mm') ; 
@@ -156,6 +160,8 @@
           vector_details = new Array();
 
           html5sql.openDatabase("em", "Event Monitor", 4*1024*1024) ;
+		   qs = new Array() ;
+          var day_arr = new Array() ;
 
           var first_period = 1;
           for (year in working_grid)
@@ -163,39 +169,42 @@
                for (month in working_grid[year])
                {
                    var min_day = 32 ;
-                   var day_arr = new Array() ;
-		   for (day in working_grid[year][month]) {
+		   for (day in working_grid[year][month]) 
+		   {
                         var nday = parseInt(day) ;
                         if (nday < min_day)
                             min_day = nday ;
-                        day_arr.push(nday, 10) ;
+
+		        var bid_month = ("0" + month).slice(-2) ;
+		        var bid_day   = ("0" + day).slice(-2) ;
+                        var bid_code  = parseInt('1' + bid_month + '1' + bid_day, 10) ;
+                        day_arr.push(bid_code) ;
                    }
 
 		   var twodigits_month = ("0" + month).slice(-2) ;
 		   var twodigits_mday  = ("0" + min_day).slice(-2) ;
 
-		   qs = new Array() ;
-		   qs.push(" SELECT 'bolus' as 'rt',* FROM bolus " + 
+		   qs.push("SELECT 'bolus' as 'rt',* FROM bolus " + 
 			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   units!=0" +
 			   " ORDER BY start;") ;
-		   qs.push(" SELECT 'meal' as 'rt',* FROM meals " + 
+		   qs.push("SELECT 'meal' as 'rt',* FROM meals " + 
 			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   measure!=0" +
 			   " ORDER BY start;") ;
-	           qs.push(" SELECT 'measure' as 'rt',* FROM measures " + 
+	           qs.push("SELECT 'measure' as 'rt',* FROM measures " + 
 			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   measure!=0" +
 			   " ORDER BY start;") ;
-	           qs.push(" SELECT 'event' as 'rt',* FROM events " + 
+	           qs.push("SELECT 'event' as 'rt',* FROM events " + 
 			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   event!=''" +
 			   " ORDER BY start;") ;
-	           qs.push(" SELECT 'basalact' as 'rt',* FROM basal_activations " + 
+	           qs.push("SELECT 'basalact' as 'rt',* FROM basal_activations " + 
 			   " WHERE strftime('%Y-%m',start)='" + year + "-" + twodigits_month + "' " +
 			   " AND   user='" + login_id + "' " +
 			   " AND   pattern!=''" +
@@ -203,22 +212,22 @@
 
                    if (1 == first_period) 
 		      {
-		         qs.push(" SELECT 'last_basalact' as 'rt',* FROM basal_activations " +
+		         qs.push("SELECT 'last_basalact' as 'rt',* FROM basal_activations " +
 		                 " WHERE strftime('%Y-%m-%d',start)<='" + year + "-" + twodigits_month + "-" + twodigits_mday + "' " +
 		                 " AND   user='" + login_id + "' " +
                                  " AND   pattern!='' " +
                                  " ORDER BY start DESC " +
-                                 " LIMIT 1 ");
-			 qs.push(" SELECT 'basaldef' as 'rt',* FROM basal_definitions " + 
+                                 " LIMIT 1;");
+			 qs.push("SELECT 'basaldef' as 'rt',* FROM basal_definitions " + 
 				 " WHERE user='" + login_id + "' " +
 				 " AND   neltos!=0" +
 				 " ORDER BY sync;") ;
                          first_period = 0;
                       }
-
-                   db_webdb2js_aux(day_arr,qs,0,vector_details,ok_handler) ;
                } 
-          } 
+          }
+
+          db_webdb2js_aux(day_arr, qs, 0, vector_details, ok_handler) ;
 
           return vector_details;
   }
