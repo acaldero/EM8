@@ -2169,9 +2169,23 @@
 	{
 	   console.log('index.html:do_closeonly:Done.');
 
-           if ('D31' != ls1.view)
-                load_data() ;
-           else update_data() ;
+           switch (ls1.view)
+           {
+              case "D1":
+              case "D2":
+              case "D3":
+              case "D5":
+              case "D7":
+              case "D14":
+              case "D31":
+                   update_data() ;
+                   break;
+              case "TH":
+              case "TV":
+              case "TR":
+                   load_data() ;
+                   break;
+           }
 
 	   $('#page-quickmenu').dialog('close') ;
 	}
@@ -2409,18 +2423,32 @@
 
                 // * diario (update only)
                 var udate = new XDate(document.form10x.elements['values_measure[start]'].value) ;
+                if (udate.getHours() < ls1.newday_hour)
+                    udate.addDays(-1) ;
 
-                if ('D31' == ls1.view)
-                {
-                   var d = daytag_update_day_month(udate.getFullYear(), 
-						   udate.getMonth()+1, 
-						   udate.getDate(),
-                                                   vector_details, 
-                                                   document.form10x.action);
-                   d.obj_html1.html(d.value_html).trigger("create");
-                   d.obj_color1.css({background: d.value_color});
-                   d.obj_color2.css({background: d.value_color});
-                }
+		var d = daytag_update_day_month(udate.getFullYear(), 
+						udate.getMonth()+1, 
+						udate.getDate(),
+						vector_details, 
+						document.form10x.action);
+		switch (ls1.view)
+		{
+		   case "D1":
+		   case "D2":
+		   case "D3":
+		   case "D5":
+		   case "D7":
+		   case "D14":
+			   d.obj_html1.html(d.value_html).trigger("create");
+			   d.obj_color1.css({background: d.value_color});
+			break;
+		   case "D31":
+			   d.obj_html1.html(d.value_html).trigger("create");
+			   d.obj_color1.css({background: d.value_color});
+			   d.obj_color2.css({background: d.value_color});
+			break;
+		}
+
 
                 $("img.lazy").lazyload(c);
                 $('#diary_div').find("a[rel^='lightbox']").slimbox({overlayFadeDuration:1, resizeDuration:1, 
@@ -2594,7 +2622,7 @@
 
         function load_database ()
         {
-                db_importFromFile(ls1.rmysql_url, 'js/db/em.webdb', load_data);
+                db_importFromFile(ls1.rmysql_url, 'js_compact/em.webdb', load_data);
         }
 
         function set_working_grid ( ls1 )

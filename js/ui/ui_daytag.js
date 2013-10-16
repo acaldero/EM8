@@ -687,9 +687,9 @@
         // obj* <- value*
         d = new Object() ;
 
-        d.obj_html1   = $("#di" + list_day) ;
-        d.obj_color1  = $("#h"  + list_day) ;
-        d.obj_color2  = $("#s"  + list_day) ;
+        d.obj_html1   = $("#di" + k) ;
+        d.obj_color1  = $("#h"  + k) ;
+        d.obj_color2  = $("#s"  + k) ;
 
         d.value_color = daytag_summary_color(measures / 2) ;
         d.value_html  = day_info ;
@@ -738,7 +738,6 @@
 	for (list_day = 1; list_day <= days_in_month; list_day++) 
 	{
 		k  = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + list_day).slice(-2) ;
-	      //k2 = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + (list_day+1)).slice(-2) ;
                 var ndate  = new Date(year,month,list_day+1);
 	        k2 =        ndate.getFullYear() + "-" + 
                      ('0' + ndate.getMonth()).slice(-2) + "-" + 
@@ -762,15 +761,15 @@
 		}
 
 		c = daytag_summary_color(measures / 2);
-		u += "<td  class=calendar-day valign=middle " + " id=\"h" + list_day + "\"" +
+		u += "<td  class=calendar-day valign=middle " + " id=\"h" + k + "\"" +
                      "     bgcolor=" + c + "><center>" ;
 		u += "<div class=day-number " + 
-		     "     onclick=\"$('#m" + list_day + "').toggle();$('img.lazy').lazyload({skip_invisible: false});return false;\">" + 
+		     "     onclick=\"$('#m" + k + "').toggle();$('img.lazy').lazyload({skip_invisible: false});return false;\">" + 
 		     list_day + "</div>\n" ;
 
-		moreinfo += "<div id=\"m" + list_day + "\" align=left " + // " class=shadow1 " +
+		moreinfo += "<div id=\"m" + k + "\" align=left " + // " class=shadow1 " +
 			    "     style=\"display: none; position:relative; z-index:1; width: 100%; line-height: 18px;\">\n" +
-			    "<div id=\"s" + list_day + "\" " + 
+			    "<div id=\"s" + k + "\" " + 
 			    "     style=\"background-color:" + c + "\">" + 
 			    "<table border=0 width=100%>" +
 			    "<tr>" +
@@ -792,7 +791,7 @@
 			     "</tr>" +
 			     "</table>" +
 			     "</div>\n" + 
-			     "<div id=\"di" + list_day + "\">\n" + 
+			     "<div id=\"di" + k + "\">\n" + 
 			     day_info + 
 			     "</div>\n" + 
 			     "</div>\n" ;
@@ -857,11 +856,11 @@
 
 	 c = daytag_summary_color(measures / 2);
 	 u += "<td valign=top><table border=0 width=250><tr>" + 
-              "<td style=\"border-color:#a0a0a0;\" bgcolor=" + c + " valign=middle align=left>" + 
+              "<td style=\"border-color:#a0a0a0;\" bgcolor=" + c + " valign=middle align=left id=\"h" + k + "\">" +
               "  <table border=0 width=100%>" + 
               "  <tr>" + 
               "   <td width=10%>&nbsp;</td>" + 
-              "   <td width=80% align=center onclick=\'$(\"#h" + k + "\").toggle();\'><c>" + k + "</c></td>" + 
+              "   <td width=80% align=center onclick=\'$(\"#di" + k + "\").toggle();\'><c>" + k + "</c></td>" + 
               "   <td width=10% align=right>" + 
 	      "    <div data-role=none align=center style='width: 50%; text-decoration: none; border-bottom:1px dashed;'" +
               "            onclick=\"" + 
@@ -881,7 +880,7 @@
               "</tr>\n" +
 	      "<tr>" + 
               "<td style=\"border-color:#a0a0a0;\" valign=top colspan=2>" + 
-              "<div id=h" + k + ">" +
+              "<div id=di" + k + ">" +
               day_info + 
               "</div>" +
               "</td>" + 
