@@ -677,7 +677,7 @@
 
         function db_asocArray2delete ( tabla, values, pk ) 
         {
-	          borrar = "DELETE FROM " + tabla ;
+	          borrar = " DELETE FROM " + tabla ;
 
                   for (var j=0; j<pk.length; j++)
                   {
@@ -691,7 +691,7 @@
 
         function db_asocArray2list  ( tabla, values ) 
         {
-	          listar = "SELECT * FROM " + tabla ;
+	          listar = " SELECT * FROM " + tabla ;
                   return listar ;
         }
 
@@ -2231,13 +2231,9 @@
   }
 
 
-  function dbform_fill2_quick ( form, json_meal, json_measure, json_bolus )
+  function dbform_fill2_quick ( form, values_meal, values_measure, values_bolus )
   {
 	  var name_index_tr = { "": 0, "A0": 1, "D0": 2, "A1": 3, "D1": 4, "A2": 5, "D2": 6, "A3": 7, "D3": 8, "A4": 9 } ;
-
-          values_meal    = JSON.parse(unescape(json_meal)) ;
-          values_measure = JSON.parse(unescape(json_measure)) ;
-          values_bolus   = JSON.parse(unescape(json_bolus)) ;
 
           // fill the default date & name
           if (-1 == values_bolus['id'])
@@ -2339,10 +2335,8 @@
           }
   }
 
-  function dbform_fill2_other ( form, json_other )
+  function dbform_fill2_other ( form, values_other )
   {
-          values_other = JSON.parse(unescape(json_other)) ;
-
           dbform_fill0_other(form, values_other['start'], values_other['name']) ;
 
 	  form.elements['values_other[stop]'].value    = values_other['stop'] ;
@@ -2367,10 +2361,8 @@
           }
   }
 
-  function dbform_fill2_basalactivation ( form, json_ba )
+  function dbform_fill2_basalactivation ( form, values_basal_activation )
   {
-          values_basal_activation = JSON.parse(unescape(json_ba)) ;
-
           dbform_fill0_basalactivation(form, values_basal_activation['start']) ;
 
 	  if (values_basal_activation['id'] != -1) 
@@ -2403,6 +2395,26 @@
               select2.selectmenu() ;
               select2.selectmenu("refresh", true) ;
           }
+  }
+
+  function dbform_fill2_quick2 ( form, json_meal, json_measure, json_bolus )
+  {
+          values_meal    = JSON.parse(unescape(json_meal)) ;
+          values_measure = JSON.parse(unescape(json_measure)) ;
+          values_bolus   = JSON.parse(unescape(json_bolus)) ;
+          return dbform_fill2_quick(form, values_meal, values_measure, values_bolus) ;
+  }
+
+  function dbform_fill2_other2 ( form, json_other )
+  {
+          values_other = JSON.parse(unescape(json_other)) ;
+          return dbform_fill2_other(form, values_other) ;
+  }
+
+  function dbform_fill2_basalactivation2 ( form, json_ba )
+  {
+          values_basal_activation = JSON.parse(unescape(json_ba)) ;
+          return dbform_fill2_basalactivation(form, values_basal_activation) ;
   }
 
 
@@ -2444,8 +2456,16 @@
         return k ;
   }
 
-  function daytag_details ( month, year, details, name_k, defdate, hour_begin, hour_end, back_url )
+  function daytag_details_onclick ( obj )
   {
+        tabxpn   = $(obj).attr('em8-tab') ;
+        back_url = $(obj).attr('em8-backurl') ;
+        k_hour   = $(obj).attr('em8-khour') ;
+        defdate  = $(obj).attr('em8-defdate') ;
+        name_k   = $(obj).attr('em8-namek') ;
+
+        details  = vector_details[defdate] ;
+
         values_meal    = new Object() ;
         values_measure = new Object() ;
         values_bolus   = new Object() ;
@@ -2455,6 +2475,38 @@
 	values_meal['start'] = values_measure['start'] = values_bolus['start'] = values_other['start'] = defdate;
 	values_meal['stop']  = values_measure['stop']  = values_bolus['stop']  = values_other['stop']  = defdate;
 
+	if (details[k_hour]['meal'])
+	    if (details[k_hour]['meal']['name'] == name_k)
+		  values_meal = details[k_hour]['meal'] ;
+
+	if (details[k_hour]['measure'])
+	    if (details[k_hour]['measure']['name'] == name_k)
+		  values_measure = details[k_hour]['measure'] ;
+
+	if (details[k_hour]['bolus'])
+	    if (details[k_hour]['bolus']['name'] == name_k)
+		  values_bolus = details[k_hour]['bolus'] ;
+
+	if (details[k_hour]['event'])
+	    if (details[k_hour]['event']['name'] == name_k)
+		  values_other = details[k_hour]['event'] ;
+
+        // open quickmenu ...
+	$.mobile.changePage('#page-quickmenu');
+	$(tabxpn).collapsible('expand');
+
+	$('a#pageqmclose').attr('href','#" + back_url + "');
+	$('form#form10x').attr('action','#" + back_url + "');
+	$('form#form11x').attr('action','#" + back_url + "');
+	$('form#form-qba').attr('action','#" + back_url + "');
+
+	dbform_fill2_quick(document.form10x, values_meal, values_measure, values_bolus);
+	dbform_fill2_other(document.form11x, values_other) ;
+	dbform_fill2_basalactivation(document.formqba, values_ba) ;
+  }
+
+  function daytag_details ( month, year, details, name_k, defdate, hour_begin, hour_end, back_url )
+  {
         GT = MT = BT = OT = "" ;
         GM = MM = BM = OM = "&nbsp;" ;
 
@@ -2539,19 +2591,12 @@
 	    "  </tr>\n" +
 	    "  <tr height=40%>\n" +
 	    "    <td colspan=3 align=center>\n" + 
-	    "      <div type=submit class=square_button2 data-role=\"none\" " + 
-            "              onclick=\"" + 
-                            " $.mobile.changePage('#page-quickmenu');" + 
-                            " $('a#pageqmclose').attr('href','#" + back_url + "');" +
-                            " $('form#form10x').attr('action','#" + back_url + "');" +
-                            " $('form#form11x').attr('action','#" + back_url + "');" +
-                            " dbform_fill2_quick("   + "document.form10x"             + ", " + 
-                                                 "'" + escape(JSON.stringify(values_meal))    + "'," + 
-                                                 "'" + escape(JSON.stringify(values_measure)) + "'," + 
-                                                 "'" + escape(JSON.stringify(values_bolus))   + "'); " + 
-                            " dbform_fill2_other("   + "document.form11x"             + ", " + 
-                                                 "'" + escape(JSON.stringify(values_other))   + "'); " + 
-                           "\">\n" +
+	    "      <div type=submit class=square_button2 data-role=\"none\" \n" + 
+	    "           em8-backurl=\"" + back_url + "\"\n" +
+	    "           em8-defdate=\"" + defdate  + "\"\n" +
+	    "           em8-khour=\""   + k_hour   + "\"\n" +
+	    "           em8-namek=\""   + name_k   + "\"\n" +
+            "           onclick=\"daytag_details_onclick(this);\">\n" +
 	    "      [ <b><font color=blue>" + MT + "</font>" + GT + " " + "<font color=red>" + BT + "</font></b> ]" +
 	    "    </div>\n" +
 	    "    </td>\n" +
@@ -2709,17 +2754,13 @@
 				    "   <td align=center width=15%>\n" +
 				    "     <font size=2><b>" +
 				    "     <div class=square_button4 data-role=\"none\"\n" +
-				    "              onclick=\"" + 
-						    " $.mobile.changePage('#page-quickmenu');" + 
-                                                    " $('#p-qm-mmb').collapsible('expand');" +
-						    " $('a#pageqmclose').attr('href','#" + back_url + "');" +
-                                                    " $('form#form10x').attr('action','#" + back_url + "');" +
-						    " dbform_fill2_quick("   + "document.form10x"             + ", " + 
-								         "'" + escape(JSON.stringify(values_meal))    + "'," + 
-								         "'" + escape(JSON.stringify(values_measure)) + "'," + 
-								         "'" + escape(JSON.stringify(values_bolus))   + "'); " + 
-						   "\">\n" +
-				              details[k_hour][k_type]['measure'] + "r" +
+				    "           em8-tab=\"#p-qm-mmb\"\n" +
+				    "           em8-backurl=\"" + back_url + "\"\n" +
+				    "           em8-defdate=\"" + defdate  + "\"\n" +
+				    "           em8-khour=\""   + k_hour   + "\"\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
+				    "           onclick=\"daytag_details_onclick(this);\">\n" +
+				          details[k_hour][k_type]['measure'] + "r" +
 				    "     </div>\n" +
 				    "     </b></font>" +
 				    "   </td>\n" +
@@ -2787,16 +2828,12 @@
 				    "  <td align=center width=15%>\n" +
 				    "   <font size=2><b>" +
 				    "    <div class=square_button4 data-role=none" + 
-				    "              onclick=\"" + 
-						    " $.mobile.changePage('#page-quickmenu');" + 
-                                                    " $('#p-qm-mmb').collapsible('expand');" +
-						    " $('a#pageqmclose').attr('href','#" + back_url + "');" +
-                                                    " $('form#form10x').attr('action','#" + back_url + "');" +
-						    " dbform_fill2_quick("   + "document.form10x"             + ", " + 
-								         "'" + escape(JSON.stringify(values_meal))    + "'," + 
-								         "'" + escape(JSON.stringify(values_measure)) + "'," + 
-								         "'" + escape(JSON.stringify(values_bolus))   + "'); " + 
-						   "\">\n" + 
+				    "           em8-tab=\"#p-qm-mmb\"\n" +
+				    "           em8-backurl=\"" + back_url + "\"\n" +
+				    "           em8-defdate=\"" + defdate  + "\"\n" +
+				    "           em8-khour=\""   + k_hour   + "\"\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
+				    "           onclick=\"daytag_details_onclick(this);\">\n" +
                                             details[k_hour][k_type]['units'] + "u</div>\n" +
 				    "   </b></font>" +
 				    "  </td>\n" +
@@ -2854,16 +2891,12 @@
 				    "  <td align=center width=15%>\n" +
 				    "   <font size=2><b>" +
 				    "    <div class=square_button4 data-role=none" + 
-				    "              onclick=\"" + 
-						    " $.mobile.changePage('#page-quickmenu');" + 
-                                                    " $('#p-qm-mmb').collapsible('expand');" +
-						    " $('a#pageqmclose').attr('href','#" + back_url + "');" +
-                                                    " $('form#form10x').attr('action','#" + back_url + "');" +
-						    " dbform_fill2_quick("   + "document.form10x"             + ", " + 
-								         "'" + escape(JSON.stringify(values_meal))    + "'," + 
-								         "'" + escape(JSON.stringify(values_measure)) + "'," + 
-								         "'" + escape(JSON.stringify(values_bolus))   + "'); " + 
-						   "\">\n" + 
+				    "           em8-tab=\"#p-qm-mmb\"\n" +
+				    "           em8-backurl=\"" + back_url + "\"\n" +
+				    "           em8-defdate=\"" + defdate  + "\"\n" +
+				    "           em8-khour=\""   + k_hour   + "\"\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
+				    "           onclick=\"daytag_details_onclick(this);\">\n" +
                                            details[k_hour][k_type]['measure'] + "</div>\n" +
 				    "   </b></font>" +
 				    "  </td>\n" +
@@ -2918,14 +2951,12 @@
 				    "  <td align=center width=15%>\n" +
 				    "    <font size=2><b>" +
 				    "      <div type=submit class=square_button4 data-role=none" + 
-				    "              onclick=\"" + 
-						    " $.mobile.changePage('#page-quickmenu');" + 
-						    " $('a#pageqmclose').attr('href','#" + back_url + "');" +
-                                                    " $('form#form11x').attr('action','#" + back_url + "');" +
-						    " dbform_fill2_other("   + "document.form11x"             + ", " + 
-								         "'" + escape(JSON.stringify(values_other)) + "'); " + 
-                                                    " $('#p-qm-o').collapsible('expand');" +
-						   "\">\n" + 
+				    "           em8-tab=\"#p-qm-o\"\n" +
+				    "           em8-backurl=\"" + back_url + "\"\n" +
+				    "           em8-defdate=\"" + defdate  + "\"\n" +
+				    "           em8-khour=\""   + k_hour   + "\"\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
+				    "           onclick=\"daytag_details_onclick(this);\">\n" +
                                            details[k_hour][k_type]['event'] + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
@@ -2984,14 +3015,12 @@
 				    "  <td align=center width=15%>\n" +
 				    "    <font size=2><b>" +
 				    "      <div type=submit class=square_button4 data-role=none" + 
-				    "              onclick=\"" + 
-						    " $.mobile.changePage('#page-quickmenu');" + 
-                                                    " $('#p-qm-ba').collapsible('expand');" +
-						    " $('a#pageqmclose').attr('href','#" + back_url + "');" +
-                                                    " $('form#form-qba').attr('action','#" + back_url + "');" +
-						    " dbform_fill2_basalactivation(" + "document.formqba" + ", " + 
-								                 "'" + escape(JSON.stringify(values_ba)) + "'); " + 
-						   "\">\n" + 
+				    "           em8-tab=\"#p-qm-ba\"\n" +
+				    "           em8-backurl=\"" + back_url + "\"\n" +
+				    "           em8-defdate=\"" + defdate  + "\"\n" +
+				    "           em8-khour=\""   + k_hour   + "\"\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
+				    "           onclick=\"daytag_details_onclick(this);\">\n" +
                                            "basal<br>act." + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
@@ -3263,7 +3292,7 @@
 
 	 c = daytag_summary_color(measures / 2);
 	 u += "<td valign=top><table border=0 width=250><tr>" + 
-              "<td style=\"border-color:#a0a0a0;\" bgcolor=" + c + " valign=middle align=left id=\"h" + k + "\">" +
+              "<td style=\"border-color:#a0a0a0;\" bgcolor=" + c + " valign=middle align=left id=\"h" + k + "\">" + 
               "  <table border=0 width=100%>" + 
               "  <tr>" + 
               "   <td width=10%>&nbsp;</td>" + 
@@ -3302,12 +3331,12 @@
 
   function daytag_table_horizontal ( year, month, vector_details, target_names, target_tags, back_url )
   {
-	v  = "<center>" ;
-	v += "<table cellpadding=0 cellspacing=0 border=1 style='border-collapse: collapse; line-height: 18px;'>" ;
+	v  = "<center>" +
+	     "<table cellpadding=0 cellspacing=0 border=1 style='border-collapse: collapse; line-height: 18px;'>" ;
 
 	// header
-	v += "<tr>" ;
-	v += "<td>&nbsp;</td>" ;
+	v += "<tr>" +
+	     "<td>&nbsp;</td>" ;
 	for (i in vector_details) 
         {
              if ("basaldef" == i) continue ;
@@ -3329,8 +3358,8 @@
 	// data
 	for (j=0; j<target_names.length; j++) 
 	{
-	     v += "<tr>" ;
-	     v += "<td align=center><c><font color=gray>" + target_names[j] + "</font></c></td>" ;
+	     v += "<tr>" +
+	          "<td align=center><c><font color=gray>" + target_names[j] + "</font></c></td>" ;
 	     for (i in vector_details)
 	     {
                   if ("basaldef" == i) continue ;
@@ -3347,27 +3376,27 @@
 			  o = daytag_details(month, year, vector_details[ii], target_tags[j], i, 0,ls1.newday_hour, back_url);
 		  }
 
-		  v += "<td>" ;
-		  v += o.str ;
-		  v += "</td>" ;
+		  v += "<td>" +
+		       o.str +
+		       "</td>" ;
 	     }
 	     v += "</tr>" ;
 	}
 
-	v += "</table>" ;
-	v += "</center>" ;
+	v += "</table>" +
+	     "</center>" ;
 
         return v ;
   }
 
   function daytag_table_vertical ( year, month, vector_details, target_names, target_tags, back_url )
   {
-	v  = "<center>" ;
-	v += "<table cellpadding=0 cellspacing=0 border=1 style='border-collapse: collapse; line-height: 18px;'>" ;
+	v  = "<center>" +
+	     "<table cellpadding=0 cellspacing=0 border=1 style='border-collapse: collapse; line-height: 18px;'>" ;
 
 	// header
-	v += "<tr>" ;
-	v += "<td>&nbsp;</td>" ;
+	v += "<tr>" +
+	     "<td>&nbsp;</td>" ;
 	for (j=0; j<target_names.length; j++) {
 	     v += "<td align=center><c><font color=gray>" + target_names[j] + "</font></c></td>" ;
 	}
@@ -3386,8 +3415,8 @@
 		  "            data-iconpos=notext class=ui-btn-left>Close</a>" +
 		  " </div>" ;
 
-	     v += "<tr>" ;
-	     v += "<td align=center style=\"line-height: 24px;\">" + 
+	     v += "<tr>" +
+	          "<td align=center style=\"line-height: 24px;\">" + 
 			      "<a href=#dc" + dt.getDate() + " data-rel=popup style='text-decoration: none'>" + 
 			      "<font color=gray>" + dt.getDate() + "</font>" +
 			      "</a>" + dc + "</td>" ;
@@ -3404,15 +3433,15 @@
 			  o = daytag_details(month, year, vector_details[ii], target_tags[j], i, 0,ls1.newday_hour, back_url);
 		  }
 
-		  v += "<td>" ;
-		  v += o.str ;
-		  v += "</td>" ;
+		  v += "<td>" +
+		       o.str +
+		       "</td>" ;
 	     }
 	     v += "</tr>" ;
 	}
 
-	v += "</table>" ;
-	v += "</center>" ;
+	v += "</table>" +
+	     "</center>" ;
 
         return v ;
   }
