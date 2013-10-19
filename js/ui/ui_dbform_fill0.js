@@ -52,7 +52,7 @@
 
               $("#page10md2").hide();
 
-	  dbform_camera_success('#qimage','qimage2','qimage3',''); 
+	  dbform_camera_success('','qimage2','qimage3','icons/empty_dish.jpg'); 
   }
 
   function dbform_fill0_other ( form, now, value_name )
@@ -195,7 +195,7 @@
 		  form.elements['values_meal[measure][after]'].value     = 0 ;
 		  form.elements['values_meal[image][after]'].value       = '' ;
 
-	  dbform_camera_success('#vimageA','vimage2A','vimage3A',''); 
-	  dbform_camera_success('#vimageB','vimage2B','vimage3B',''); 
+	  dbform_camera_success('','vimage2A','vimage3A','icons/empty_dish.jpg'); 
+	  dbform_camera_success('','vimage2B','vimage3B','icons/empty_dish.jpg'); 
   }
 

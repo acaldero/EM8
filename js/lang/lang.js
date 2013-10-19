@@ -52,6 +52,7 @@
 	$('div.T_ANTES_COMER_PUNTOS').html(T['ANTES_COMER_PUNTOS']);
 	$('div.T_MEASURE2').html(T['MEASURE2']);
 	$('div.T_UNITS').html(T['UNITS']);
+	$('div.T_BEGIN').html(T['BEGIN']);
 	$('div.T_END').html(T['END']);
 	$('div.T_RATIONS').html(T['RATIONS']);
 	$('div.T_DESCRIPTION').html(T['DESCRIPTION']);

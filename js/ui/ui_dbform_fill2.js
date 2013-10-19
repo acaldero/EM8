@@ -93,13 +93,7 @@
 	           image_src = values_meal['image'] ;
 	      else image_src = "icons/meal2.png" ;
 
-	      var image = document.getElementById('qimage2');
-	      if (image != null)
-	          image.src = image_src ;
-
-	      var image = document.getElementById('qimage3');
-	      if (image != null)
-	          image.src = image_src ;
+              dbform_camera_success('#qimage', 'qimage2', 'qimage3', image_src);
           }
   }
 
@@ -119,13 +113,7 @@
 	      form.elements['values_other[user]'].value    = values_other['user'] ;
 	      form.elements['values_other[device]'].value  = values_other['device'] ;
 
-	      var image = document.getElementById('oimage2');
-	      if (image != null)
-	          image.src = values_other['image'] ;
-
-	      var image = document.getElementById('oimage3');
-	      if (image != null)
-	          image.src = values_other['image'] ;
+              dbform_camera_success('#oimage', 'oimage2', 'oimage3', values_other['image']);
           }
   }
 
@@ -163,25 +151,5 @@
               select2.selectmenu() ;
               select2.selectmenu("refresh", true) ;
           }
-  }
-
-  function dbform_fill2_quick2 ( form, json_meal, json_measure, json_bolus )
-  {
-          values_meal    = JSON.parse(unescape(json_meal)) ;
-          values_measure = JSON.parse(unescape(json_measure)) ;
-          values_bolus   = JSON.parse(unescape(json_bolus)) ;
-          return dbform_fill2_quick(form, values_meal, values_measure, values_bolus) ;
-  }
-
-  function dbform_fill2_other2 ( form, json_other )
-  {
-          values_other = JSON.parse(unescape(json_other)) ;
-          return dbform_fill2_other(form, values_other) ;
-  }
-
-  function dbform_fill2_basalactivation2 ( form, json_ba )
-  {
-          values_basal_activation = JSON.parse(unescape(json_ba)) ;
-          return dbform_fill2_basalactivation(form, values_basal_activation) ;
   }
 

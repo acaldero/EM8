@@ -2763,7 +2763,7 @@
 	     $("#export_local").hide();
 
 	     if (typeof ls1.local_storage_img  === 'undefined') 
-		 ls1.local_storage_img = url_base + "/em.8/php/sync" ;
+		 ls1.local_storage_img = url_base + "/em.8/php/sync/" + ls1.user_id;
 
              ls1.device_id = "pc1" ; // TODO: identify the PC... let the user choose or detect it?
              deviceReadyDeferred.resolve() ;

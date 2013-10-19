@@ -349,7 +349,7 @@
 				    "    <a href=" + srcimage + 
                                     "       rel=lightbox-meals " + 
 				    "       title=\"" + 
-					      T['DESCRIPTION'] + ": " + details[k_hour][k_type]['tag'] + "<br>" + 
+					      T['DESCRIPTION'] + ": " + details[k_hour][k_type]['tag'] + "&#13;" + 
 					      T['RATIONS']     + ": " + details[k_hour][k_type]['measure'] + "\">" + meal_image1 + "</a>" +
 				    "     <br><font size=2><b>" + details[k_hour][k_type]['tag'] + "</b></font>" +
 				    "   </td>\n" +

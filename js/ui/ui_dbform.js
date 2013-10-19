@@ -84,14 +84,19 @@
 	{
 		// console.log('imageURI: ' + imageURI);
 
-		var image = document.querySelector(form_img_name) ;
-		image.value = imageURI;
+                if ("" != form_img_name) {
+		    var image = document.querySelector(form_img_name) ;
+                    if (null != image)
+		        image.value = imageURI;
+                }
 
 		var image = document.getElementById(big_img_name);
-		image.src = imageURI;
+                if (null != image)
+		    image.src = imageURI;
 
 		var image = document.getElementById(small_img_name);
-		image.src = imageURI;
+                if (null != image)
+		    image.src = imageURI;
 	}
 
 
@@ -202,7 +207,7 @@
 	     "<table border=0 class=\"none\" cellpadding=2>" +
 	     "<tr>" +
 	     "<td align=center width=50%><small><b>" + T['BEGIN'] + "</b></small></td>" +
-	     "<td align=center width=50%><small><b>" + T['UNI']   + "</b></small></td>" +
+	     "<td align=center width=50%><small><b>" + T['END']   + "</b></small></td>" +
 	     "</tr>" ;
 
 	 for (i=0; i<neltos; i++)
