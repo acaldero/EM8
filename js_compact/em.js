@@ -52,6 +52,7 @@
 	$('div.T_ANTES_COMER_PUNTOS').html(T['ANTES_COMER_PUNTOS']);
 	$('div.T_MEASURE2').html(T['MEASURE2']);
 	$('div.T_UNITS').html(T['UNITS']);
+	$('div.T_BEGIN').html(T['BEGIN']);
 	$('div.T_END').html(T['END']);
 	$('div.T_RATIONS').html(T['RATIONS']);
 	$('div.T_DESCRIPTION').html(T['DESCRIPTION']);
@@ -1479,14 +1480,19 @@
 	{
 		// console.log('imageURI: ' + imageURI);
 
-		var image = document.querySelector(form_img_name) ;
-		image.value = imageURI;
+                if ("" != form_img_name) {
+		    var image = document.querySelector(form_img_name) ;
+                    if (null != image)
+		        image.value = imageURI;
+                }
 
 		var image = document.getElementById(big_img_name);
-		image.src = imageURI;
+                if (null != image)
+		    image.src = imageURI;
 
 		var image = document.getElementById(small_img_name);
-		image.src = imageURI;
+                if (null != image)
+		    image.src = imageURI;
 	}
 
 
@@ -1597,7 +1603,7 @@
 	     "<table border=0 class=\"none\" cellpadding=2>" +
 	     "<tr>" +
 	     "<td align=center width=50%><small><b>" + T['BEGIN'] + "</b></small></td>" +
-	     "<td align=center width=50%><small><b>" + T['UNI']   + "</b></small></td>" +
+	     "<td align=center width=50%><small><b>" + T['END']   + "</b></small></td>" +
 	     "</tr>" ;
 
 	 for (i=0; i<neltos; i++)
@@ -2083,7 +2089,7 @@
 
               $("#page10md2").hide();
 
-	  dbform_camera_success('#qimage','qimage2','qimage3',''); 
+	  dbform_camera_success('','qimage2','qimage3','icons/empty_dish.jpg'); 
   }
 
   function dbform_fill0_other ( form, now, value_name )
@@ -2226,8 +2232,8 @@
 		  form.elements['values_meal[measure][after]'].value     = 0 ;
 		  form.elements['values_meal[image][after]'].value       = '' ;
 
-	  dbform_camera_success('#vimageA','vimage2A','vimage3A',''); 
-	  dbform_camera_success('#vimageB','vimage2B','vimage3B',''); 
+	  dbform_camera_success('','vimage2A','vimage3A','icons/empty_dish.jpg'); 
+	  dbform_camera_success('','vimage2B','vimage3B','icons/empty_dish.jpg'); 
   }
 
 
@@ -2325,13 +2331,7 @@
 	           image_src = values_meal['image'] ;
 	      else image_src = "icons/meal2.png" ;
 
-	      var image = document.getElementById('qimage2');
-	      if (image != null)
-	          image.src = image_src ;
-
-	      var image = document.getElementById('qimage3');
-	      if (image != null)
-	          image.src = image_src ;
+              dbform_camera_success('#qimage', 'qimage2', 'qimage3', image_src);
           }
   }
 
@@ -2351,13 +2351,7 @@
 	      form.elements['values_other[user]'].value    = values_other['user'] ;
 	      form.elements['values_other[device]'].value  = values_other['device'] ;
 
-	      var image = document.getElementById('oimage2');
-	      if (image != null)
-	          image.src = values_other['image'] ;
-
-	      var image = document.getElementById('oimage3');
-	      if (image != null)
-	          image.src = values_other['image'] ;
+              dbform_camera_success('#oimage', 'oimage2', 'oimage3', values_other['image']);
           }
   }
 
@@ -2395,26 +2389,6 @@
               select2.selectmenu() ;
               select2.selectmenu("refresh", true) ;
           }
-  }
-
-  function dbform_fill2_quick2 ( form, json_meal, json_measure, json_bolus )
-  {
-          values_meal    = JSON.parse(unescape(json_meal)) ;
-          values_measure = JSON.parse(unescape(json_measure)) ;
-          values_bolus   = JSON.parse(unescape(json_bolus)) ;
-          return dbform_fill2_quick(form, values_meal, values_measure, values_bolus) ;
-  }
-
-  function dbform_fill2_other2 ( form, json_other )
-  {
-          values_other = JSON.parse(unescape(json_other)) ;
-          return dbform_fill2_other(form, values_other) ;
-  }
-
-  function dbform_fill2_basalactivation2 ( form, json_ba )
-  {
-          values_basal_activation = JSON.parse(unescape(json_ba)) ;
-          return dbform_fill2_basalactivation(form, values_basal_activation) ;
   }
 
 
@@ -2768,7 +2742,7 @@
 				    "    <a href=" + srcimage + 
                                     "       rel=lightbox-meals " + 
 				    "       title=\"" + 
-					      T['DESCRIPTION'] + ": " + details[k_hour][k_type]['tag'] + "<br>" + 
+					      T['DESCRIPTION'] + ": " + details[k_hour][k_type]['tag'] + "&#13;" + 
 					      T['RATIONS']     + ": " + details[k_hour][k_type]['measure'] + "\">" + meal_image1 + "</a>" +
 				    "     <br><font size=2><b>" + details[k_hour][k_type]['tag'] + "</b></font>" +
 				    "   </td>\n" +
