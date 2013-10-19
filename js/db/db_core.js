@@ -149,7 +149,7 @@
 
         function db_asocArray2delete ( tabla, values, pk ) 
         {
-	          borrar = "DELETE FROM " + tabla ;
+	          borrar = " DELETE FROM " + tabla ;
 
                   for (var j=0; j<pk.length; j++)
                   {
@@ -163,7 +163,7 @@
 
         function db_asocArray2list  ( tabla, values ) 
         {
-	          listar = "SELECT * FROM " + tabla ;
+	          listar = " SELECT * FROM " + tabla ;
                   return listar ;
         }
 

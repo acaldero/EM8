@@ -1,11 +1,7 @@
 
-  function dbform_fill2_quick ( form, json_meal, json_measure, json_bolus )
+  function dbform_fill2_quick ( form, values_meal, values_measure, values_bolus )
   {
 	  var name_index_tr = { "": 0, "A0": 1, "D0": 2, "A1": 3, "D1": 4, "A2": 5, "D2": 6, "A3": 7, "D3": 8, "A4": 9 } ;
-
-          values_meal    = JSON.parse(unescape(json_meal)) ;
-          values_measure = JSON.parse(unescape(json_measure)) ;
-          values_bolus   = JSON.parse(unescape(json_bolus)) ;
 
           // fill the default date & name
           if (-1 == values_bolus['id'])
@@ -107,10 +103,8 @@
           }
   }
 
-  function dbform_fill2_other ( form, json_other )
+  function dbform_fill2_other ( form, values_other )
   {
-          values_other = JSON.parse(unescape(json_other)) ;
-
           dbform_fill0_other(form, values_other['start'], values_other['name']) ;
 
 	  form.elements['values_other[stop]'].value    = values_other['stop'] ;
@@ -135,10 +129,8 @@
           }
   }
 
-  function dbform_fill2_basalactivation ( form, json_ba )
+  function dbform_fill2_basalactivation ( form, values_basal_activation )
   {
-          values_basal_activation = JSON.parse(unescape(json_ba)) ;
-
           dbform_fill0_basalactivation(form, values_basal_activation['start']) ;
 
 	  if (values_basal_activation['id'] != -1) 
@@ -171,5 +163,25 @@
               select2.selectmenu() ;
               select2.selectmenu("refresh", true) ;
           }
+  }
+
+  function dbform_fill2_quick2 ( form, json_meal, json_measure, json_bolus )
+  {
+          values_meal    = JSON.parse(unescape(json_meal)) ;
+          values_measure = JSON.parse(unescape(json_measure)) ;
+          values_bolus   = JSON.parse(unescape(json_bolus)) ;
+          return dbform_fill2_quick(form, values_meal, values_measure, values_bolus) ;
+  }
+
+  function dbform_fill2_other2 ( form, json_other )
+  {
+          values_other = JSON.parse(unescape(json_other)) ;
+          return dbform_fill2_other(form, values_other) ;
+  }
+
+  function dbform_fill2_basalactivation2 ( form, json_ba )
+  {
+          values_basal_activation = JSON.parse(unescape(json_ba)) ;
+          return dbform_fill2_basalactivation(form, values_basal_activation) ;
   }
 
