@@ -2054,6 +2054,7 @@
 	  form.elements['values_measure[user]'].value         = ls1.user_id;
 	  form.elements['values_measure[device]'].value       = ls1.device_id;
 	  form.elements['values_measure[start]'].value        = now ;
+	  form.elements['values_measure[start2]'].value       = now ;
 	  form.elements['values_measure[stop]'].value         = now ;
 	  form.elements['values_measure[measure]'].value      = 0 ;
 	  form.elements['values_measure[name]'].value         = value_name ;
@@ -2072,6 +2073,7 @@
 	  form.elements['values_bolus[units]'].value       = 0 ;
 	  form.elements['values_bolus[percentage]'].value  = 100;
 	  form.elements['values_bolus[start]'].value       = now ;
+	  form.elements['values_bolus[start2]'].value      = now ;
 	  form.elements['values_bolus[stop]'].value        = now ;
 	  form.elements['values_bolus[name]'].value        = value_name ;
 
@@ -2081,6 +2083,7 @@
 	  form.elements['values_meal[user]'].value       = ls1.user_id;
 	  form.elements['values_meal[device]'].value     = ls1.device_id;
 	  form.elements['values_meal[start]'].value      = now ;
+	  form.elements['values_meal[start2]'].value     = now ;
 	  form.elements['values_meal[stop]'].value       = now ;
 	  form.elements['values_meal[name]'].value       = value_name ;
 	  form.elements['values_meal[tag]'].value        = '' ;
@@ -2110,6 +2113,7 @@
 	  form.elements['values_other[type]'].value    = "" ;
 	  form.elements['values_other[measure]'].value = "" ;
 	  form.elements['values_other[start]'].value   = now ;
+	  form.elements['values_other[start2]'].value  = now ;
 	  form.elements['values_other[stop]'].value    = now ;
 	  form.elements['values_other[user]'].value    = ls1.user_id;
 	  form.elements['values_other[device]'].value  = ls1.device_id;
@@ -2128,6 +2132,7 @@
 	  form.elements['values_basal_activation[user]'].value         = ls1.user_id;
 	  form.elements['values_basal_activation[device]'].value       = ls1.device_id;
 	  form.elements['values_basal_activation[start]'].value        = now ;
+	  form.elements['values_basal_activation[start2]'].value       = now ;
 	  form.elements['values_basal_activation[percentage]'].value   = 100 ;
 	  form.elements['values_basal_activation[neltos]'].value       = 0 ;
 	  form.elements['values_basal_activation[segments]'].value     = '' ;
@@ -2178,6 +2183,7 @@
 	  form.elements['values_measure[user][before]'].value         = ls1.user_id;
 	  form.elements['values_measure[device][before]'].value       = ls1.device_id;
 	  form.elements['values_measure[start][before]'].value        = now ;
+	  form.elements['values_measure[start2][before]'].value        = now ;
 	  form.elements['values_measure[stop][before]'].value         = now ;
 	  form.elements['values_measure[measure][before]'].value      = 0 ;
 	  form.elements['values_measure[name][before]'].value         = value_name ;
@@ -2187,6 +2193,7 @@
 		  form.elements['values_measure[user][after]'].value         = ls1.user_id;
 		  form.elements['values_measure[device][after]'].value       = ls1.device_id;
 		  form.elements['values_measure[start][after]'].value        = now ;
+		  form.elements['values_measure[start2][after]'].value        = now ;
 		  form.elements['values_measure[stop][after]'].value         = now ;
 		  form.elements['values_measure[measure][after]'].value      = 0 ;
 		  form.elements['values_measure[name][after]'].value         = value_name ;
@@ -2199,6 +2206,7 @@
 	  form.elements['values_bolus[units][before]'].value       = 0 ;
 	  form.elements['values_bolus[percentage][before]'].value  = 100;
 	  form.elements['values_bolus[start][before]'].value       = now ;
+	  form.elements['values_bolus[start2][before]'].value       = now ;
 	  form.elements['values_bolus[stop][before]'].value        = now ;
 	  form.elements['values_bolus[name][before]'].value        = value_name ;
 
@@ -2209,6 +2217,7 @@
 		  form.elements['values_bolus[units][after]'].value       = 0 ;
 		  form.elements['values_bolus[percentage][after]'].value  = 100;
 		  form.elements['values_bolus[start][after]'].value       = now ;
+		  form.elements['values_bolus[start2][after]'].value       = now ;
 		  form.elements['values_bolus[stop][after]'].value        = now ;
 		  form.elements['values_bolus[name][after]'].value        = value_name ;
 
@@ -2216,6 +2225,7 @@
 	  form.elements['values_meal[user][before]'].value       = ls1.user_id;
 	  form.elements['values_meal[device][before]'].value     = ls1.device_id;
 	  form.elements['values_meal[start][before]'].value      = now ;
+	  form.elements['values_meal[start2][before]'].value      = now ;
 	  form.elements['values_meal[stop][before]'].value       = now ;
 	  form.elements['values_meal[name][before]'].value       = value_name ;
 	  form.elements['values_meal[tag][before]'].value        = '' ;
@@ -2226,6 +2236,7 @@
 		  form.elements['values_meal[user][after]'].value        = ls1.user_id;
 		  form.elements['values_meal[device][after]'].value      = ls1.device_id;
 		  form.elements['values_meal[start][after]'].value       = now ;
+		  form.elements['values_meal[start2][after]'].value       = now ;
 		  form.elements['values_meal[stop][after]'].value        = now ;
 		  form.elements['values_meal[name][after]'].value        = value_name ;
 		  form.elements['values_meal[tag][after]'].value         = '' ;
@@ -2245,31 +2256,31 @@
           if (-1 == values_bolus['id'])
               if (-1 == values_measure['id']) {
                    values_bolus['name']  = values_meal['name'] ;
-                   values_bolus['start'] = values_meal['start'] ;
+                   values_bolus['start2'] = values_bolus['start'] = values_meal['start'] ;
                    values_bolus['stop']  = values_meal['stop'] ;
               } else { 
                    values_bolus['name']  = values_measure['name'] ;
-                   values_bolus['start'] = values_measure['start'] ;
+                   values_bolus['start2'] = values_bolus['start'] = values_measure['start'] ;
                    values_bolus['stop']  = values_measure['stop'] ;
               }
           if (-1 == values_meal['id'])
               if (-1 == values_measure['id']) {
                    values_meal['name']  = values_bolus['name'] ;
-                   values_meal['start'] = values_bolus['start'] ;
+                   values_meal['start2'] = values_meal['start'] = values_bolus['start'] ;
                    values_meal['stop']  = values_bolus['stop'] ;
               } else { 
                    values_meal['name']  = values_measure['name'] ;
-                   values_meal['start'] = values_measure['start'] ;
+                   values_meal['start2'] = values_meal['start'] = values_measure['start'] ;
                    values_meal['stop']  = values_measure['stop'] ;
               }
           if (-1 == values_measure['id'])
               if (-1 == values_meal['id']) {
                    values_measure['name']  = values_bolus['name'] ;
-                   values_measure['start'] = values_bolus['start'] ;
+                   values_measure['start2'] = values_measure['start'] = values_bolus['start'] ;
                    values_measure['stop']  = values_bolus['stop'] ;
               } else { 
                    values_measure['name']  = values_meal['name'] ;
-                   values_measure['start'] = values_meal['start'] ;
+                   values_measure['start2'] = values_measure['start'] = values_meal['start'] ;
                    values_measure['stop']  = values_meal['stop'] ;
               }
 
@@ -2329,7 +2340,7 @@
               var image_src = "" ;
 	      if (values_meal['image'] != "")
 	           image_src = values_meal['image'] ;
-	      else image_src = "icons/meal2.png" ;
+	      else image_src = "icons/empty_dish.jpg" ;
 
               dbform_camera_success('#qimage', 'qimage2', 'qimage3', image_src);
           }
@@ -2444,10 +2455,12 @@
         values_measure = new Object() ;
         values_bolus   = new Object() ;
         values_other   = new Object() ;
+        values_ba      = new Object() ;
 
-	values_meal['id']    = values_measure['id']    = values_bolus['id']    = values_other['id']    = "-1";
-	values_meal['start'] = values_measure['start'] = values_bolus['start'] = values_other['start'] = defdate;
+	values_meal['id']    = values_measure['id']    = values_bolus['id']    = values_other['id']    = values_ba['id'] = "-1";
+	values_meal['start'] = values_measure['start'] = values_bolus['start'] = values_other['start'] = values_ba['start'] = defdate;
 	values_meal['stop']  = values_measure['stop']  = values_bolus['stop']  = values_other['stop']  = defdate;
+	values_meal['start2'] = values_measure['start2'] = values_bolus['start2'] = values_other['start2'] = values_ba['start2'] = defdate;
 
 	if (details[k_hour]['meal'])
 	    if (details[k_hour]['meal']['name'] == name_k)
@@ -2462,8 +2475,10 @@
 		  values_bolus = details[k_hour]['bolus'] ;
 
 	if (details[k_hour]['event'])
-	    if (details[k_hour]['event']['name'] == name_k)
 		  values_other = details[k_hour]['event'] ;
+
+	if (details[k_hour]['basalact'])
+		  values_ba = details[k_hour]['basalact'] ;
 
         // open quickmenu ...
 	$.mobile.changePage('#page-quickmenu');
@@ -3091,7 +3106,7 @@
         if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
         {
             measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour) ;
-            day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+            day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
         }
 
         // obj* <- value*
@@ -3167,7 +3182,7 @@
 		if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
 		{
 		    measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour);
-		    day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+		    day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
 		}
 
 		c = daytag_summary_color(measures / 2);
@@ -3261,7 +3276,7 @@
 	 if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
 	 {
 	    measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour);
-	    day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+	    day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
 	 }
 
 	 c = daytag_summary_color(measures / 2);

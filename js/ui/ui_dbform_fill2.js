@@ -7,31 +7,31 @@
           if (-1 == values_bolus['id'])
               if (-1 == values_measure['id']) {
                    values_bolus['name']  = values_meal['name'] ;
-                   values_bolus['start'] = values_meal['start'] ;
+                   values_bolus['start2'] = values_bolus['start'] = values_meal['start'] ;
                    values_bolus['stop']  = values_meal['stop'] ;
               } else { 
                    values_bolus['name']  = values_measure['name'] ;
-                   values_bolus['start'] = values_measure['start'] ;
+                   values_bolus['start2'] = values_bolus['start'] = values_measure['start'] ;
                    values_bolus['stop']  = values_measure['stop'] ;
               }
           if (-1 == values_meal['id'])
               if (-1 == values_measure['id']) {
                    values_meal['name']  = values_bolus['name'] ;
-                   values_meal['start'] = values_bolus['start'] ;
+                   values_meal['start2'] = values_meal['start'] = values_bolus['start'] ;
                    values_meal['stop']  = values_bolus['stop'] ;
               } else { 
                    values_meal['name']  = values_measure['name'] ;
-                   values_meal['start'] = values_measure['start'] ;
+                   values_meal['start2'] = values_meal['start'] = values_measure['start'] ;
                    values_meal['stop']  = values_measure['stop'] ;
               }
           if (-1 == values_measure['id'])
               if (-1 == values_meal['id']) {
                    values_measure['name']  = values_bolus['name'] ;
-                   values_measure['start'] = values_bolus['start'] ;
+                   values_measure['start2'] = values_measure['start'] = values_bolus['start'] ;
                    values_measure['stop']  = values_bolus['stop'] ;
               } else { 
                    values_measure['name']  = values_meal['name'] ;
-                   values_measure['start'] = values_meal['start'] ;
+                   values_measure['start2'] = values_measure['start'] = values_meal['start'] ;
                    values_measure['stop']  = values_meal['stop'] ;
               }
 
@@ -91,7 +91,7 @@
               var image_src = "" ;
 	      if (values_meal['image'] != "")
 	           image_src = values_meal['image'] ;
-	      else image_src = "icons/meal2.png" ;
+	      else image_src = "icons/empty_dish.jpg" ;
 
               dbform_camera_success('#qimage', 'qimage2', 'qimage3', image_src);
           }

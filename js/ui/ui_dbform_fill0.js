@@ -17,6 +17,7 @@
 	  form.elements['values_measure[user]'].value         = ls1.user_id;
 	  form.elements['values_measure[device]'].value       = ls1.device_id;
 	  form.elements['values_measure[start]'].value        = now ;
+	  form.elements['values_measure[start2]'].value       = now ;
 	  form.elements['values_measure[stop]'].value         = now ;
 	  form.elements['values_measure[measure]'].value      = 0 ;
 	  form.elements['values_measure[name]'].value         = value_name ;
@@ -35,6 +36,7 @@
 	  form.elements['values_bolus[units]'].value       = 0 ;
 	  form.elements['values_bolus[percentage]'].value  = 100;
 	  form.elements['values_bolus[start]'].value       = now ;
+	  form.elements['values_bolus[start2]'].value      = now ;
 	  form.elements['values_bolus[stop]'].value        = now ;
 	  form.elements['values_bolus[name]'].value        = value_name ;
 
@@ -44,6 +46,7 @@
 	  form.elements['values_meal[user]'].value       = ls1.user_id;
 	  form.elements['values_meal[device]'].value     = ls1.device_id;
 	  form.elements['values_meal[start]'].value      = now ;
+	  form.elements['values_meal[start2]'].value     = now ;
 	  form.elements['values_meal[stop]'].value       = now ;
 	  form.elements['values_meal[name]'].value       = value_name ;
 	  form.elements['values_meal[tag]'].value        = '' ;
@@ -73,6 +76,7 @@
 	  form.elements['values_other[type]'].value    = "" ;
 	  form.elements['values_other[measure]'].value = "" ;
 	  form.elements['values_other[start]'].value   = now ;
+	  form.elements['values_other[start2]'].value  = now ;
 	  form.elements['values_other[stop]'].value    = now ;
 	  form.elements['values_other[user]'].value    = ls1.user_id;
 	  form.elements['values_other[device]'].value  = ls1.device_id;
@@ -91,6 +95,7 @@
 	  form.elements['values_basal_activation[user]'].value         = ls1.user_id;
 	  form.elements['values_basal_activation[device]'].value       = ls1.device_id;
 	  form.elements['values_basal_activation[start]'].value        = now ;
+	  form.elements['values_basal_activation[start2]'].value       = now ;
 	  form.elements['values_basal_activation[percentage]'].value   = 100 ;
 	  form.elements['values_basal_activation[neltos]'].value       = 0 ;
 	  form.elements['values_basal_activation[segments]'].value     = '' ;
@@ -141,6 +146,7 @@
 	  form.elements['values_measure[user][before]'].value         = ls1.user_id;
 	  form.elements['values_measure[device][before]'].value       = ls1.device_id;
 	  form.elements['values_measure[start][before]'].value        = now ;
+	  form.elements['values_measure[start2][before]'].value        = now ;
 	  form.elements['values_measure[stop][before]'].value         = now ;
 	  form.elements['values_measure[measure][before]'].value      = 0 ;
 	  form.elements['values_measure[name][before]'].value         = value_name ;
@@ -150,6 +156,7 @@
 		  form.elements['values_measure[user][after]'].value         = ls1.user_id;
 		  form.elements['values_measure[device][after]'].value       = ls1.device_id;
 		  form.elements['values_measure[start][after]'].value        = now ;
+		  form.elements['values_measure[start2][after]'].value        = now ;
 		  form.elements['values_measure[stop][after]'].value         = now ;
 		  form.elements['values_measure[measure][after]'].value      = 0 ;
 		  form.elements['values_measure[name][after]'].value         = value_name ;
@@ -162,6 +169,7 @@
 	  form.elements['values_bolus[units][before]'].value       = 0 ;
 	  form.elements['values_bolus[percentage][before]'].value  = 100;
 	  form.elements['values_bolus[start][before]'].value       = now ;
+	  form.elements['values_bolus[start2][before]'].value       = now ;
 	  form.elements['values_bolus[stop][before]'].value        = now ;
 	  form.elements['values_bolus[name][before]'].value        = value_name ;
 
@@ -172,6 +180,7 @@
 		  form.elements['values_bolus[units][after]'].value       = 0 ;
 		  form.elements['values_bolus[percentage][after]'].value  = 100;
 		  form.elements['values_bolus[start][after]'].value       = now ;
+		  form.elements['values_bolus[start2][after]'].value       = now ;
 		  form.elements['values_bolus[stop][after]'].value        = now ;
 		  form.elements['values_bolus[name][after]'].value        = value_name ;
 
@@ -179,6 +188,7 @@
 	  form.elements['values_meal[user][before]'].value       = ls1.user_id;
 	  form.elements['values_meal[device][before]'].value     = ls1.device_id;
 	  form.elements['values_meal[start][before]'].value      = now ;
+	  form.elements['values_meal[start2][before]'].value      = now ;
 	  form.elements['values_meal[stop][before]'].value       = now ;
 	  form.elements['values_meal[name][before]'].value       = value_name ;
 	  form.elements['values_meal[tag][before]'].value        = '' ;
@@ -189,6 +199,7 @@
 		  form.elements['values_meal[user][after]'].value        = ls1.user_id;
 		  form.elements['values_meal[device][after]'].value      = ls1.device_id;
 		  form.elements['values_meal[start][after]'].value       = now ;
+		  form.elements['values_meal[start2][after]'].value       = now ;
 		  form.elements['values_meal[stop][after]'].value        = now ;
 		  form.elements['values_meal[name][after]'].value        = value_name ;
 		  form.elements['values_meal[tag][after]'].value         = '' ;

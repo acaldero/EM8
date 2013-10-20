@@ -51,10 +51,12 @@
         values_measure = new Object() ;
         values_bolus   = new Object() ;
         values_other   = new Object() ;
+        values_ba      = new Object() ;
 
-	values_meal['id']    = values_measure['id']    = values_bolus['id']    = values_other['id']    = "-1";
-	values_meal['start'] = values_measure['start'] = values_bolus['start'] = values_other['start'] = defdate;
+	values_meal['id']    = values_measure['id']    = values_bolus['id']    = values_other['id']    = values_ba['id'] = "-1";
+	values_meal['start'] = values_measure['start'] = values_bolus['start'] = values_other['start'] = values_ba['start'] = defdate;
 	values_meal['stop']  = values_measure['stop']  = values_bolus['stop']  = values_other['stop']  = defdate;
+	values_meal['start2'] = values_measure['start2'] = values_bolus['start2'] = values_other['start2'] = values_ba['start2'] = defdate;
 
 	if (details[k_hour]['meal'])
 	    if (details[k_hour]['meal']['name'] == name_k)
@@ -69,8 +71,10 @@
 		  values_bolus = details[k_hour]['bolus'] ;
 
 	if (details[k_hour]['event'])
-	    if (details[k_hour]['event']['name'] == name_k)
 		  values_other = details[k_hour]['event'] ;
+
+	if (details[k_hour]['basalact'])
+		  values_ba = details[k_hour]['basalact'] ;
 
         // open quickmenu ...
 	$.mobile.changePage('#page-quickmenu');
@@ -698,7 +702,7 @@
         if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
         {
             measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour) ;
-            day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+            day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
         }
 
         // obj* <- value*
@@ -774,7 +778,7 @@
 		if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
 		{
 		    measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour);
-		    day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+		    day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
 		}
 
 		c = daytag_summary_color(measures / 2);
@@ -868,7 +872,7 @@
 	 if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
 	 {
 	    measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour);
-	    day_info += daytag_summary(vector_details[k2],k,0,ls1.newday_hour,back_url) ;
+	    day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
 	 }
 
 	 c = daytag_summary_color(measures / 2);
