@@ -10,7 +10,7 @@
     <LINK type="text/css" rel="stylesheet" href="css/em_jquery.css">
     <LINK type="text/css" rel="stylesheet" href="css/mobile-default.css">
     <link type="text/css" rel="stylesheet" href="noinet/jquery.mobile-1.4.0-beta.1.min.css">
-    <link type="text/css" rel="stylesheet" href="noinet/mobiscroll.custom-2.6.2.min.css">
+    <link type="text/css" rel="stylesheet" href="noinet/mobiscroll.custom-2.8.0.min.css">
     <link type="text/css" rel="stylesheet" href="noinet/jquery.gritter.css">
     <link type="text/css" rel="stylesheet" href="noinet/slimbox2.css">
 
@@ -42,7 +42,7 @@
     <script type='text/javascript' src="noinet/jquery.gritter.min.js"></script>
 
     <script type='text/javascript' src="noinet/zepto.min.js"></script>
-    <script type='text/javascript' src="noinet/mobiscroll.custom-2.6.2.min.js"></script>
+    <script type='text/javascript' src="noinet/mobiscroll.custom-2.8.0.min.js"></script>
     <script type='text/javascript' src="noinet/xdate.js"></script>
 
     <script type='text/javascript' src="noinet/highcharts.js"></script>
@@ -906,6 +906,11 @@
 							    var htmlo = stats_avg_get(ndays) ;
 							    $("#container20").html(htmlo).trigger("create") ;
 							    $("#slider20").val(ndays).slider("refresh");
+							    $("#slider20x").on("change", 
+									       function(e) { 
+										    var htmlo = stats_avg_get(e.target.value);
+					    					    $("#container20").html(htmlo).trigger("create"); 
+									       }) ;
 							    $.mobile.loading("hide"); },200); 
   						}
 					        $(this).buttonMarkup({theme: "b"});
@@ -1564,13 +1569,15 @@
 		<center>
 		  <button name="mmb-update"
                           data-theme="c" data-corners="false" data-inline="true" data-icon="forward"
-                          onclick="return do_quick_action_modify();"><div class=T_MODIFY style="display: inline;"></div></button>
+                          onclick="dbform_action_quick(ls1.rmysql_url, document.form10x, do_closeonly) ;
+	                           return false;"><div class=T_MODIFY style="display: inline;"></div></button>
 		  <button name="mmb-insert"
                           data-theme="c" data-corners="false" data-inline="true" data-icon="plus"
                           onclick="document.form10x.elements['values_measure[id]'].value=-1;
 		                   document.form10x.elements['values_meal[id]'].value=-1;
 		                   document.form10x.elements['values_bolus[id]'].value=-1;
-                                   return do_quick_action_modify();"><div class=T_ADD style="display: inline;"></div></button>
+				   dbform_action_quick(ls1.rmysql_url, document.form10x, do_closeonly) ;
+			           return false;"><div class=T_ADD style="display: inline;"></div></button>
 		</center>
                 </td>
 
@@ -2202,22 +2209,6 @@
 	   $('#page-quickmenu').dialog('close') ;
 	}
 
-	function do_nextandclose () 
-	{
-	   console.log('index.html:do_nextandclose:Done.');
-
-	   dbform_fill_nextquick(document.form10x);  
-	   do_closeonly();
-        }
-
-        function do_quick_action_modify ( ) 
-        {
-	   if (document.form10x.elements['values_measure[name]'].value != 0) 
-		dbform_action_quick(ls1.rmysql_url, document.form10x, do_nextandclose) ;
-	   else dbform_action_quick(ls1.rmysql_url, document.form10x, do_closeonly) ;
-
-	   return false;
-        }
 
         //
         // Auxiliar (event handlers)
@@ -2433,6 +2424,8 @@
 					    var htmlo = stats_avg_get(ndays) ;
 					    $("#container20").html(htmlo).trigger("create") ;
 					    $("#slider20").val(ndays).slider("refresh");
+					    $("#slider20x").on("change", function(e) { var htmlo = stats_avg_get(e.target.value);
+					    					      $("#container20").html(htmlo).trigger("create"); }) ;
 					    $.mobile.loading("hide"); }, 200); 
 		  }
         }
@@ -2468,12 +2461,8 @@
               middlefix = ls1.year + "-" + ('0' + ls1.month).slice(-2) + "-" + ('0' + ls1.today).slice(-2) ;
 
                 // * seguimiento
-                var ndays = $("#slider20").val() ;
-                var htmlo = stats_avg_get(ndays) ;
-                $("#container20").html(htmlo).trigger("create") ;
-                $("#slider20x").on("change", function(e) { var htmlo = stats_avg_get(e.target.value);
-                                                           $("#container20").html(htmlo).trigger("create"); }) ;
-                load_graphs() ;
+		if ($.mobile.activePage.attr("id") == "#page24")
+                    load_graphs() ;
 
                 // * diario (update only)
                 var udate_start  = document.form10x.elements['values_measure[start]'].value ;
@@ -2583,7 +2572,8 @@
 	    var interval = setInterval(function(){ clearInterval(interval); 
  				                   $.mobile.loading("hide"); }, 10); 
 
-            load_graphs() ;
+	    if ($.mobile.activePage.attr("id") == "#page24")
+                load_graphs() ;
 
             return status ;
         }
@@ -2597,11 +2587,6 @@
 
                 // * seguimiento
                 load_monthandyear($("#select-month3"), $("#select-year3")) ;
-	        var ndays = $("#slider20").val() ;
-                var htmlo = stats_avg_get(ndays) ;
-                $("#container20").html(htmlo).trigger("create") ;
-                $("#slider20x").on("change", function(e) { var htmlo = stats_avg_get(e.target.value);
-                                                           $("#container20").html(htmlo).trigger("create"); }) ;
 
                 // * diario
                 load_monthandyear($("#select-month1"), $("#select-year1")) ;
@@ -2763,6 +2748,8 @@
         working_grid = set_working_grid(ls1);
 
         /* initialize code */ 
+        $(document).on('click','[em8-tab]',function() { daytag_details_onclick($(this)); });
+
 	if (isMobile()) 
         {
 	     $("#export_web").hide();

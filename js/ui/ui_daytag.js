@@ -177,11 +177,11 @@
 	    "  <tr height=40%>\n" +
 	    "    <td colspan=3 align=center>\n" + 
 	    "      <div type=submit class=square_button2 data-role=\"none\" \n" + 
+	    "           em8-tab=\"#p-qm-mmb\"\n" +
 	    "           em8-backurl=\"" + back_url + "\"\n" +
 	    "           em8-defdate=\"" + defdate  + "\"\n" +
 	    "           em8-khour=\""   + k_hour   + "\"\n" +
-	    "           em8-namek=\""   + name_k   + "\"\n" +
-            "           onclick=\"daytag_details_onclick(this);\">\n" +
+	    "           em8-namek=\""   + name_k   + "\"\n" + ">\n" +
 	    "      [ <b><font color=blue>" + MT + "</font>" + GT + " " + "<font color=red>" + BT + "</font></b> ]" +
 	    "    </div>\n" +
 	    "    </td>\n" +
@@ -343,8 +343,7 @@
 				    "           em8-backurl=\"" + back_url + "\"\n" +
 				    "           em8-defdate=\"" + defdate  + "\"\n" +
 				    "           em8-khour=\""   + k_hour   + "\"\n" +
-				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
-				    "           onclick=\"daytag_details_onclick(this);\">\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\">\n" +
 				          details[k_hour][k_type]['measure'] + "r" +
 				    "     </div>\n" +
 				    "     </b></font>" +
@@ -417,8 +416,7 @@
 				    "           em8-backurl=\"" + back_url + "\"\n" +
 				    "           em8-defdate=\"" + defdate  + "\"\n" +
 				    "           em8-khour=\""   + k_hour   + "\"\n" +
-				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
-				    "           onclick=\"daytag_details_onclick(this);\">\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\">\n" +
                                             details[k_hour][k_type]['units'] + "u</div>\n" +
 				    "   </b></font>" +
 				    "  </td>\n" +
@@ -480,8 +478,7 @@
 				    "           em8-backurl=\"" + back_url + "\"\n" +
 				    "           em8-defdate=\"" + defdate  + "\"\n" +
 				    "           em8-khour=\""   + k_hour   + "\"\n" +
-				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
-				    "           onclick=\"daytag_details_onclick(this);\">\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\">\n" +
                                            details[k_hour][k_type]['measure'] + "</div>\n" +
 				    "   </b></font>" +
 				    "  </td>\n" +
@@ -540,8 +537,7 @@
 				    "           em8-backurl=\"" + back_url + "\"\n" +
 				    "           em8-defdate=\"" + defdate  + "\"\n" +
 				    "           em8-khour=\""   + k_hour   + "\"\n" +
-				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
-				    "           onclick=\"daytag_details_onclick(this);\">\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\">\n" +
                                            details[k_hour][k_type]['event'] + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
@@ -604,8 +600,7 @@
 				    "           em8-backurl=\"" + back_url + "\"\n" +
 				    "           em8-defdate=\"" + defdate  + "\"\n" +
 				    "           em8-khour=\""   + k_hour   + "\"\n" +
-				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\"\n" +
-				    "           onclick=\"daytag_details_onclick(this);\">\n" +
+				    "           em8-namek=\""   + details[k_hour][k_type]['name'] + "\">\n" +
                                            "basal<br>act." + "</div>\n" +
 				    "    </b></font>" +
 				    "  </td>\n" +
