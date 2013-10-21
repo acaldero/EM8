@@ -23,6 +23,8 @@
 	  form.elements['values_measure[name]'].value         = value_name ;
 	  form.elements['values_measure[name]'].selectedIndex = name_index_tr[value_name];
 
+              $('#page10t1h').scroller('setValue', now, true);
+
               var select2 = $("#page10gn") ;
               var option4 = $($("option", select2).get(name_index_tr[value_name]));
               option4.attr('selected', true);
@@ -39,6 +41,8 @@
 	  form.elements['values_bolus[start2]'].value      = now ;
 	  form.elements['values_bolus[stop]'].value        = now ;
 	  form.elements['values_bolus[name]'].value        = value_name ;
+
+              $('#page10t2i').scroller('setValue', now, true);
 
               $("#page10md1").hide();
 
@@ -80,6 +84,8 @@
 	  form.elements['values_other[stop]'].value    = now ;
 	  form.elements['values_other[user]'].value    = ls1.user_id;
 	  form.elements['values_other[device]'].value  = ls1.device_id;
+
+          $('#t1g').scroller('setValue', now, true);
   }
 
   function dbform_fill0_basalactivation ( form, now )
@@ -101,6 +107,7 @@
 	  form.elements['values_basal_activation[segments]'].value     = '' ;
 
 	  $("#ba_segments1").val('') ;
+          $('#t1f').scroller('setValue', now, true);
 
           ui_basal_fillselect(vector_details, "#ba_pattern", "standard");
   }
@@ -188,7 +195,7 @@
 	  form.elements['values_meal[user][before]'].value       = ls1.user_id;
 	  form.elements['values_meal[device][before]'].value     = ls1.device_id;
 	  form.elements['values_meal[start][before]'].value      = now ;
-	  form.elements['values_meal[start2][before]'].value      = now ;
+	  form.elements['values_meal[start2][before]'].value     = now ;
 	  form.elements['values_meal[stop][before]'].value       = now ;
 	  form.elements['values_meal[name][before]'].value       = value_name ;
 	  form.elements['values_meal[tag][before]'].value        = '' ;
@@ -199,7 +206,7 @@
 		  form.elements['values_meal[user][after]'].value        = ls1.user_id;
 		  form.elements['values_meal[device][after]'].value      = ls1.device_id;
 		  form.elements['values_meal[start][after]'].value       = now ;
-		  form.elements['values_meal[start2][after]'].value       = now ;
+		  form.elements['values_meal[start2][after]'].value      = now ;
 		  form.elements['values_meal[stop][after]'].value        = now ;
 		  form.elements['values_meal[name][after]'].value        = value_name ;
 		  form.elements['values_meal[tag][after]'].value         = '' ;
@@ -208,5 +215,10 @@
 
 	  dbform_camera_success('','vimage2A','vimage3A','icons/empty_dish.jpg'); 
 	  dbform_camera_success('','vimage2B','vimage3B','icons/empty_dish.jpg'); 
+
+          $('#form12gsB').scroller('setValue', now, true);
+          $('#form12gsA').scroller('setValue', now, true);
+          $('#form12bpB').scroller('setValue', now, true);
+          $('#form12bpA').scroller('setValue', now, true);
   }
 
