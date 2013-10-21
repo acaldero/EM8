@@ -232,6 +232,13 @@
 
   function daytag_summary ( details, defdate, hour_begin, hour_end, back_url )
   {
+        var d = new Object();
+        d.html = "" ;
+        d.avg_measure = 0;
+
+        m  = 0 ;
+        nm = 0;
+
         hour_begin = parseInt(hour_begin, 10);
         hour_end   = parseInt(hour_end, 10);
 
@@ -251,7 +258,7 @@
 	details_order.sort(function(a, b) { a = a[0]; b = b[0]; return a < b ? -1 : (a > b ? 1 : 0); });
 
         if (0 == details_order.length) 
-            return "" ;
+            return d ;
 
         // print summary...
         o = "<table border=0 width=100%>" ;
@@ -317,7 +324,7 @@
                                       srcimage = "icons/empty_ta-5.png" ;
                                  else srcimage = "icons/empty_dish.jpg" ;
 
-                                 meal_image1 = "<img id=" + img_id1 + " rel=meals " +
+                                 meal_image1 = "<img id=" + img_id1 + " rel=meals_default " +
 					       "     height=80 style=\"max-height:512px;\" " + 
                                                "     src=\"" + srcimage + "\">" ;
                             }
@@ -436,6 +443,9 @@
 
 		       case 'tag_measure':
 		       case 'untag_measure':
+
+		            m = m + parseInt(details[k_hour]['measure']['measure'], 10) ;
+		            nm++ ;
 
                             values_measure = details[k_hour]['measure'] ;
 
@@ -618,47 +628,11 @@
 
         o += "</table>" ;
 
-        return o ;
-  }
+        d.html = o ;
+        if (0 != nm)
+            d.avg_measure = m / nm ;
 
-  function daytag_summary_measures ( details, hour_begin, hour_end )
-  {
-        m  = 0 ;
-        nm = 0;
-
-        hour_begin = parseInt(hour_begin, 10);
-        hour_end   = parseInt(hour_end, 10);
-
-        for (k_hour in details)
-        {
-		hour_now = parseInt(k_hour.slice(0,2), 10);
-                if (hour_now < hour_begin) continue ;
-                if (hour_now > hour_end)   continue ;
-
-		for (k_type in details[k_hour])
-		{
-		   if (details[k_hour][k_type]['name'] != "")
-			s_type = "tag"   + "_" + k_type ;
-		   else s_type = "untag" + "_" + k_type ;
-
-		   switch (s_type)
-		   {
-		       case 'tag_measure':
-			    m = m + parseInt(details[k_hour][k_type]['measure'], 10) ;
-			    nm++ ;
-			    break ;
-		       case 'untag_measure':
-			    m = m + parseInt(details[k_hour][k_type]['measure'], 10) ;
-			    nm++ ;
-			    break ;
-		   }
-		}
-        }
-
-        if (0 == nm)
-            return 0;
-
-        return (m / nm) ;
+        return d ;
   }
 
   // auxiliar function
@@ -687,18 +661,24 @@
                     ('0' + ndate.getDate()).slice(-2) ;
 
         // measures + day_info
-        measures = 0 ;
         day_info = "&nbsp;" ;
+        measures = measures1 = measures2 = 0 ;
         if (! ((typeof vector_details[k] === "undefined") || (Object.keys(vector_details[k]).length == 0)) )
         {
-            measures = daytag_summary_measures(vector_details[k],ls1.newday_hour,24) ;
-            day_info = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+            var d = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+	    day_info  = d.html ;
+	    measures1 = d.avg_measure ;
         }
         if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
         {
-            measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour) ;
-            day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
+            var d = daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
+	    day_info += d.html ;
+	    measures2 = d.avg_measure ;
         }
+
+	measures = measures1 + measures2;
+	if ((measures1 != 0) && (measures2 != 0))
+	     measures = measures / 2;
 
         // obj* <- value*
         d = new Object() ;
@@ -707,7 +687,7 @@
         d.obj_color1  = $("#h"  + k) ;
         d.obj_color2  = $("#s"  + k) ;
 
-        d.value_color = daytag_summary_color(measures / 2) ;
+        d.value_color = daytag_summary_color(measures) ;
         d.value_html  = day_info ;
 
         return d ;
@@ -763,20 +743,26 @@
                 k0 = currday.toUTCString("yyyy-MM-dd HH:mm:ssz") ;
                 k0 = k0.substr(0,10) + 'T' + k0.substr(11);
 
-		measures = 0 ;
 		day_info = "&nbsp;" ;
+		measures = measures1 = measures2 = 0 ;
 		if (! ((typeof vector_details[k] === "undefined") || (Object.keys(vector_details[k]).length == 0)) )
 		{
-		    measures = daytag_summary_measures(vector_details[k],ls1.newday_hour,24);
-		    day_info = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+		    var d = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+		    day_info  = d.html ;
+		    measures1 = d.avg_measure ;
 		}
 		if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
 		{
-		    measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour);
-		    day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
+		    var d = daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
+		    day_info += d.html ;
+		    measures2 = d.avg_measure ;
 		}
 
-		c = daytag_summary_color(measures / 2);
+                measures = measures1 + measures2;
+                if ((measures1 != 0) && (measures2 != 0))
+                     measures = measures / 2;
+		c = daytag_summary_color(measures);
+
 		u += "<td  class=calendar-day valign=middle " + " id=\"h" + k + "\"" +
                      "     bgcolor=" + c + "><center>" ;
 		u += "<div class=day-number " + 
@@ -857,20 +843,26 @@
          firstday.addDays(1) ;
          k2 = firstday.toString("yyyy-MM-dd") ;
 
-	 measures = 0 ;
 	 day_info = "&nbsp;" ;
+	 measures = measures1 = measures2 = 0 ;
 	 if (! ((typeof vector_details[k] === "undefined") || (Object.keys(vector_details[k]).length == 0)) )
 	 {
-	    measures = daytag_summary_measures(vector_details[k],ls1.newday_hour,24);
-	    day_info = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+	      var d = daytag_summary(vector_details[k],k,ls1.newday_hour,24,back_url) ;
+	      day_info  = d.html ;
+	      measures1 = d.avg_measure ;
 	 }
 	 if (! ((typeof vector_details[k2] === "undefined") || (Object.keys(vector_details[k2]).length == 0)) )
 	 {
-	    measures += daytag_summary_measures(vector_details[k2],0,ls1.newday_hour);
-	    day_info += daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
+	      var d = daytag_summary(vector_details[k2],k2,0,ls1.newday_hour,back_url) ;
+	      day_info += d.html ;
+	      measures2 = d.avg_measure ;
 	 }
 
-	 c = daytag_summary_color(measures / 2);
+	 measures = measures1 + measures2;
+	 if ((measures1 != 0) && (measures2 != 0))
+	      measures = measures / 2;
+	 c = daytag_summary_color(measures);
+
 	 u += "<td valign=top><table border=0 width=250><tr>" + 
               "<td style=\"border-color:#a0a0a0;\" bgcolor=" + c + " valign=middle align=left id=\"h" + k + "\">" + 
               "  <table border=0 width=100%>" + 
@@ -924,14 +916,17 @@
 
 	     dt = new XDate(i) ;
 	     dc = " <div data-role=popup  id=dc" + dt.getDate() + " data-corners=false >" + 
-		  daytag_show_days(year, month, dt.getDate(), 1, vector_details, back_url) +
+                  "  <div id=dcin" + dt.getDate() + ">&nbsp;</div>" +
 		  "  <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
 		  "            data-iconpos=notext class=ui-btn-left>Close</a>" +
 		  " </div>" ;
-	     v += "<td align=center style=\"line-height: 24px;\">" + 
-			      "<a href=#dc" + dt.getDate() + " data-rel=popup style='text-decoration: none'>" + 
-			      "<font color=gray>" + dt.getDate() + "</font>" +
-			      "</a>" + dc + "</td>" ;
+	     v += "<td align=center style=\"line-height: 24px;\" \n" + 
+                  "    onclick='var o = daytag_show_days(" + year + "," + month + "," + dt.getDate() + "," + 
+		  "                                      1, vector_details,\"" +  back_url + "\");\n " + 
+		  "             $(\"#dcin" + dt.getDate() + "\").html(o).trigger(\"create\");\n" +
+		  "             $(\"#dc"   + dt.getDate() + "\").popup(\"open\");\n" +
+		  "             return false;'>\n" +
+		  "<font color=gray>" + dt.getDate() + "</font>" + dc + "</td>" ;
 	}
 	v += "</tr>" ;
 
@@ -990,16 +985,19 @@
 
 	     dt = new XDate(i) ;
 	     dc = " <div data-role=popup  id=dc" + dt.getDate() + ">" + 
-		  daytag_show_days(year, month, dt.getDate(), 1, vector_details, back_url) +
+                  "  <div id=dcin" + dt.getDate() + ">&nbsp;</div>" +
 		  "  <a href=# data-rel=back data-role=button data-theme=a data-icon=delete " + 
 		  "            data-iconpos=notext class=ui-btn-left>Close</a>" +
 		  " </div>" ;
 
 	     v += "<tr>" +
-	          "<td align=center style=\"line-height: 24px;\">" + 
-			      "<a href=#dc" + dt.getDate() + " data-rel=popup style='text-decoration: none'>" + 
-			      "<font color=gray>" + dt.getDate() + "</font>" +
-			      "</a>" + dc + "</td>" ;
+	          "<td align=center style=\"line-height: 24px;\" \n" + 
+                  "    onclick='var o = daytag_show_days(" + year + "," + month + "," + dt.getDate() + "," + 
+		  "                                      1, vector_details,\"" +  back_url + "\");\n " + 
+		  "             $(\"#dcin" + dt.getDate() + "\").html(o).trigger(\"create\");\n" +
+		  "             $(\"#dc"   + dt.getDate() + "\").popup(\"open\");\n" +
+		  "             return false;'>\n" +
+		  "<font color=gray>" + dt.getDate() + "</font>" + dc + "</td>" ;
 	     for (j=0; j<target_names.length; j++) 
 	     {
 		  o = daytag_details(month, year, vector_details[i], target_tags[j], i, ls1.newday_hour,24, back_url) ;
