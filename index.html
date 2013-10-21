@@ -2186,7 +2186,7 @@
 
 	function do_closeonly () 
 	{
-	   console.log('index.html:do_closeonly:Done.');
+	   // console.log('index.html:do_closeonly:Done.');
 
            switch (ls1.view)
            {
@@ -2461,7 +2461,7 @@
               middlefix = ls1.year + "-" + ('0' + ls1.month).slice(-2) + "-" + ('0' + ls1.today).slice(-2) ;
 
                 // * seguimiento
-		if ($.mobile.activePage.attr("id") == "#page24")
+		if ($.mobile.activePage.attr("id") == "page24")
                     load_graphs() ;
 
                 // * diario (update only)
@@ -2572,7 +2572,7 @@
 	    var interval = setInterval(function(){ clearInterval(interval); 
  				                   $.mobile.loading("hide"); }, 10); 
 
-	    if ($.mobile.activePage.attr("id") == "#page24")
+	    if ($.mobile.activePage.attr("id") == "page24")
                 load_graphs() ;
 
             return status ;
