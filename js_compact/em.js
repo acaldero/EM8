@@ -1480,19 +1480,23 @@
 	{
 		// console.log('imageURI: ' + imageURI);
 
+                var imgfname = imageURI;
+                imgfname = imgfname.substr(imgfname.lastIndexOf('/') + 1) ;
+                var srcimage = encodeURI(ls1.storage_img_prefix + '/' + imgfname) ;
+
                 if ("" != form_img_name) {
 		    var image = document.querySelector(form_img_name) ;
-                    if (null != image)
-		        image.value = imageURI;
+                    if (null != image)  
+                        image.value = imgfname ;
                 }
 
 		var image = document.getElementById(big_img_name);
                 if (null != image)
-		    image.src = imageURI;
+		    image.src = srcimage;
 
 		var image = document.getElementById(small_img_name);
                 if (null != image)
-		    image.src = imageURI;
+		    image.src = srcimage;
 	}
 
 
@@ -2725,10 +2729,9 @@
 
                             if ( ("" != values_meal['image']) && (null != values_meal['image']) )
                             {
-				 if (ls1.device_id == values_meal['device'])
-                                      srcimage = values_meal['image'];
-				 else srcimage = ls1.local_storage_img + '/' +
-                                                 values_meal['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
+                                 imgfname = values_meal['image'] ;
+    				 imgfname = imgfname.substr(imgfname.lastIndexOf('/') + 1) ;
+				 srcimage = encodeURI(ls1.storage_img_prefix + '/' + imgfname) ;
 
                                  meal_image1 = "<img id=" + img_id1 + " rel=meals " +
 					       "     height=80 style=\"max-height:512px;\" " + 
@@ -2929,10 +2932,9 @@
                             other_image = "&nbsp;" ;
                             if ( ("" != values_other['image']) && (null != values_other['image']) )
                             {
-				 if (ls1.device_id == values_other['device'])
-                                      srcimage = values_other['image'];
-				 else srcimage = ls1.local_storage_img + '/' +
-                                                 values_other['image'].replace(/\\/g,'/').replace( /.*\//, '' ) ;
+                                 imgfname = values_other['image'] ;
+    				 imgfname = imgfname.substr(imgfname.lastIndexOf('/') + 1) ;
+				 srcimage = encodeURI(ls1.storage_img_prefix + '/' + imgfname) ;
 
                                  img_id1 = "oi" + values_other['id'] + "a" ;
 
@@ -3317,16 +3319,42 @@
       return u ;
   }
 
+  function daytag_table_get_vectordetails_ordered ( vector_details )
+  {
+        var vector_details_order = [];
+
+        for (key in vector_details) 
+        {
+             if ("basaldef" == key) continue ;
+             if ("basalact" == key) continue ;
+
+             keyy = parseInt(key.slice(0,4), 10);
+             keym = parseInt(key.slice(5,7), 10);
+             keyd = parseInt(key.slice(8,10), 10);
+
+             key_order = keyy*10000 + keym*100+ keyd;
+             vector_details_order.push([key_order, key]);
+        }
+	vector_details_order.sort(function(a, b) { 
+                 			           a = a[0]; b = b[0]; return a < b ? -1 : (a > b ? 1 : 0); });
+
+        return vector_details_order ;
+  }
+
   function daytag_table_horizontal ( year, month, vector_details, target_names, target_tags, back_url )
   {
+        var vector_details_order = daytag_table_get_vectordetails_ordered(vector_details) ;
+
 	v  = "<center>" +
 	     "<table cellpadding=0 cellspacing=0 border=1 style='border-collapse: collapse; line-height: 18px;'>" ;
 
 	// header
 	v += "<tr>" +
 	     "<td>&nbsp;</td>" ;
-	for (i in vector_details) 
-        {
+        for (var w=0; w<vector_details_order.length; w++) 
+	{
+	     i = vector_details_order[w][1] ;
+
              if ("basaldef" == i) continue ;
              if ("basalact" == i) continue ;
 
@@ -3351,10 +3379,9 @@
 	{
 	     v += "<tr>" +
 	          "<td align=center><c><font color=gray>" + target_names[j] + "</font></c></td>" ;
-	     for (i in vector_details)
+             for (var w=0; w<vector_details_order.length; w++) 
 	     {
-                  if ("basaldef" == i) continue ;
-                  if ("basalact" == i) continue ;
+	          i = vector_details_order[w][1] ;
 
 		  o = daytag_details(month, year, vector_details[i], target_tags[j], i, ls1.newday_hour, 24, back_url) ;
 		  if (o.empty == 1) 
@@ -3382,6 +3409,8 @@
 
   function daytag_table_vertical ( year, month, vector_details, target_names, target_tags, back_url )
   {
+        var vector_details_order = daytag_table_get_vectordetails_ordered(vector_details) ;
+
 	v  = "<center>" +
 	     "<table cellpadding=0 cellspacing=0 border=1 style='border-collapse: collapse; line-height: 18px;'>" ;
 
@@ -3394,10 +3423,9 @@
 	v += "</tr>" ;
 
 	// data
-	for (i in vector_details)
+        for (var w=0; w<vector_details_order.length; w++) 
 	{
-             if ("basaldef" == i) continue ;
-             if ("basalact" == i) continue ;
+	     i = vector_details_order[w][1] ;
 
 	     dt = new XDate(i) ;
 	     dc = " <div data-role=popup  id=dc" + dt.getDate() + ">" + 
@@ -3442,6 +3470,8 @@
 
   function daytag_table_compact ( vector_details, target_names, target_tags, back_url )
   {
+        var vector_details_order = daytag_table_get_vectordetails_ordered(vector_details) ;
+
 	o = "<table cellpadding=2 cellspacing=2 border=1 style='border-collapse: collapse; line-height: 22px;'>" ;
 
 	o += "<tr><td rowspan=2>&nbsp;</td>" ;
@@ -3457,10 +3487,9 @@
 	o += "</tr>" ;
 
         color = "white";
-	for (i in vector_details)
+        for (var v=0; v<vector_details_order.length; v++) 
 	{
-                if ("basaldef" == i) continue ;
-                if ("basalact" == i) continue ;
+		i = vector_details_order[v][1] ;
 
 		dt = new XDate(i) ;
 		ih = dt.getDate() ;
@@ -3489,7 +3518,6 @@
 
 	return o ;
   }
-
 
 
   /* 
