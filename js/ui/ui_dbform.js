@@ -84,19 +84,23 @@
 	{
 		// console.log('imageURI: ' + imageURI);
 
+                var imgfname = imageURI;
+                imgfname = imgfname.substr(imgfname.lastIndexOf('/') + 1) ;
+                var srcimage = encodeURI(ls1.storage_img_prefix + '/' + imgfname) ;
+
                 if ("" != form_img_name) {
 		    var image = document.querySelector(form_img_name) ;
-                    if (null != image)
-		        image.value = imageURI;
+                    if (null != image)  
+                        image.value = imgfname ;
                 }
 
 		var image = document.getElementById(big_img_name);
                 if (null != image)
-		    image.src = imageURI;
+		    image.src = srcimage;
 
 		var image = document.getElementById(small_img_name);
                 if (null != image)
-		    image.src = imageURI;
+		    image.src = srcimage;
 	}
 
 

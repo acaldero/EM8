@@ -20,7 +20,34 @@
 	var deviceReadyDeferred = $.Deferred();
 	var    jqmReadyDeferred = $.Deferred();
 
-	$.when(deviceReadyDeferred, jqmReadyDeferred).done(function() { load_database(); }) ;
+	$.when(deviceReadyDeferred, jqmReadyDeferred).done(function() { 
+
+		/* request filesystem quota */
+		if (typeof navigator.webkitPersistentStorage !== 'undefined') {
+		    navigator.webkitPersistentStorage.requestQuota(50*1024*1024, function(availableBytes) {
+										      ls1.fs_quota = availableBytes ;
+										 });
+		}
+
+                /* request filesystem root */
+		if (typeof LocalFileSystem === 'undefined') 
+		     var PERSISTENT = window.PERSISTENT;
+		else var PERSISTENT = LocalFileSystem.PERSISTENT;
+
+                window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem || window.moz_requestFileSystem;
+
+                if (typeof window.requestFileSystem !== 'undefined') {
+                    window.requestFileSystem(PERSISTENT, 50*1024*1024, function(fs) {
+                         fs_root = fs.root.fullPath ;
+	                 if ('false' == ls1.connected)
+		             ls1.storage_img_prefix = fs_root + ls1.img_prefix ;
+                    }, null) ;
+                }
+
+                /* load data... */
+                load_database(); 
+        }) ;
+
 
 	$(document).bind("mobileinit", function()
         {
@@ -1078,6 +1105,8 @@
 						           $('#identity-icon1').html('<font color=gray size=-1>' + 
 									          ls1.user_login + ', ' + ls1.user_id + 
 									          '</font>');
+							   if ('true' == ls1.connected)
+							       ls1.storage_img_prefix = url_base + "/em.8/php/sync/" + ls1.user_id ;
 							   //alert('updated!');
 								    $.gritter.add({
 									title: T['CONFIG'] + ' / ' + T['IDENTITY'],
@@ -1169,8 +1198,8 @@
 						     ls1.measure_range_3 = document.formaj1.elements["values_user[measure_range_3]"].value;
 
 						     $("#ajust-icon2").html("<font color=gray size=-1>" + 
-									    ls1.aftermeal_hours + "," + 
-									    ls1.newday_hour     + " " +
+									    ls1.aftermeal_hours + ", " + 
+									    ls1.newday_hour     + ", " +
 									    ls1.measure_range_1 + "-" +
 									    ls1.measure_range_2 + "-" +
 									    ls1.measure_range_3 +
@@ -1206,13 +1235,12 @@
 				     data-role="button" data-inline="true" data-mini="true" data-shadow="false">Local IMG</a>
 				  <div data-role="popup" id="ss27" class="ui-content" data-theme="a" style="max-width:0px;">
 				  <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" class="ui-btn-left">
-				  <font size=-1>"/path/to/Gallery"</font>
+				  <font size=-1>"/path/to/Gallery" <br>(relative to the user home. <br>E.g. /storage/emulated/0/)</font>
 				  </a>
 				  </div>
 				</td>
 				<td width=80%>
-					<input name="local_storage_img" type="text" id=local_storage_img 
-                                               data-mini=true value="">
+					<input name="img_prefix" type="text" id=img_prefix data-mini=true value="">
 				</td>
 				</tr>
 
@@ -1221,7 +1249,9 @@
 				    <center>
 				        <button name="ra-update"
 						data-theme="a" data-corners="false" data-inline="true" data-icon="refresh"
-						onclick="ls1.local_storage_img  = document.formra.elements['local_storage_img'].value;
+						onclick="ls1.img_prefix  = document.formra.elements['img_prefix'].value;
+							 if ('false' == ls1.connected)
+							     ls1.storage_img_prefix = fs_root + ls1.img_prefix ;
 							 //alert('updated!');
 							    $.gritter.add({
 								title: T['CONFIG'] + ' / ' + T['LOCATION'],
@@ -2540,7 +2570,7 @@
 		document.formaj1.elements["values_user[measure_range_3]"].value = ls1.measure_range_3 ;
 
                 // config - conn 
-		document.formra.elements['local_storage_img'].value = ls1.local_storage_img ;
+		document.formra.elements['img_prefix'].value = ls1.img_prefix ;
 
                 // config - ajust 
 	        $("#ajust-icon2").html("<font color=gray size=-1>" + 
@@ -2696,14 +2726,6 @@
 	       alert('The localStorage APIs are not fully supported in this browser.');
 	}
 
-        /* request filesystem quota */
-        window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem || window.moz_requestFileSystem;
-        if (typeof navigator.webkitPersistentStorage !== 'undefined')
-               navigator.webkitPersistentStorage.requestQuota(50*1024*1024, function(availableBytes) {
-                   ls1.fs_quota = availableBytes;
-	       }
-	);
-
         /* load data from localStorage */
 	var ls1 = window.localStorage;
 
@@ -2726,6 +2748,9 @@
         if (typeof ls1.measure_range_3    === 'undefined') ls1.measure_range_3 = 300 ;
 
         url_base = "http://127.0.0.1/" ;
+	fs_root = 'file://' ;
+
+	if (typeof ls1.img_prefix         === 'undefined') ls1.img_prefix         = "/DCIM/Camera/" ;
 
         if (typeof ls1.connected          === 'undefined') ls1.connected       = false ;
         if (typeof ls1.rmysql_url         === 'undefined') ls1.rmysql_url      = "" ;
@@ -2755,8 +2780,8 @@
 	     $("#export_web").hide();
 	     $("#export_local").show();
 
-	     if (typeof ls1.local_storage_img  === 'undefined') 
-		 ls1.local_storage_img = "/storage/sdcard0/DCIM/Camera" ;
+             ls1.connected = false ;
+	     ls1.storage_img_prefix = fs_root + ls1.img_prefix ;
 
 	     document.addEventListener("deviceready", 
 					function() 
@@ -2776,8 +2801,8 @@
 	     $("#export_web").show();
 	     $("#export_local").hide();
 
-	     if (typeof ls1.local_storage_img  === 'undefined') 
-		 ls1.local_storage_img = url_base + "/em.8/php/sync/" + ls1.user_id;
+             ls1.connected = true ;
+	     ls1.storage_img_prefix = url_base + "/em.8/php/sync/" + ls1.user_id ;
 
              ls1.device_id = "pc1" ; // TODO: identify the PC... let the user choose or detect it?
              deviceReadyDeferred.resolve() ;
