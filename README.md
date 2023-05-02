@@ -20,7 +20,7 @@ Event Monitor (EM8)
        + cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
        + cordova plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git
     2) Download the following files/directories from gitHub to em8.github/www/: 
-       index.html css icons js noinet
+       index.html css icons js extern
     3) Add android as target platform:
        + cordova platform add android
     4) Build the cordova/phonegap application:
